@@ -1,0 +1,31 @@
+body {
+    background:#5294C1 none repeat scroll 0 0;
+}
+
+
+#page {
+    background-color:#DFEDF7;
+    color:#111111;
+    margin-left:auto;
+    margin-right:auto;
+    width:960px;
+    min-height: 700px;
+    font-family:Verdana,"Bitstream Vera Sans",Arial,Helvetica,sans-serif;
+    line-height:1.5em;
+}
+
+textarea {
+    width: 500px;
+    height: 500px;
+    float:left;
+}
+
+#restaurant {
+    border:1px solid #578AAB;
+    float:right;
+}
+
+#tache {
+    border:1px solid #578AAB;
+    float:right;
+}

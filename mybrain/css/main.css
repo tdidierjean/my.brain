@@ -1,0 +1,274 @@
+
+body {
+    background:#054162;/*#1B4963 none repeat scroll 0 0;*/
+    font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
+    font-size:13px;
+}
+
+div#login {
+	margin:200px auto;
+	width: 200px;
+	padding: 40px;
+	background: #DADFE6;
+	text-align: center;
+}
+
+div#login form {
+	margin:auto;
+}
+
+#page {
+    background-color:#dadfe6;
+    color:#000000;
+    margin-left:auto;
+    margin-right:auto;
+    width:960px;
+	padding-bottom:20px;  
+    line-height:1.5em;
+}
+
+#page:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+#header {
+    background-image: url(/mybrain/images/header-2.jpg);/*url(/mybrain/images/neuron_cut.jpg);*/
+	background-position: center;
+    min-height: 100px;
+    
+}
+
+#title {
+	color: #B0D2EE;/*#CBF1FA;*/
+	font-size: 270%;
+	padding:30px 0 0 30px;
+}
+
+#memoDiv{
+	/*width:40%;*/
+	width:405px;
+	float:left;
+	margin:10px 10px 10px 10px;
+}
+
+textarea#memo {
+    /*width: 40%;*/
+    width:100%;
+    height: 500px;
+    border:1px solid #578AAB;
+    background:#CFDDE7;
+    padding:5px;
+    font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
+    font-size:13px;
+    float:left;
+}
+
+#entriesDiv{
+	width:535px;
+	float:left;
+}
+
+.entryList{
+    border:1px solid #578AAB;
+    margin:10px 0px 0px 10px;
+    float:left;
+    /*width:46%;*/
+    width:250px;
+    /*padding: 0.5em;*/
+}
+
+.entryTitle{
+	font-size:17px;
+	/*border:1px #578AAB;
+	border-style: none none solid none;*/
+	line-height:0.9em;
+	background:#3785ad;
+	color:#CBF1FA;
+}
+
+.entryContent{
+	line-height: 0.8em;
+	/*font-size: 0.8em;*/
+	padding: 2px 0 0 0;
+}
+
+table.entriesTable{
+border-collapse:collapse;
+
+}
+	
+tr.entryRow{
+	border:1px #98bed1;                                                                                                 ;
+	/*border-style: none none solid none;*/
+	color:111111;
+}
+
+tr.entryRow td{
+    border-style: none none solid none;
+    border-color: #A4BCDD;
+    border-width: 1px;
+}
+td.entryCell{
+	padding: 0 0 0 4px;
+}
+
+td.iconCell{
+    vertical-align:top;
+    width:5%;
+}
+
+td.iconCell img{
+    cursor:pointer;
+}
+
+td.newEntryCell{
+	padding: 0 0 0 4px;
+}
+a{
+	color:#0F40A9;
+	text-decoration: none;
+}
+
+
+.inputName{
+	width:80px;
+}
+
+.inputUrl{
+	width:80px;
+}
+
+.inputDetails{
+	width:80px;
+}
+
+.newEntryTable{
+	
+}
+
+.newEntryTable td{
+	width:140px;
+}
+
+.newEntryTable input{
+	color:#009900;
+	width:95%;
+}
+
+
+/*
+.moreTextOld{
+	line-height: 1em;
+	padding: 5px;
+	float:left;	
+	width:88%;
+	display:none;
+}*/
+
+.moreText{
+	/*line-height: 1em;
+	padding: 5px;*/
+    background:#CFDDE7;
+	width:93%;
+    border:1px solid #578AAB;
+	overflow:visible;
+    font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
+    font-size:13px;
+	display:none;
+}
+
+
+img.collapse{
+	float:left;
+}
+
+#small_page {
+    background-color:#dadfe6;
+    color:#000000;
+    margin-left:auto;
+    margin-right:auto;
+	padding: 2px 5px 5px 5px;
+    /*width:960px;
+    min-height: 1700px;*/
+    /*font-family:Verdana,"Bitstream Vera Sans",Arial,Helvetica,sans-serif;*/
+    line-height:1.5em;
+}
+
+h1{
+	font-size:200%;
+}
+
+h2{
+	font-size:130%;
+}
+
+table.edit_table input,textarea{
+	width:190px;
+}
+
+textarea.zoom{
+	/*line-height: 1em;
+	padding: 5px;*/
+    background:#CFDDE7;
+	width:100%;
+	height:225px;
+    border:1px solid #578AAB;
+	overflow:visible;
+    font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
+    font-size:13px;
+}
+
+.tags{
+	font-size:11px;
+}
+
+.selected{
+	font-weight:bold;
+}
+
+.tag_header{
+	color:#CFDDE7;
+	cursor:pointer;
+}
+
+.switch_header{
+	color:#CFDDE7;
+	font-style:italic;
+	cursor:pointer;
+}
+
+div.column_div{
+	width:50%;
+	float:left;
+}
+
+label.label_edit{
+	font-size:13px;
+}
+
+img.eye{
+	border: none;
+	height: 13px;
+}
+
+td.tags span img{
+   vertical-align: middle;
+   display: inline-block;
+}
+
+.hidden{
+	display:none;
+}
+
+p#save_memo button span { 
+	float:left;
+	vertical-align: middle;
+	display: inline-block; 
+}
+
+span#message_memo{
+	margin: 0 0 0 15px;
+	padding: 2px 5px;
+}
