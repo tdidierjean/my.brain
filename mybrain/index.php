@@ -36,7 +36,6 @@ foreach($entry_lists as $entry_list){
     }
 }
 
-
 $list_orphans = new EntryList("", "Orphan entries", 1, 5);
 $entries_array = $db->getEntriesNotDisplayed();
 if (!empty($entries_array)){
@@ -50,7 +49,7 @@ if (!empty($entries_array)){
 		$list_orphans->addEntry($entry);
 	}
 }
-//print_r($list_orphans);
+
 $entry_lists[] = $list_orphans;
 
 $content['entry_lists'] = $entry_lists;

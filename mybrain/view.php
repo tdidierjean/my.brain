@@ -12,6 +12,8 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<script type="text/javascript" src="js/jquery.js"></script>  
 		<script type="text/javascript" src="js/jqueryUI/jquery-ui.js"></script>  
 		<script type="text/javascript" src="js/jqueryUI/jquery.effects.highlight.js"></script>  
+		<script type="text/javascript" src="js/jquery.corner.js"></script>  
+		<script src="http://cdn.jquerytools.org/1.1.2/jquery.tools.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/jquery-qtip/jquery.qtip.min.js"></script>
 		<script type="text/javascript" src="js/tooltips.js"></script>
@@ -30,7 +32,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 				</p>
 			</div>
 			<div id="entriesDiv">
-				<?php for ($i=0; $i<2; $i++):?>
+				<?php for ($i=0; $i<3; $i++):?>
 					<div id="col<?php echo $i;?>" class="column_div">
 						<?php 
 						foreach($content['entry_lists'] as $entry_list): 
@@ -110,7 +112,9 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 														
 												</td>
 												<td class="iconCell" name="zoom_entry">
-													<img class="entryIcon" src="images/zoom.png" alt="zoom" onclick="window.open('zoom_popup.php?id_entry=<?php echo $entry->getId();?>','popup','resizable=no,scrollbars=no,width=600,height=370');" />
+												<a href="zoom_popup.php?id_entry=<?php echo $entry->getId();?>" rel="#overlay"> 
+													<img class="entryIcon" src="images/zoom.png" alt="zoom"/> <!--onclick="window.open('zoom_popup.php?id_entry=<?php echo $entry->getId();?>','popup','resizable=no,scrollbars=no,width=600,height=370');" />-->
+												</a>
 												</td>
 												<td class="iconCell" name="more_entry">
 													<img class="entryIcon" src="images/double_down.png" alt="more" onclick="more(this)" />
@@ -136,6 +140,11 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 					</div>
 				<?php endfor; ?>
 			</div>
+		</div>
+		<!-- overlayed element --> 
+		<div class="apple_overlay" id="overlay"> 
+			<!-- the external content is loaded inside this tag --> 
+			<div class="contentWrap"></div> 
 		</div>
 	</body>
 </html>

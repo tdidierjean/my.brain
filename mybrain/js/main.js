@@ -199,8 +199,9 @@ function drawEntry(data, obj) {
 				"</td>" +
 				"<td class='iconCell'>" +
 					"<img onclick='deleteEntry(this)' alt='delete' src='images/text_minus.png' class='entryIcon' name='" + data['id_entry'] + "'/>" +
-				"</td>";
+				"</td></tr>";
 	obj.replaceWith(html_entry);
+	obj.find("tr.entryRow").effect("highlight",{color:'#3DFF8C'},2000);
 }
 
 /**
@@ -296,6 +297,31 @@ function bindEvents(){
 	$("td.tags span").click(function(){
 		toggleTag($(this));
 	});
+	//$("div.entryList").corner("cc:#DADFE6 round 5px");
+	
+	$(function() { 
+	 
+		// if the function argument is given to overlay, 
+		// it is assumed to be the onBeforeLoad event listener 
+		$("a[rel]").overlay({ 
+	 
+			expose: 'none',//'#CFDDE7', 
+			//effect: 'apple', 
+	 
+			onBeforeLoad: function() { 
+	 
+				// grab wrapper element inside content 
+				var wrap = this.getContent().find(".contentWrap"); 
+	 
+				// load the page specified in the trigger 
+				wrap.load(this.getTrigger().attr("href")); 
+			} 
+	 
+		}); 
+	});
+	
+	//console.log($("#page"));
+	//$("#page").corner();
 }
 
 /**

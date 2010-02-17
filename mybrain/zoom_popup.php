@@ -9,7 +9,7 @@ $content = $db->getEntry($_REQUEST['id_entry']);
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<head>
 		<title>zoom</title>
-		<link href="css/main.css" media="all" rel="stylesheet" type="text/css">
+		<!--<link href="css/main.css" media="all" rel="stylesheet" type="text/css">-->
 	</head>
 	<body>
 		<div id='small_page'>

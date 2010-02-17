@@ -1,9 +1,9 @@
 <?php
 require_once('init.php');
-session_start();// récupère les infos utilisateur
+session_start();// get user info
 $utilisateur = $db->getUtilisateur($_REQUEST['username']);								
 /****************************************
-          Test du mot de passe
+          Check password
 ****************************************/
 if (!$utilisateur || (md5($_REQUEST['password']) != $utilisateur['password'])) {
 	header("Location: login.php");
