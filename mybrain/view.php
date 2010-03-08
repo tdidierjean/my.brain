@@ -9,13 +9,14 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>my.brain</title>
 		<link href="css/main.css" media="all" rel="stylesheet" type="text/css">
-		<script type="text/javascript" src="js/jquery.js"></script>  
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jqueryTools/jquery.tools.min.js"></script>
+
+		<!--<script src="http://cdn.jquerytools.org/1.1.2/jquery.tools.min.js"></script>-->
 		<script type="text/javascript" src="js/jqueryUI/jquery-ui.js"></script>  
 		<script type="text/javascript" src="js/jqueryUI/jquery.effects.highlight.js"></script>  
 		<script type="text/javascript" src="js/jquery.corner.js"></script>  
-		<script src="http://cdn.jquerytools.org/1.1.2/jquery.tools.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/jquery-qtip/jquery.qtip.min.js"></script>
 		<script type="text/javascript" src="js/tooltips.js"></script>
 	</head>
 	<body>
@@ -86,14 +87,14 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 										</table>  
 									</div>    
 									<div class="entryContent">
-										<table class="entriesTable" id=<?php echo $entry_list->getId()?>>
+										<table class="entriesTable" id=<?php echo $entry_list->getId();?>>
 										<?php foreach($entry_list->getEntries() as $entry): ?>
-											<tr class="entryRow" name=<?php echo $entry->getId()?>>
+											<tr class="entryRow" name=<?php echo $entry->getId();?>>
 												<td class="entryCell">
 													<?php if ($entry->getUrl()):?>
-														<a href=<?php echo $entry->getUrl() ?>><?php echo $entry->getName() ?></a>
+														<a href=<?php echo $entry->getUrl() ?>><?php echo $entry->getName();?></a>
 													<?php else: ?>
-														<?php echo $entry->getName() ?>
+														<?php echo $entry->getName();?>
 													<?php endif; ?>
 													
 													<div class="tags">
@@ -108,11 +109,11 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 														endif;
 														?>
 													</div>
-													<textarea class="moreText"><?php echo $entry->getDetails()?></textarea>
+													<textarea class="moreText"><?php echo $entry->getDetails();?></textarea>
 														
 												</td>
 												<td class="iconCell" name="zoom_entry">
-												<a href="zoom_popup.php?id_entry=<?php echo $entry->getId();?>" rel="#overlay"> 
+												<a href="zoom_popup.php?id_entry=<?php echo $entry->getId();?>" title=<?php echo $entry->getName();?> rel="#overlay"> 
 													<img class="entryIcon" src="images/zoom.png" alt="zoom"/> <!--onclick="window.open('zoom_popup.php?id_entry=<?php echo $entry->getId();?>','popup','resizable=no,scrollbars=no,width=600,height=370');" />-->
 												</a>
 												</td>

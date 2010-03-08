@@ -4,6 +4,7 @@ if (!$_SESSION['logged']){
     header("Location: login.php");
 }
 require_once('init.php');
+require_once('fonctions.php');
 require_once('entryList.php');
 require_once('entry.php');
 
@@ -14,7 +15,11 @@ $content['memo'] = stripslashes($db->getMemo());
 
 // retrieve entry lists from db
 foreach ($db->getEntryLists() as $entry_list_array){
-    $list = new EntryList($entry_list_array['id_list'], $entry_list_array['title'], $entry_list_array['col'], $entry_list_array['rank']);
+    $list = new EntryList($entry_list_array['id_list'], 
+    					  stripslashes($entry_list_array['title']), 
+    					  $entry_list_array['col'], 
+    					  $entry_list_array['rank'],
+    					  $entry_list_array['collapsed']);
 	$list->addTags($db->getEntryListTags($entry_list_array['id_list']));
 	$entry_lists[] = $list;
 }
@@ -36,7 +41,7 @@ foreach($entry_lists as $entry_list){
     }
 }
 
-$list_orphans = new EntryList("", "Orphan entries", 1, 5);
+$list_orphans = new EntryList("", "Orphan entries", 1, 5, 0);
 $entries_array = $db->getEntriesNotDisplayed();
 if (!empty($entries_array)){
 	foreach ($entries_array as $entry_array){
@@ -49,13 +54,16 @@ if (!empty($entries_array)){
 		$list_orphans->addEntry($entry);
 	}
 }
-
 $entry_lists[] = $list_orphans;
+
 
 $content['entry_lists'] = $entry_lists;
 
 // build the view
-require('view.php');
+require('view2.php');
+
+// get the tooltips
+//require('tooltips.php');
 
 // bind events
 ?>

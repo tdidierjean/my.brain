@@ -8,15 +8,17 @@ class EntryList{
     private $title;
 	private $col;
 	private $rank;
+	private $collapsed;
     private $entries = array();
     private $tags = array();
     private $tags_entries = array();
 	
-    function __construct($id, $title, $col, $rank){
+    function __construct($id, $title, $col, $rank, $collapsed){
         $this->id = $id;
         $this->title = $title;
 		$this->col = $col;
 		$this->rank = $rank;
+		$this->collapsed = $collapsed;
     }
         
     function addEntry($newEntry){
@@ -73,6 +75,9 @@ class EntryList{
 		return $this->tags_entries;
 	}
 	
+	function getCollapsed(){
+		return $this->collapsed;
+	}
 }
 ?>
 	    

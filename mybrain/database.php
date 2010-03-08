@@ -76,7 +76,7 @@ class Database extends PDO{
 	* return an array of EntryLists: [0=> [0=>id1, 1=>title1], 1=> ...]
 	*/
 	function getEntryLists(){
-		$sql = "SELECT id_list, title, col, rank 
+		$sql = "SELECT id_list, title, col, rank, collapsed
 				FROM entrylist
 				ORDER BY col, rank";
 		try{
@@ -466,4 +466,23 @@ class Database extends PDO{
 			return $e->getMessage();
 		}
 	}	
+	
+	/**
+	 * Update collapsed status of an entry list
+	 * @param $id_list
+	 * @param $collapsed
+	 * @return unknown_type
+	 */
+	function updateEntryListCollapse($id_list, $collapsed){
+		$sql = "UPDATE entrylist
+				SET collapsed = :collapsed
+				WHERE id_list = :id_list";
+		try{
+			$query = parent::prepare($sql);
+			$query->execute(array(':id_list' => $id_list,
+								  ':collapsed' => $collapsed));
+		}catch (PDOException $e) {
+		    return $e->getMessage();
+		}
+	}
 }	

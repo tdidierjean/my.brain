@@ -1,6 +1,6 @@
 
 body {
-    background:#054162;/*#1B4963 none repeat scroll 0 0;*/
+    background:#2B96C3;/*#054162;*//*#1B4963 none repeat scroll 0 0;*/
     font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
     font-size:13px;
 }
@@ -18,7 +18,7 @@ div#login form {
 }
 
 #page {
-    background-color:#dadfe6;
+    /*background-color: #2B96C3;*//*#F0F0F0; *//*#dadfe6;*/
     color:#000000;
     margin-left:auto;
     margin-right:auto;
@@ -35,7 +35,7 @@ div#login form {
 }
 
 #header {
-    background-image: url(/mybrain/images/header-2.jpg);/*url(/mybrain/images/neuron_cut.jpg);*/
+    /*background-image: url(/mybrain/images/header-2.jpg)*/;/*url(/mybrain/images/neuron_cut.jpg);*/
 	background-position: center;
     min-height: 100px;
     
@@ -59,7 +59,7 @@ textarea#memo {
     width:100%;
     height: 500px;
     border:1px solid #578AAB;
-    background:#CFDDE7;
+    background:#F0F0F0;/*#CFDDE7;*/
     padding:5px;
     font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
     font-size:13px;
@@ -72,7 +72,7 @@ textarea#memo {
 }
 
 .entryList{
-    border:1px solid #578AAB;
+    border:1px solid #0A80AF;/*#578AAB;*/
     margin:10px 0px 0px 10px;
     float:left;
     /*width:46%;*/
@@ -82,12 +82,14 @@ textarea#memo {
 }
 
 .entryTitle{
-	font-size:17px;
+	font-size:14px;
 	/*border:1px #578AAB;
 	border-style: none none solid none;*/
 	line-height:0.9em;
-	background:#3785ad;
-	color:#CBF1FA;
+	background:#0A80AF;
+	/*url("http://jqueryui.com/themeroller/images/?new=2191c0&w=500&h=100&f=png&q=100&fltr[]=over|textures/12_gloss_wave.png|0|0|40");*/
+	/*background:#3785ad;*/
+	color:#fff;/*#CBF1FA;*/
 }
 
 .entryContent{
@@ -116,13 +118,13 @@ td.entryCell{
 	padding: 0 0 0 4px;
 }
 
-td.iconCell{
+.iconCell{
     vertical-align:top;
     width:5%;
 }
 
-td.iconCell img{
-    cursor:pointer;
+.iconCell img{
+    /*cursor:pointer;*/
 	border:none;
 }
 
@@ -231,7 +233,7 @@ textarea.zoom{
 }
 
 .tag_header{
-	color:#CFDDE7;
+	color:#fefefe;/*#CFDDE7;*/
 	cursor:pointer;
 }
 
@@ -318,4 +320,52 @@ span#message_memo{
     cursor:pointer; 
     height:35px; 
     width:35px; 
+}
+/*
+.tooltip { 
+    display:none; 
+    background-color:#ffa; 
+    border:1px solid #cc9; 
+    padding:3px; 
+    font-size:13px; 
+    -moz-box-shadow: 2px 2px 11px #666; 
+    -webkit-box-shadow: 2px 2px 11px #666; 
+}*/
+div.tooltip { 
+    background-color:#000; 
+    border:1px solid #fff; 
+    padding:3px 6px; 
+    /*width:200px; */
+    display:none; 
+    color:#fff; 
+    text-align:left; 
+    font-size:12px; 
+ 
+    /* outline radius for mozilla/firefox only */ 
+    -moz-box-shadow:0 0 10px #000; 
+    -webkit-box-shadow:0 0 10px #000; 
+}
+
+.table_tooltip{
+    /*background-color:#000; */
+    border:1px solid #fff; 
+    padding:3px 6px; 
+    /*width:200px;*/
+    display:none; 
+    color:#fff; 
+    text-align:left; 
+    font-size:12px; 
+ 
+    /* outline radius for mozilla/firefox only */ 
+    -moz-box-shadow:0 0 10px #000; 
+    -webkit-box-shadow:0 0 10px #000; 
+}
+
+.tdListTitle a{
+	color:#fff;
+	display: block;
+}
+
+a.url{
+	color:#555ddd;
 }

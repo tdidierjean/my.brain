@@ -5,20 +5,21 @@
 * @param obj => a dom element from inside the entry row
 */
 function editEntry(obj) {
-	var tr = $(obj).parents("tr");
-	var id_entry = tr.attr("name");
+	
+	var div_entry = $(obj).parents("div.entryBody");
+	var id_entry = div_entry.attr("name");
 	
 	$.post("actions/getEntryFromDb.php", 
 		{
 			id_entry:id_entry
 		},
 		function(data){
-			drawEditEntry(data, tr);
-			tr.find("input[name='entry_name']").focus();
-			var accept = tr.find("img")[0];
+			drawEditEntry(data, div_entry);
+			div_entry.find("input[name='entry_name']").focus();
+			var accept = div_entry.find("img")[0];
 			// Enter key validates the form if focus is on any input field,
 			// but not if it's on textarea: it's still newline
-			tr.find("input").keydown(function(event){
+			div_entry.find("input").keydown(function(event){
 				if (event.keyCode == 13){
 					$(accept).click();
 				}
@@ -34,14 +35,17 @@ function editEntry(obj) {
 * @param data => an array containing the content of the entry as retrieved from db
 * @param tr => the row where the form will be inserted
 */
-function drawEditEntry(data, tr){
-	html = "<td colspan=5><form><table class='edit_table'><tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' value='" + data['name'] + "' /></td></tr>"
-			 + "<tr><td><label for='entry_url'>Url </label></td><td><input name='entry_url' value ='" + data['url'] + "' /></td></tr>"
-			 + "<tr><td><label for='entry_details'>Details </label></td><td><textarea name='entry_details'>" + data['details'] + "</textarea></td></tr>"
-			 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags' value ='" + data['tags'] + "' /></td></tr></table>"
-			 + "<img src='images/accept.gif' alt='Create' onclick='updateEntryInDb(this)' class='imgAccept'/>"
-			 + "<img src='images/cross.png' onclick='cancelEdit(this)' alt='Cancel' class='imgAccept'/></form></td>";
-	tr.html(html);
+function drawEditEntry(data, div_entry){	
+
+	var html = "<div class='editForm'><form><table class='edit_table'>"
+					 + "<tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' value='" + data['name'] + "' /></td></tr>"
+					 + "<tr><td><label for='entry_url'>Url </label></td><td><input name='entry_url' value ='" + data['url'] + "' /></td></tr>"
+					 + "<tr><td><label for='entry_details'>Details </label></td><td><textarea name='entry_details'>" + data['details'] + "</textarea></td></tr>"
+					 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags' value='" + data['tags'] + "'/></td></tr></table>"
+					 + "<img src='images/accept.gif' alt='Create' onclick='updateEntryInDb(this)' class='imgAccept'/>"
+					 + "<img src='images/cross.png' alt='Cancel' onclick='cancelEdit(this)' class='imgAccept'/></form></div>";
+					
+	div_entry.html(html);
 }
 
 /**
@@ -61,6 +65,28 @@ function cancelEdit(obj){
 * @param obj  => a dom element from inside the new entry row
 */
 function newEntry(obj){
+	var parent_div = $(obj).parents("div.newEntryDiv");
+	var accordion = parent_div.parents("div.entryContent").find("div.accordion");
+	var default_tags = $(parent_div).parents("div.entryList").find("span.tag_header").html();
+	
+	var html = "<h3 class='accordion'><a href='#'>New entry</a></h3>"
+					 + "<div class='editForm'><form><table class='edit_table'><tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' /></td></tr>"
+					 + "<tr><td><label for='entry_url'>Url </label></td><td><input name='entry_url' /></td></tr>"
+					 + "<tr><td><label for='entry_details'>Details </label></td><td><textarea name='entry_details'></textarea></td></tr>"
+					 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags' value=" + default_tags + "/></td></tr></table>"
+					 + "<img src='images/accept.gif' alt='Create' onclick='writeEntryToDb(this)' class='imgAccept'/>"
+					 + "<img src='images/cross.png' alt='Cancel' onclick='cancelNew(this)' class='imgAccept'/></form></div>";
+					
+	parent_div.remove();//replaceWith(html);
+	accordion.append(html);
+	
+	/* Reset accordion */
+	accordion.accordion('destroy').accordion({
+			collapsible: true,
+			autoHeight: false,
+			active: false}); // Comment activer le h3 qu'on vient d'ajouter ?
+	
+	/*
 	source_tr = $(obj).parents("tr");
 	
 	new_tr = "<tr class='entryRow'><td colspan=5><form><table class='edit_table'><tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' /></td></tr>"
@@ -69,8 +95,8 @@ function newEntry(obj){
 			 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags'/></td></tr></table>"
 			 + "<img src='images/accept.gif' alt='Create' onclick='writeEntryToDb(this)' class='imgAccept'/>"
 			 + "<img src='images/cross.png' alt='Cancel' onclick='cancelNew(this)' class='imgAccept'/></form></td></tr>";
-
-	source_tr.replaceWith(new_tr);
+	 
+	source_tr.replaceWith(new_tr);*/
 }
 
 /**
@@ -90,13 +116,6 @@ function more(obj) {
 	}
 	text.toggle();
 }
-/**
-* TODO : toggle the display of an entry list
-*/
-function moreList(obj){
-	var root = $(obj).parents(".entryList");//.filter(".entryList");
-	alert($(root[0]).html());
-}
 
 /**
 * Write a new entry to db and call a function to refresh the view
@@ -104,11 +123,10 @@ function moreList(obj){
 * @param obj => a dom element from inside the new entry row
 */
 function writeEntryToDb(obj) {
-	var table = $(obj).parents("table.entriesTable");
-	var id_list = table.attr("id");
-	var tr = $(obj).parents("tr");
-	var input_fields = tr.find(":input");
-
+	var new_entry_form = $(obj).parents("form");
+	var id_list = 0;
+	var input_fields = new_entry_form.find(":input");
+	
 	$.post("actions/writeEntryToDb.php", 
 			{
 				id_list:id_list, 
@@ -118,10 +136,11 @@ function writeEntryToDb(obj) {
 				tags:input_fields[3].value
 			},
 			function(data){
-				refreshEntryAfterAdd(data['id_entry'], obj);
+				refreshEntryAfterAdd(data['id_entry'], new_entry_form);
 			},
 			"json"
 		  );	
+	return false;
 }
 
 /**
@@ -140,6 +159,7 @@ function refreshEntryAfterAdd(id_entry, obj) {
 			},
 			"json"
 		  );	
+	/*	  
 	html_add_entry = "<tr>" +
 					 "<td class='newEntryCell' width='100%'>" +
 					 "<img src='images/text_plus.png' alt='new' onclick='newEntry(this)'/>" +
@@ -150,7 +170,7 @@ function refreshEntryAfterAdd(id_entry, obj) {
 		obj = $(obj).parents("tr");
 	}
 
-	obj.after(html_add_entry);
+	obj.after(html_add_entry);*/
 }
 
 /**
@@ -159,25 +179,55 @@ function refreshEntryAfterAdd(id_entry, obj) {
  * @param id_entry => the entry id
  * @param obj => a dom element from inside the entry row
  */
-function refreshEntry(id_entry, obj) {
-	$.post("actions/getEntryFromDb.php", 
+function refreshEntry(id_entry, obj, context) {
+
+	$.post("actions/getEntryView.php", 
 			{
 				id_entry:id_entry
 			},
-			function(data){
-				drawEntry(data, obj);
-			},
-			"json"
+			function(data){	
+				if (context == "edit"){
+					drawEntryAfterEdit(id_entry, data, obj);
+				}
+				else if (context == "add"){
+					drawEntry(data, obj);
+				}
+			}
 		  );	
 }
 
 /**
-* Display an entry in place
+* Display an entry in place after an edit
 *
 * @param data => an array containing the content of the entry as retrieved from db
 * @param obj => a dom element from inside the entry row
 */
-function drawEntry(data, obj) {
+function drawEntryAfterEdit(id_entry, data, obj) {
+	
+	// An entry can be displayed more than once the page,
+	// so we make sure we update them all.
+	var entries_h3 = $("h3." + id_entry + " a");
+	var entries_bodies = $("div." + id_entry);
+	
+	var elements = $(data);
+	entries_h3.html(elements.filter("#h3_replace").html());
+
+	entries_bodies.empty().append(elements.filter(":not(#h3_replace)"));
+
+/*
+	var html_h3 = "<h3><a href='#'>" + data['name'] + "</a></h3>";
+	
+	var html_bodies = "<a class='url' href=''>"  + data['url'] + " Go to url</a>"
+					  + "<p>" + data['details'] + "</p>"
+					  + "</div>";
+*/
+	//entry_body.html(html);
+
+	//edit_div.html()
+	/* Insert new entry and reset accordion */
+	//accordion.append(html).accordion('destroy').accordion();
+
+	/*
 	if (!$(obj).is("tr")){
 		obj = $(obj).parents("tr");
 	}
@@ -201,7 +251,59 @@ function drawEntry(data, obj) {
 					"<img onclick='deleteEntry(this)' alt='delete' src='images/text_minus.png' class='entryIcon' name='" + data['id_entry'] + "'/>" +
 				"</td></tr>";
 	obj.replaceWith(html_entry);
-	obj.find("tr.entryRow").effect("highlight",{color:'#3DFF8C'},2000);
+	obj.find("tr.entryRow").effect("highlight",{color:'#3DFF8C'},2000);*/
+}
+
+
+/**
+* Display an entry in place
+*
+* @param data => an array containing the content of the entry as retrieved from db
+* @param obj => a dom element from inside the entry row
+*/
+function drawEntry(data, obj) {
+	
+	var entry_block = getEntryBlock(obj);
+	var edit_div = $(obj).parents("div.editForm");
+	var accordion = edit_div.parents("div.entryContent").find("div.accordion");
+	//edit_div.remove();
+
+	html = "<h3><a href='#'>" + data['name'] + "</a></h3>"
+		   + "<div name = " + data['id_entry'] + ">"
+		   + "<a class='url' href=''>"  + data['url'] + " Go to url</a>"
+		   + "<p>" + data['details'] + "</p>"
+		   + "</div>";
+
+	console.log(getEntryBlock(obj)["h3"]);
+	//edit_div.html()
+	/* Insert new entry and reset accordion */
+	//accordion.append(html).accordion('destroy').accordion();
+
+	/*
+	if (!$(obj).is("tr")){
+		obj = $(obj).parents("tr");
+	}
+	
+	html_entry ="<tr class='entryRow' name='" + data['id_entry'] + "'>" +
+				"<td class='entryCell'>" +
+					"<a href='" + data['url'] + "'>" + data['name'] + "</a>" +													
+					"<textarea class='moreText' style='display: none;'>" + data['details'] + "</textarea>" +
+					"<div class='tags'>" + data['tags'] + "</div>" +
+				"</td>" + 
+				"<td class='iconCell'>" +
+					"<img onclick=\"window.open('zoom_popup.php?id_entry=" + data['id_entry'] + "','popup','resizable=no,scrollbars=no,width=600,height=370');\" alt='zoom' src='images/zoom.png' class='entryIcon'/>" +
+				"</td>" + 
+				"<td class='iconCell'>" +
+					"<img onclick='more(this)' alt='more' src='images/double_down.png' class='entryIcon'/>" +
+				"</td>" +
+				"<td class='iconCell'>" +
+					"<img onclick='editEntry(this)' alt='edit' src='images/pencil.png' class='entryIcon'/>" +
+				"</td>" +
+				"<td class='iconCell'>" +
+					"<img onclick='deleteEntry(this)' alt='delete' src='images/text_minus.png' class='entryIcon' name='" + data['id_entry'] + "'/>" +
+				"</td></tr>";
+	obj.replaceWith(html_entry);
+	obj.find("tr.entryRow").effect("highlight",{color:'#3DFF8C'},2000);*/
 }
 
 /**
@@ -245,10 +347,14 @@ function writeMemoToDb() {
 * @param obj => a dom element from inside the entry row
 */
 function deleteEntry(obj) {
-	var tr = $(obj).parents("tr");
-	var id = tr.attr("name");
+	var div_entry = $(obj).parents("div.entryBody");
+	var id = div_entry.attr("name");
+
 	$.post("actions/deleteEntryFromDb.php", {id: id});
-	tr.remove();
+	
+	// The entry can be displayed more than once
+	// so we make sure all of them are removed from display
+	$("." + id).remove();
 }
 
 /**
@@ -257,20 +363,24 @@ function deleteEntry(obj) {
 * @param obj => a dom element from inside the entry row
 */
 function updateEntryInDb(obj){
-	var tr = $(obj).parents("tr");
+	/*var tr = $(obj).parents("tr");
 	var id = tr.attr("name");
-	var input_fields = tr.find(":input");
+	var input_fields = tr.find(":input");*/
+	
+	var div_entry = $(obj).parents("div.entryBody");
+	var id_entry = div_entry.attr("name");
+	var input_fields = div_entry.find(":input");
 
 	$.post("actions/updateEntryInDb.php", 
 			{
-				id_entry:id,
+				id_entry:id_entry,
 				name:input_fields[0].value,
 				url:input_fields[1].value, 
 				details:input_fields[2].value,
 				tags:input_fields[3].value
 			},
 			function(data){
-				refreshEntry(id, obj);	
+				refreshEntry(id_entry, obj, "edit");	
 			},
 			"json"
 		  );			  
@@ -294,34 +404,60 @@ function cancelNew(obj){
 * Bind javascript events to the main view
 */
 function bindEvents(){
+	/* Setup accordion */
+	$(".accordion").accordion({
+		collapsible: true,
+		autoHeight: false,
+		active: false,
+		animated: false
+	});
+
+	/* Draw pretty corners */
+	$(".entryList").corner("5px");
+	$("#memo").corner("5px");
+	
+	/* Bind tag toggle on click */
 	$("td.tags span").click(function(){
 		toggleTag($(this));
 	});
-	//$("div.entryList").corner("cc:#DADFE6 round 5px");
 	
-	$(function() { 
-	 
-		// if the function argument is given to overlay, 
-		// it is assumed to be the onBeforeLoad event listener 
-		$("a[rel]").overlay({ 
-	 
-			expose: 'none',//'#CFDDE7', 
-			//effect: 'apple', 
-	 
-			onBeforeLoad: function() { 
-	 
-				// grab wrapper element inside content 
-				var wrap = this.getContent().find(".contentWrap"); 
-	 
-				// load the page specified in the trigger 
-				wrap.load(this.getTrigger().attr("href")); 
-			} 
-	 
-		}); 
+	/* Bind create new entry on click */
+	$("a.newEntry").click(function(){
+		newEntry(this);
+		return false;
 	});
 	
-	//console.log($("#page"));
-	//$("#page").corner();
+	/* Bind delete entry on click */
+	$("a.deleteEntry").click(function(){
+		deleteEntry(this);
+		return false;
+	});
+
+	/* Bind open zoom window on click*/
+	$("a[rel]").click(function() {
+		$("<div class='apple_overlay'></div>")
+			.load($(this).attr('href'))
+			.dialog({
+				autoOpen: false,
+				title: $(this).attr('title'),
+				width: 500,
+				height: 300
+			}).dialog('open');	
+			
+		return false;
+	});
+	
+	/* Bind toggle list on click */
+	$(".tdListTitle").click(function() {
+		moreEntryList(this);
+		return false;
+	});
+	
+	/* Bind edit list on click */
+	$("a.editList").click(function(){
+		editEntryList(this);
+		return false;
+	});
 }
 
 /**
@@ -333,6 +469,7 @@ function bindEvents(){
 function toggleTag(tag){
 	tag_text = jQuery.trim(tag.html());
 	entry_list = tag.parents(".entryList");
+	entry_list.find("div.accordion").accordion('activate', false);
 	if (tag_text == "all" || tag_text == "none"){
 		toggleAllTags(tag_text, entry_list);
 		return;
@@ -348,7 +485,7 @@ function toggleTag(tag){
 	// for each entry with the tag
 	entries = entry_list.find("div.tags span:contains(" + tag_text + ")");
 	entries.each(function(){
-		// if the entry has other tag, we have to check if the entry is to be toggled
+		// if the entry has other tags, we have to check if the entry is to be toggled
 		siblings = $(this).siblings("span");
 		if (siblings.length){
 			// if any other tag is selected, then changing this tag doesn't affect the entry visibility
@@ -363,12 +500,12 @@ function toggleTag(tag){
 			});
 			// no other tag is selected : the tag toggle affects the entry visibility
 			if (!state){
-				$(this).parents("tr").toggle();
+				$(this).parents("div.entryBody").prev().toggle();
 			}
 		}
 		// no other tag ? toggle !
 		else{	
-			$(this).parents("tr").toggle();
+			$(this).parents("div.entryBody").prev().toggle();
 		}
 	});
 }
@@ -380,14 +517,14 @@ function toggleTag(tag){
 * @param entry_list the entry list as a dom element
 */
 function toggleAllTags(tag_text, entry_list){
-	tagged_tr = entry_list.find("div.tags span:not(:empty)").parents("tr");
+	tagged_entries = entry_list.find("div.tags span:not(:empty)").parents("div.entryBody").prev();
 	tag_headers = entry_list.find("span.tag_header");
 	if (tag_text == "none"){
-		tagged_tr.hide();
+		tagged_entries.hide();
 		tag_headers.removeClass("selected");
 	}
 	else{
-		tagged_tr.show();
+		tagged_entries.show();
 		tag_headers.addClass("selected");
 	}	
 }
@@ -491,27 +628,48 @@ function drawEntryList(data, obj) {
 	obj.replaceWith(html_list);
 }
 
+/**
+* Cancel the edit of an entry list and restore the display
+*/
 function cancelEditEntryList(obj){
 	var tr = $(obj).parents("tr");
 	var id_list = tr.attr("name");
 	refreshEntryList(id_list, obj);
 }
 
+/**
+* Toggle an entire entry list
+*/
 function moreEntryList(obj) {
 	var content = $(obj).parents("div.entryList").find("div.entryContent");
 	// toggle the tag headers
 	$(obj).parents("tr").siblings(":first").toggle();
 
+	var collapsed = 0;
 	// toggle the arrow image
 	if (content.css("display") == "block"){	
+		collapsed = 1;
 		$(obj).attr("src", "images/double_down.png")
 	}else{
 		$(obj).attr("src", "images/double_up.png")
 	}
 	// toggle the entries
 	content.toggle();
+	
+	// Update collapsed bool in db
+	var tr = $(obj).parents("tr");
+	var id = tr.attr("name");
+	$.post("actions/updateEntryListCollapse.php", 
+			{
+				id_list:id,
+				collapsed:collapsed
+			}
+		  );		
 }
 
+/**
+* Delete an entry list
+*/
 function deleteEntryList(obj){
 	var tr = $(obj).parents("tr");
 	var id = tr.attr("name");
@@ -534,5 +692,13 @@ console.log($(obj).parents("td"));
 	asynch:		false,
 }).responseText;
 	console.log(a);*/
+}
+
+function getEntryBlock(obj){
+	var div_entry = $(obj).parents("div.entryBody");
+	// il faut reussir a le faire avec un truc genre previous sibling
+	var id_entry = div_entry.attr("name");
+	var h3_entry = $("h3." + id_entry);
+	return {"h3":h3_entry, "div":div_entry};
 }
 
