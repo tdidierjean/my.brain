@@ -9,5 +9,5 @@ require_once('../init.php');
 $content = $_POST['content'];
 // Write content to DB
 $db->setMemo($content);
-echo "Saved at ". date('h:i:s A');
+echo "Saved today at ". date('h:i:s A');
 ?>

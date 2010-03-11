@@ -9,12 +9,15 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>my.brain</title>
 		<link href="css/main.css" media="all" rel="stylesheet" type="text/css">
+		<link href="css/custom-theme/jquery-ui-1.7.2.custom.css" media="all" rel="stylesheet" type="text/css">
+		
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jqueryTools/jquery.tools.min.js"></script>
 
 		<!--<script src="http://cdn.jquerytools.org/1.1.2/jquery.tools.min.js"></script>-->
-		<script type="text/javascript" src="js/jqueryUI/jquery-ui.js"></script>  
-		<script type="text/javascript" src="js/jqueryUI/jquery.effects.highlight.js"></script>  
+		<!--<script type="text/javascript" src="js/jqueryUI/jquery-ui.js"></script>  -->
+		<script type="text/javascript" src="js/jqueryUI/jquery-ui-1.7.2.custom.min.js"></script>  
+		<!--<script type="text/javascript" src="js/jqueryUI/jquery.effects.highlight.js"></script>  -->
 		<script type="text/javascript" src="js/jquery.corner.js"></script>  
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/tooltips.js"></script>
@@ -25,10 +28,11 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 				<div id="title">my.brain</div>
 			</div>
 			<div id="memoDiv">
-				<textarea id="memo"><?php echo $content['memo'] ?></textarea>
+				<textarea id="memo" class="smallText"><?php echo $content['memo'] ?></textarea>
 				<p id="save_memo">
 					<button type="button" onclick="writeMemoToDb()">Enregistrer</button>
 					<span id="message_memo">
+						Last saved: <?php echo $content["memo_date"];?>
 					</span>
 				</p>
 			</div>
@@ -43,20 +47,31 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 									<div class="entryTitle">
 										<table>
 											<tr name="<?php echo $entry_list->getId();?>">
-												<td>
-													<?php echo $entry_list->getTitle(); ?> 
-												</td>    
+												<td class="tdListTitle">
+													<a href="#"><?php echo $entry_list->getTitle(); ?></a>
+												</td>  
 												<td class="iconCell">
-													<img class="entryIcon" src="images/double_up.png" alt="zoom" onclick="moreEntryList(this);" />
-												</td>
+													<a class="iconCell newEntry" href="#">
+														<img class="entryIcon" src="images/add.png" alt="add"/>
+													</a>
+												</td>											
 												<td class="iconCell">
-													<img class="entryIcon" src="images/pencil.png" alt="edit" onclick="editEntryList(this)"/>
-												</td>
-												<td class="iconCell">
-													<img class="entryIcon" src="images/text_minus.png" alt="delete" onclick="deleteEntryList(this)"/>
-												</td>							
+													<a class="iconCell editList" href="#">
+														<img class="entryIcon" src="images/edit.png" alt="edit"/>
+													</a>
+												</td>						
 											</tr>
-											<tr>
+											<?php 
+											if ($entry_list->getCollapsed()){
+											?>
+												<tr style="display:none;">
+											<?php 
+											}else{
+											?>
+												<tr>
+											<?php 
+											}
+											?>
 												<td colspan=4 class="tags">
 												<?php
 													$tags = $entry_list->getTagsEntries();
@@ -86,54 +101,54 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 											</tr>
 										</table>  
 									</div>    
-									<div class="entryContent">
-										<table class="entriesTable" id=<?php echo $entry_list->getId();?>>
-										<?php foreach($entry_list->getEntries() as $entry): ?>
-											<tr class="entryRow" name=<?php echo $entry->getId();?>>
-												<td class="entryCell">
-													<?php if ($entry->getUrl()):?>
-														<a href=<?php echo $entry->getUrl() ?>><?php echo $entry->getName();?></a>
-													<?php else: ?>
-														<?php echo $entry->getName();?>
-													<?php endif; ?>
-													
-													<div class="tags">
+									<?php 
+									if ($entry_list->getCollapsed()){
+									?>
+										<div class="entryContent" style="display:none;">
+									<?php 
+									}else{
+									?>
+										<div class="entryContent">
+									<?php 
+									}
+									?>
+										<div class="accordion" id="<?php echo $entry_list->getId()?>">
+											<?php foreach($entry_list->getEntries() as $entry): ?>
+												<h3 class="customAccordion <?php echo $entry->getId()?>"><a href="#"><?php echo $entry->getName() ?></a></h3>
+												<div class="entryBody smallText <?php echo $entry->getId()?>" name="<?php echo $entry->getId()?>">								
+													<?php if($entry->getUrl()):?>
+														<a class="url" href="<?php echo $entry->getUrl();?>">
+															<?php echo shortenUrl($entry->getUrl(), 30);?>
+														</a>
+													<?php endif;?>
+													<div style='float:right'>
+														<a class="iconCell" href="zoom_popup.php?id_entry=<?php echo $entry->getId();?>" title="<?php echo $entry->getName();?>" rel="#overlay"> 
+															<img class="entryIcon" src="images/zoom.png" alt="zoom"/>
+														</a>													
+														<img class="entryIcon" src="images/edit.png" alt="edit" onclick="editEntry(this)"/>
+														<a class="iconCell deleteEntry" href="#">
+															<img class="entryIcon" src="images/delete.png" alt="delete"/>
+														</a>
+													</div>
+
+													<div class="entryTags">
 														<?php 
 														$tags = $entry->getTags();
 														if ($tags):
 															foreach ($tags as $tag):
 																?>
-																<span class="hidden"><?php echo $tag;?></span>
+																<span><?php echo $tag;?></span>
 																<?php
 															endforeach;
 														endif;
 														?>
 													</div>
-													<textarea class="moreText"><?php echo $entry->getDetails();?></textarea>
-														
-												</td>
-												<td class="iconCell" name="zoom_entry">
-												<a href="zoom_popup.php?id_entry=<?php echo $entry->getId();?>" title=<?php echo $entry->getName();?> rel="#overlay"> 
-													<img class="entryIcon" src="images/zoom.png" alt="zoom"/> <!--onclick="window.open('zoom_popup.php?id_entry=<?php echo $entry->getId();?>','popup','resizable=no,scrollbars=no,width=600,height=370');" />-->
-												</a>
-												</td>
-												<td class="iconCell" name="more_entry">
-													<img class="entryIcon" src="images/double_down.png" alt="more" onclick="more(this)" />
-												</td>
-												<td class="iconCell" name="edit_entry">
-													<img class="entryIcon" src="images/pencil.png" alt="edit" onclick="editEntry(this)"/>
-												</td>
-												<td class="iconCell" name="delete_entry">
-													<img class="entryIcon" src="images/text_minus.png" alt="delete" onclick="deleteEntry(this)"/>
-												</td>
-											</tr>
-										<?php endforeach; ?>
-											<tr>
-												<td class="newEntryCell" name="new_entry" width="100%">
-													<img src="images/text_plus.png" alt="new" onclick="newEntry(this)"/>
-												</td>
-											</tr>
-										</table>
+													<div class="entryDetails">
+														<?php echo $entry->getDetails();?>
+													</div>
+												</div>
+											<?php endforeach; ?>
+										</div>
 									</div>
 								</div>
 							<?php endif; ?>
@@ -141,11 +156,6 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 					</div>
 				<?php endfor; ?>
 			</div>
-		</div>
-		<!-- overlayed element --> 
-		<div class="apple_overlay" id="overlay"> 
-			<!-- the external content is loaded inside this tag --> 
-			<div class="contentWrap"></div> 
 		</div>
 	</body>
 </html>

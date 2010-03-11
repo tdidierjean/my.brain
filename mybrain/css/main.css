@@ -22,7 +22,7 @@ div#login form {
     color:#000000;
     margin-left:auto;
     margin-right:auto;
-    width:1260px;
+    width:1196px;
 	/*width:960px;*/
 	padding-bottom:20px;  
     line-height:1.5em;
@@ -36,8 +36,9 @@ div#login form {
 
 #header {
     /*background-image: url(/mybrain/images/header-2.jpg)*/;/*url(/mybrain/images/neuron_cut.jpg);*/
+	background:#0A80AF;
 	background-position: center;
-    min-height: 100px;
+    min-height: 80px;
     
 }
 
@@ -51,7 +52,7 @@ div#login form {
 	/*width:40%;*/
 	width:405px;
 	float:left;
-	margin:10px 10px 10px 10px;
+	margin:10px 10px 10px 0;
 }
 
 textarea#memo {
@@ -61,13 +62,11 @@ textarea#memo {
     border:1px solid #578AAB;
     background:#F0F0F0;/*#CFDDE7;*/
     padding:5px;
-    font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
-    font-size:13px;
     float:left;
 }
 
 #entriesDiv{
-	width:827px;
+	/*width:827px;*/
 	float:left;
 }
 
@@ -126,6 +125,7 @@ td.entryCell{
 .iconCell img{
     /*cursor:pointer;*/
 	border:none;
+	padding: 0 0 0 2px;
 }
 
 td.newEntryCell{
@@ -244,7 +244,8 @@ textarea.zoom{
 }
 
 div.column_div{
-	width:31.2%;
+	width:260px;
+	/*width:31.2%;*/
 	float:left;
 }
 
@@ -368,4 +369,47 @@ div.tooltip {
 
 a.url{
 	color:#555ddd;
+}
+
+div.entryBody{
+	padding-top: 5px;
+}
+
+div.entryDetails{
+	margin: 0 0 5px 0;
+}
+
+div.entryTags{
+	font-size: 11px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+h3.customAccordion{
+	margin: 0px !important;
+}
+
+.test{
+	background-image:url("../css/custom-theme/images/ui-icons_454545_256x240.png");
+}
+
+.test span{
+background-position:-32px -128px;
+}
+
+.fg-button { 
+left:50%;
+margin-left:-8px;
+margin-top:-8px;
+position:absolute;
+top:50%; 
+   }
+
+.imgAccept{
+	margin-right: 5px;
+}
+
+.smallText{
+	font-family: Arial, Tahoma;
+	font-size: 12px;
 }

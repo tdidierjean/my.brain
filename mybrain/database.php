@@ -46,7 +46,7 @@ class Database extends PDO{
 	* Get memo from DB
 	*/
 	function getMemo(){
-		$sql = "SELECT content 
+		$sql = "SELECT content, update_date
 				FROM memo";
 		try{
 			$query = parent::prepare($sql);
@@ -55,7 +55,7 @@ class Database extends PDO{
 			return $e->getMessage();
 		}
 		$content = $query->fetch();
-		return $content[0];
+		return $content;
 	}
 	
 	/**

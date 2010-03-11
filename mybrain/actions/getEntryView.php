@@ -13,8 +13,10 @@ if (!$id_entry){
 }
 
 $entry = $db->getEntry($id_entry);
+
 foreach($entry as $i => $field){
-	$entry[$i] = htmlspecialchars($field, ENT_QUOTES);
+	$field = stripslashes($field);
+	$entry[$i] = nl2br($field);
 }
 $tags = $db->getEntryTags($id_entry);
 /*if ($tags){
@@ -24,33 +26,37 @@ else{
 	$entry['tags'] = "";
 }*/
 ?>
-<div id="h3_replace"><?php echo $entry["name"];?></div>
+<!--<div id="h3_replace"><?php echo $entry["name"];?></div>-->
 
-<?php if($entry["url"]):?>
-	<a class="url" href="<?php echo $entry["url"];?>">
-		<?php echo shortenUrl($entry["url"], 26);?>
-	</a>
-<?php endif;?>
-<div style='float:right'>
-	<a class="iconCell" href="zoom_popup.php?id_entry=<?php echo $id_entry;?>" rel="#overlay"> 
-		<img class="entryIcon" src="images/zoom.png" alt="zoom"/>
-	</a>													
-	<img class="entryIcon" src="images/pencil.png" alt="edit" onclick="editEntry(this)"/>
-	<a class="iconCell deleteEntry" href="#">
-		<img class="entryIcon" src="images/text_minus.png" alt="delete"/>
-	</a>
-</div>
-<p>
-	<?php echo $entry["details"];?>
-	<div class="tags">
+<h3 class="customAccordion <?php echo $id_entry;?>"><a href="#"><?php echo $entry["name"];?></a></h3>
+
+<div class="entryBody smallText <?php echo $id_entry;?>" name="<?php echo $id_entry;?>">								
+	<?php if($entry["url"]):?>
+		<a class="url" href="<?php echo $entry["url"];?>">
+			<?php echo shortenUrl($entry["url"], 30);?>
+		</a>
+	<?php endif;?>
+	<div style='float:right'>
+		<a class="iconCell" href="zoom_popup.php?id_entry=<?php echo $id_entry;?>" rel="#overlay"> 
+			<img class="entryIcon" src="images/zoom.png" alt="zoom"/>
+		</a>													
+		<img class="entryIcon" src="images/pencil.png" alt="edit" onclick="editEntry(this)"/>
+		<a class="iconCell deleteEntry" href="#">
+			<img class="entryIcon" src="images/delete.png" alt="delete"/>
+		</a>
+	</div>
+	<div class="entryTags">
 		<?php 
 		if ($tags):
 			foreach ($tags as $tag):
 				?>
-				<span class="hidden"><?php echo $tag;?></span>
+				<span><?php echo $tag;?></span>
 				<?php
 			endforeach;
 		endif;
 		?>
 	</div>
-</p>
+	<div class="entryDetails">
+		<?php echo $entry["details"];?>
+	</div>
+</div>

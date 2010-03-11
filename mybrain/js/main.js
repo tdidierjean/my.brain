@@ -1,5 +1,15 @@
 
 /**
+* Remove escaping characters from a string
+*/
+function unescapeText(text){
+	// Escaped " or ' => remove all \
+	text = text.replace(/(\\)+((&#039;)|(&quot;))/g, "$2");
+	// Escaped \ => remove all \ but one
+	text = text.replace(/(\\)+/g, "\\");
+	return text;
+}
+/**
 * Called by the "edit" link of an entry : retrieve entry from db and draw the edition form
 *
 * @param obj => a dom element from inside the entry row
@@ -14,6 +24,7 @@ function editEntry(obj) {
 			id_entry:id_entry
 		},
 		function(data){
+			data["details"] = unescapeText(data["details"]);
 			drawEditEntry(data, div_entry);
 			div_entry.find("input[name='entry_name']").focus();
 			var accept = div_entry.find("img")[0];
@@ -36,13 +47,12 @@ function editEntry(obj) {
 * @param tr => the row where the form will be inserted
 */
 function drawEditEntry(data, div_entry){	
-
 	var html = "<div class='editForm'><form><table class='edit_table'>"
 					 + "<tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' value='" + data['name'] + "' /></td></tr>"
 					 + "<tr><td><label for='entry_url'>Url </label></td><td><input name='entry_url' value ='" + data['url'] + "' /></td></tr>"
 					 + "<tr><td><label for='entry_details'>Details </label></td><td><textarea name='entry_details'>" + data['details'] + "</textarea></td></tr>"
 					 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags' value='" + data['tags'] + "'/></td></tr></table>"
-					 + "<img src='images/accept.gif' alt='Create' onclick='updateEntryInDb(this)' class='imgAccept'/>"
+					 + "<img src='images/accept.png' alt='Create' onclick='updateEntryInDb(this)' class='imgAccept'/>"
 					 + "<img src='images/cross.png' alt='Cancel' onclick='cancelEdit(this)' class='imgAccept'/></form></div>";
 					
 	div_entry.html(html);
@@ -65,38 +75,32 @@ function cancelEdit(obj){
 * @param obj  => a dom element from inside the new entry row
 */
 function newEntry(obj){
-	var parent_div = $(obj).parents("div.newEntryDiv");
-	var accordion = parent_div.parents("div.entryContent").find("div.accordion");
-	var default_tags = $(parent_div).parents("div.entryList").find("span.tag_header").html();
-	
-	var html = "<h3 class='accordion'><a href='#'>New entry</a></h3>"
-					 + "<div class='editForm'><form><table class='edit_table'><tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' /></td></tr>"
-					 + "<tr><td><label for='entry_url'>Url </label></td><td><input name='entry_url' /></td></tr>"
-					 + "<tr><td><label for='entry_details'>Details </label></td><td><textarea name='entry_details'></textarea></td></tr>"
-					 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags' value=" + default_tags + "/></td></tr></table>"
-					 + "<img src='images/accept.gif' alt='Create' onclick='writeEntryToDb(this)' class='imgAccept'/>"
-					 + "<img src='images/cross.png' alt='Cancel' onclick='cancelNew(this)' class='imgAccept'/></form></div>";
-					
-	parent_div.remove();//replaceWith(html);
-	accordion.append(html);
-	
-	/* Reset accordion */
-	accordion.accordion('destroy').accordion({
-			collapsible: true,
-			autoHeight: false,
-			active: false}); // Comment activer le h3 qu'on vient d'ajouter ?
-	
-	/*
-	source_tr = $(obj).parents("tr");
-	
-	new_tr = "<tr class='entryRow'><td colspan=5><form><table class='edit_table'><tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' /></td></tr>"
-			 + "<tr><td><label for='entry_url'>Url </label></td><td><input name='entry_url' /></td></tr>"
-			 + "<tr><td><label for='entry_details'>Details </label></td><td><textarea name='entry_details'></textarea></td></tr>"
-			 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags'/></td></tr></table>"
-			 + "<img src='images/accept.gif' alt='Create' onclick='writeEntryToDb(this)' class='imgAccept'/>"
-			 + "<img src='images/cross.png' alt='Cancel' onclick='cancelNew(this)' class='imgAccept'/></form></td></tr>";
-	 
-	source_tr.replaceWith(new_tr);*/
+	var title_div = $(obj).parents("div.entryTitle");
+	var accordion = title_div.next().find("div.accordion");
+
+	/* If a new entry doesn't exists already, create one */
+	if (!accordion.find(".newAccordionEntry").length){
+		var default_tags = $(title_div).parents("div.entryList").find("span.tag_header").html();
+		
+		var html = "<h3 class='accordion newAccordionEntry'><a href='#'>New entry</a></h3>"
+						 + "<div class='editForm'><form><table class='edit_table'><tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' /></td></tr>"
+						 + "<tr><td><label for='entry_url'>Url </label></td><td><input name='entry_url' /></td></tr>"
+						 + "<tr><td><label for='entry_details'>Details </label></td><td><textarea name='entry_details'></textarea></td></tr>"
+						 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags' value=" + default_tags + "/></td></tr></table>"
+						 + "<img src='images/accept.png' alt='Create' onclick='writeEntryToDb(this)' class='imgAccept'/>"
+						 + "<img src='images/cross.png' alt='Cancel' onclick='cancelNew(this)' class='imgAccept'/></form></div>";
+						
+		accordion.append(html);
+		
+		/* Reset accordion */
+		accordion.accordion('destroy').accordion({
+				collapsible: true,
+				autoHeight: false,
+				active: false});
+				
+		/* Open the entry */
+		accordion.accordion("activate", accordion.find(".newAccordionEntry"));
+	}
 }
 
 /**
@@ -136,7 +140,8 @@ function writeEntryToDb(obj) {
 				tags:input_fields[3].value
 			},
 			function(data){
-				refreshEntryAfterAdd(data['id_entry'], new_entry_form);
+				//refreshEntryAfterAdd(data['id_entry'], new_entry_form);
+				refreshEntry(data['id_entry'], new_entry_form, "add");
 			},
 			"json"
 		  );	
@@ -262,19 +267,39 @@ function drawEntryAfterEdit(id_entry, data, obj) {
 * @param obj => a dom element from inside the entry row
 */
 function drawEntry(data, obj) {
-	
+	console.log("ici");
 	var entry_block = getEntryBlock(obj);
 	var edit_div = $(obj).parents("div.editForm");
+	var edit_h3 = edit_div.prev();
 	var accordion = edit_div.parents("div.entryContent").find("div.accordion");
-	//edit_div.remove();
+/*
+	data["details"] = unescapeText(data["details"]);
 
-	html = "<h3><a href='#'>" + data['name'] + "</a></h3>"
-		   + "<div name = " + data['id_entry'] + ">"
-		   + "<a class='url' href=''>"  + data['url'] + " Go to url</a>"
-		   + "<p>" + data['details'] + "</p>"
-		   + "</div>";
+	html_h3 = "<h3><a href='#'>" + data['name'] + "</a></h3>";
+	
+	html_div = "<div name = " + data['id_entry'] + ">"
+			   + "<a class='url' href=''>"  + data['url'] + " Go to url</a>"
+			   + "<p>" + data['details'] + "</p>"
+			   + "</div>";
 
-	console.log(getEntryBlock(obj)["h3"]);
+	
+	edit_h3.replaceWith(html_h3);
+	edit_div.replaceWith(edit_h3);*/
+	
+	edit_h3.remove();
+	edit_div.remove();
+	accordion.append(data);
+	
+	/* Reset accordion */
+	accordion.accordion('destroy').accordion({
+			collapsible: true,
+			autoHeight: false,
+			active: false});
+			
+	/* Open the entry */
+	//accordion.accordion("activate", accordion.find(".newAccordionEntry"));
+	
+	//console.log(getEntryBlock(obj)["h3"]);
 	//edit_div.html()
 	/* Insert new entry and reset accordion */
 	//accordion.append(html).accordion('destroy').accordion();
@@ -415,6 +440,7 @@ function bindEvents(){
 	/* Draw pretty corners */
 	$(".entryList").corner("5px");
 	$("#memo").corner("5px");
+	$("#header").corner("5px");
 	
 	/* Bind tag toggle on click */
 	$("td.tags span").click(function(){
@@ -439,6 +465,7 @@ function bindEvents(){
 			.load($(this).attr('href'))
 			.dialog({
 				autoOpen: false,
+				draggable: false,
 				title: $(this).attr('title'),
 				width: 500,
 				height: 300

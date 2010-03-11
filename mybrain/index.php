@@ -9,7 +9,10 @@ require_once('entryList.php');
 require_once('entry.php');
 
 // retrieve memo from db and remove slashes that were added when inserting into db
-$content['memo'] = stripslashes($db->getMemo());
+$memo = $db->getMemo();
+$content['memo'] = stripslashes($memo["content"]);
+//$datetime_memo = $memo["update_date"];
+$content['memo_date'] = $memo["update_date"];
 
 //echo $db->setNewEntryList("mybrain", 1, 6);
 
@@ -33,7 +36,7 @@ foreach($entry_lists as $entry_list){
             $entry = new Entry($entry_array['id_entry'], 
 							   stripslashes($entry_array['name']), 
 							   $entry_array['url'], 
-							   stripslashes($entry_array['details']));
+							   nl2br(stripslashes($entry_array['details'])));
 			$entry_tags = $entry->getTags();
 			$entry_list->addTagsEntries($entry_tags);
             $entry_list->addEntry($entry);
@@ -60,7 +63,7 @@ $entry_lists[] = $list_orphans;
 $content['entry_lists'] = $entry_lists;
 
 // build the view
-require('view2.php');
+require('view.php');
 
 // get the tooltips
 //require('tooltips.php');
