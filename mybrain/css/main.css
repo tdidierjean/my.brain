@@ -1,7 +1,7 @@
 
 body {
     background:#2B96C3;/*#054162;*//*#1B4963 none repeat scroll 0 0;*/
-    font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
+    font-family:Arial,Helvetica,"Bitstream Vera Sans",sans-serif;
     font-size:13px;
 }
 
@@ -93,8 +93,6 @@ textarea#memo {
 
 .entryContent{
 	line-height: 0.8em;
-	/*font-size: 0.8em;*/
-	padding: 2px 0 0 0;
 }
 
 table.entriesTable{
@@ -230,10 +228,11 @@ textarea.zoom{
 
 .selected{
 	font-weight:bold;
+	color:#FFD39F !important;
 }
 
 .tag_header{
-	color:#fefefe;/*#CFDDE7;*/
+	/*color:#fefefe;/*#CFDDE7;*/
 	cursor:pointer;
 }
 
@@ -410,6 +409,6 @@ top:50%;
 }
 
 .smallText{
-	font-family: Arial, Tahoma;
-	font-size: 12px;
+	font-family: Arial, Tahoma !important;
+	font-size: 12px !important;
 }

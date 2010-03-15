@@ -13,8 +13,6 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jqueryTools/jquery.tools.min.js"></script>
-
-		<!--<script src="http://cdn.jquerytools.org/1.1.2/jquery.tools.min.js"></script>-->
 		<!--<script type="text/javascript" src="js/jqueryUI/jquery-ui.js"></script>  -->
 		<script type="text/javascript" src="js/jqueryUI/jquery-ui-1.7.2.custom.min.js"></script>  
 		<!--<script type="text/javascript" src="js/jqueryUI/jquery.effects.highlight.js"></script>  -->
@@ -94,9 +92,11 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 													<span class="switch_header">
 														none
 													</span>
+													<!--
 													<span class="switch_header">
 														<img class="eye" src="images/eye.png" alt="eye"/>
 													</span>													
+													-->
 												</td>
 											</tr>
 										</table>  
@@ -124,8 +124,10 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 													<div style='float:right'>
 														<a class="iconCell" href="zoom_popup.php?id_entry=<?php echo $entry->getId();?>" title="<?php echo $entry->getName();?>" rel="#overlay"> 
 															<img class="entryIcon" src="images/zoom.png" alt="zoom"/>
-														</a>													
-														<img class="entryIcon" src="images/edit.png" alt="edit" onclick="editEntry(this)"/>
+														</a>
+														<a class="iconCell editEntry" href="#">
+															<img class="entryIcon" src="images/edit.png" alt="edit"/>
+														</a>
 														<a class="iconCell deleteEntry" href="#">
 															<img class="entryIcon" src="images/delete.png" alt="delete"/>
 														</a>
@@ -158,4 +160,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 			</div>
 		</div>
 	</body>
-</html>
+</html>		
+<script type="text/javascript">
+	$(document).ready(bindEvents());
+</script>

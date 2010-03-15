@@ -8,6 +8,4 @@ $db = Database::getInstance(Array('dbType'=>$CONFIG['dbType'],
 									'user'=>$CONFIG['user'], 
 									'passwd'=>$CONFIG['password'])
 									);
-
-
-
+?>

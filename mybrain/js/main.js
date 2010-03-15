@@ -443,24 +443,30 @@ function bindEvents(){
 	$("#header").corner("5px");
 	
 	/* Bind tag toggle on click */
-	$("td.tags span").click(function(){
+	$("td.tags span").live("click", function(){
 		toggleTag($(this));
 	});
 	
 	/* Bind create new entry on click */
-	$("a.newEntry").click(function(){
+	$("a.newEntry").live("click", function(){
 		newEntry(this);
 		return false;
 	});
 	
+	/* Bind edit entry on click */
+	$("a.editEntry").live("click", function(){
+		editEntry(this);
+		return false;
+	});	
+	
 	/* Bind delete entry on click */
-	$("a.deleteEntry").click(function(){
+	$("a.deleteEntry").live("click", function(){
 		deleteEntry(this);
 		return false;
 	});
 
 	/* Bind open zoom window on click*/
-	$("a[rel]").click(function() {
+	$("a[rel]").live("click", function() {
 		$("<div class='apple_overlay'></div>")
 			.load($(this).attr('href'))
 			.dialog({
@@ -475,13 +481,13 @@ function bindEvents(){
 	});
 	
 	/* Bind toggle list on click */
-	$(".tdListTitle").click(function() {
+	$(".tdListTitle").live("click", function() {
 		moreEntryList(this);
 		return false;
 	});
 	
 	/* Bind edit list on click */
-	$("a.editList").click(function(){
+	$("a.editList").live("click", function(){
 		editEntryList(this);
 		return false;
 	});
@@ -495,22 +501,23 @@ function bindEvents(){
 */
 function toggleTag(tag){
 	tag_text = jQuery.trim(tag.html());
+	console.log(tag_text);
 	entry_list = tag.parents(".entryList");
 	entry_list.find("div.accordion").accordion('activate', false);
 	if (tag_text == "all" || tag_text == "none"){
 		toggleAllTags(tag_text, entry_list);
 		return;
 	}
-	if (tag_text.match(new RegExp('<img'))){
+	// toggle showing tags under each entry
+	/*if (tag_text.match(new RegExp('<img'))){
 		toggleEntryTags(entry_list);
 		return;
-	}
+	}*/
 
 	// toggle the tag in the list header
 	tag.toggleClass("selected");
-	
 	// for each entry with the tag
-	entries = entry_list.find("div.tags span:contains(" + tag_text + ")");
+	entries = entry_list.find("div.entryTags span:contains(" + tag_text + ")");
 	entries.each(function(){
 		// if the entry has other tags, we have to check if the entry is to be toggled
 		siblings = $(this).siblings("span");
@@ -544,7 +551,7 @@ function toggleTag(tag){
 * @param entry_list the entry list as a dom element
 */
 function toggleAllTags(tag_text, entry_list){
-	tagged_entries = entry_list.find("div.tags span:not(:empty)").parents("div.entryBody").prev();
+	tagged_entries = entry_list.find("div.entryTags span:not(:empty)").parents("div.entryBody").prev();
 	tag_headers = entry_list.find("span.tag_header");
 	if (tag_text == "none"){
 		tagged_entries.hide();

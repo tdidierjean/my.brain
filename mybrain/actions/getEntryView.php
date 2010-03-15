@@ -39,8 +39,10 @@ else{
 	<div style='float:right'>
 		<a class="iconCell" href="zoom_popup.php?id_entry=<?php echo $id_entry;?>" rel="#overlay"> 
 			<img class="entryIcon" src="images/zoom.png" alt="zoom"/>
-		</a>													
-		<img class="entryIcon" src="images/pencil.png" alt="edit" onclick="editEntry(this)"/>
+		</a>			
+		<a class="iconCell editEntry" href="#">
+			<img class="entryIcon" src="images/edit.png" alt="edit"/>
+		</a>
 		<a class="iconCell deleteEntry" href="#">
 			<img class="entryIcon" src="images/delete.png" alt="delete"/>
 		</a>

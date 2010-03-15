@@ -6,7 +6,7 @@ $utilisateur = $db->getUtilisateur($_REQUEST['username']);
           Check password
 ****************************************/
 if (!$utilisateur || (md5($_REQUEST['password']) != $utilisateur['password'])) {
-	header("Location: login.php");
+	header("Location: login.php?no_session=1");
 	exit();
 }
 $_SESSION['logged'] = true;

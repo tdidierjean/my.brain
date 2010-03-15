@@ -1,7 +1,8 @@
 <?php
 session_start();
-if (!$_SESSION['logged']){
+if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
     header("Location: login.php");
+	exit();
 }
 require_once('init.php');
 require_once('fonctions.php');
@@ -13,8 +14,6 @@ $memo = $db->getMemo();
 $content['memo'] = stripslashes($memo["content"]);
 //$datetime_memo = $memo["update_date"];
 $content['memo_date'] = $memo["update_date"];
-
-//echo $db->setNewEntryList("mybrain", 1, 6);
 
 // retrieve entry lists from db
 foreach ($db->getEntryLists() as $entry_list_array){
@@ -44,6 +43,7 @@ foreach($entry_lists as $entry_list){
     }
 }
 
+// build an entrylist with the remaining entries (orphans)
 $list_orphans = new EntryList("", "Orphan entries", 1, 5, 0);
 $entries_array = $db->getEntriesNotDisplayed();
 if (!empty($entries_array)){
@@ -59,19 +59,12 @@ if (!empty($entries_array)){
 }
 $entry_lists[] = $list_orphans;
 
-
 $content['entry_lists'] = $entry_lists;
 
 // build the view
 require('view.php');
 
-// get the tooltips
-//require('tooltips.php');
-
 // bind events
 ?>
-<script type="text/javascript">
-	bindEvents();
-	//$("window").load(function(){bindEvents()});
-</script>
+
 
