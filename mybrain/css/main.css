@@ -1,8 +1,13 @@
 
 body {
-    background:#2B96C3;/*#054162;*//*#1B4963 none repeat scroll 0 0;*/
+    background:#A7CFDF;/*#2B96C3*;*//*#054162;*//*#1B4963 none repeat scroll 0 0;*/
     font-family:Arial,Helvetica,"Bitstream Vera Sans",sans-serif;
     font-size:13px;
+}
+
+.blocShadows{
+	-moz-box-shadow:1px 1px 12px #555; 
+	-webkit-box-shadow:1px 1px 12px #555; 
 }
 
 div#login {
@@ -36,15 +41,15 @@ div#login form {
 
 #header {
     /*background-image: url(/mybrain/images/header-2.jpg)*/;/*url(/mybrain/images/neuron_cut.jpg);*/
-	background:#0A80AF;
+	background:#5FA4BF;/*#0A80AF;*/
 	background-position: center;
     min-height: 80px;
     
 }
 
 #title {
-	color: #B0D2EE;/*#CBF1FA;*/
-	font-size: 270%;
+	color: #F0F0F0;/*#CBF1FA;*/
+	font-size: 38px;
 	padding:30px 0 0 30px;
 }
 
@@ -71,7 +76,7 @@ textarea#memo {
 }
 
 .entryList{
-    border:1px solid #0A80AF;/*#578AAB;*/
+    /*border:1px solid #0A80AF;*//*#578AAB;*/
     margin:10px 0px 0px 10px;
     float:left;
     /*width:46%;*/
@@ -80,15 +85,14 @@ textarea#memo {
 	background:#CFDDE7;
 }
 
-.entryTitle{
-	font-size:14px;
-	/*border:1px #578AAB;
-	border-style: none none solid none;*/
+.entryListHeader{
+	font-size:16px;
 	line-height:0.9em;
-	background:#0A80AF;
+	/*background:#0A80AF;*/
 	/*url("http://jqueryui.com/themeroller/images/?new=2191c0&w=500&h=100&f=png&q=100&fltr[]=over|textures/12_gloss_wave.png|0|0|40");*/
 	/*background:#3785ad;*/
-	color:#fff;/*#CBF1FA;*/
+	padding: 3px;
+	background-color: #CFDDE7;
 }
 
 .entryContent{
@@ -101,7 +105,7 @@ border-collapse:collapse;
 }
 	
 tr.entryRow{
-	border:1px #98bed1;                                                                                                 ;
+	border:1px #98bed1;
 	/*border-style: none none solid none;*/
 	color:111111;
 }
@@ -134,19 +138,6 @@ a{
 	text-decoration: none;
 }
 
-
-.inputName{
-	width:80px;
-}
-
-.inputUrl{
-	width:80px;
-}
-
-.inputDetails{
-	width:80px;
-}
-
 .newEntryTable{
 	
 }
@@ -159,16 +150,6 @@ a{
 	color:#009900;
 	width:95%;
 }
-
-
-/*
-.moreTextOld{
-	line-height: 1em;
-	padding: 5px;
-	float:left;	
-	width:88%;
-	display:none;
-}*/
 
 .moreText{
 	/*line-height: 1em;
@@ -208,14 +189,14 @@ h2{
 	font-size:130%;
 }
 
-table.edit_table input,textarea{
-	width:190px;
+.editForm input,textarea{
+	width:96%;
 }
 
 textarea.zoom{
     background:#CFDDE7;
 	width:100%;
-	height:322px;
+	/*height:322px;*/
     border:1px solid #578AAB;
 	overflow:visible;
     font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
@@ -223,21 +204,23 @@ textarea.zoom{
 }
 
 .tags{
-	font-size:11px;
+	font-size:12px;
 }
 
 .selected{
-	font-weight:bold;
-	color:#FFD39F !important;
+/*	font-weight:bold;*/
+	color: #005B7F !important;/*#FFD39F */
 }
 
 .tag_header{
 	/*color:#fefefe;/*#CFDDE7;*/
+	color:#789FAF;
 	cursor:pointer;
+	font-weight:bold;
 }
 
 .switch_header{
-	color:#CFDDE7;
+	/*color:#CFDDE7;*/
 	font-style:italic;
 	cursor:pointer;
 }
@@ -252,12 +235,7 @@ label.label_edit{
 	font-size:13px;
 }
 
-img.eye{
-	border: none;
-	height: 13px;
-}
-
-td.tags span img{
+td.tags span {
    vertical-align: middle;
    display: inline-block;
 }
@@ -361,9 +339,16 @@ div.tooltip {
     -webkit-box-shadow:0 0 10px #000; 
 }
 
-.tdListTitle a{
-	color:#fff;
+.entryListName {
+	color:#06485F;
 	display: block;
+	float:left;
+	width:83%;
+	padding-top:1px;
+}
+
+.entryListName:hover{
+	cursor:pointer;
 }
 
 a.url{
@@ -379,9 +364,10 @@ div.entryDetails{
 }
 
 div.entryTags{
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: bold;
 	margin-bottom: 5px;
+	color:#005B7F;
 }
 
 h3.customAccordion{
@@ -404,11 +390,26 @@ position:absolute;
 top:50%; 
    }
 
-.imgAccept{
-	margin-right: 5px;
-}
 
 .smallText{
 	font-family: Arial, Tahoma !important;
-	font-size: 12px !important;
+	font-size: 13px !important;
+}
+
+#menu{
+	background-color:#CFDDE7;
+	margin-left:550px;
+	padding:5px 10px 0 10px;
+	text-align:center;
+	/*width:100px;*/
+	float:left;
+}
+
+.formHeader{
+	background-color: #CFDDE7;
+	color: #000;
+}
+
+textarea.edit_textarea{
+	height: 30px;
 }

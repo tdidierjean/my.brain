@@ -6,62 +6,56 @@ if (!$_SESSION["logged"]){
 
 require_once("../init.php");
 require_once("../fonctions.php");
+require_once("../entry.php");
 
 $id_entry = $_REQUEST["id_entry"];
 if (!$id_entry){
 	throw Exception("No id_entry specified !");
 }
 
-$entry = $db->getEntry($id_entry);
-$tags = $db->getEntryTags($id_entry);
-$tags = implode (" ", $tags);
+if ($id_entry == "new"){
+	$entry = new Entry();
+	if ($_REQUEST["default_tags"]){
+		$tags = $_REQUEST["default_tags"];
+	}else{
+		$tags = "";
+	}
+}else{
+	$entry_line = $db->getEntry($id_entry);
+	$entry = Entry::instantiateFromDb($entry_line);
+	$tags = $entry->getTags();
+	$tags = implode (" ", $tags);
+}
+
 ?>
-<div class='editForm'><form><table class='edit_table'>"
-					 + "<tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' value='" + data['name'] + "' /></td></tr>"
-					 + "<tr><td><label for='entry_url'>Url </label></td><td><input name='entry_url' value ='" + data['url'] + "' /></td></tr>"
-					 + "<tr><td><label for='entry_details'>Details </label></td><td><textarea name='entry_details'>" + data['details'] + "</textarea></td></tr>"
-					 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags' value='" + data['tags'] + "'/></td></tr></table>"
-					 + "<a> class="iconCell editList" href="#"><img src='images/accept.png' alt='Create' onclick='updateEntryInDb(this)' class='imgAccept'/>"
-					 + "<img src='images/cross.png' alt='Cancel' onclick='cancelEdit(this)' class='imgAccept'/></form></div>";
-<form>
-	<table class="edit_table">
-		<tr>
-			<td>
-				<label for="entry_title" class="label_edit">Title </label>
-			</td>
-			<td>
-				<input name="entry_title" value="<?php echo $entry["title"];?>" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="entry_col" class="label_edit">Column </label>
-			</td>
-			<td>
-				<input name="col" value="<?php echo $entry["col"];?>" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="entry_rank" class="label_edit">Rank </label>
-			</td>
-			<td>
-				<input name="entry_rank" value="<?php echo $entry["rank"];?>" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="entry_rank" class="label_edit">Tags </label>
-			</td>
-			<td>
-				<input name="entry_tags" value="<?php echo $tags;?>" />
-			</td>
-		</tr> 
-	</table>
-	<a href="#" class="iconCell imgAccept acceptEditentry">
-		<img src="images/accept.png" alt="Create"/>
-	</a>
-	<a href="#" class="iconCell imgAccept cancelEditentry">
-		<img src="images/cross.png" alt="Cancel"/>
-	</a>
-</form>
+<div class='editForm'>
+	<form>
+		<div class="edit_line">
+			<label for="entry_name" class="label_edit">Name </label>
+			<br />
+			<input name="entry_name" value="<?php echo $entry->getName();?>" />
+		</div>
+		<div class="edit_line">
+			<label for="entry_url" class="label_edit">Url </label>
+			<br />
+			<input name="entry_url" value="<?php echo $entry->getUrl();?>" />
+		</div>
+		<div class="edit_line">
+			<label for="entry_details" class="label_edit">Details </label>
+			<br />
+			<textarea name="entry_details" class="edit_textarea"><?php echo $entry->getDetails();?></textarea>
+		</div>
+		<div class="edit_line">
+			<label for="entry_tags" class="label_edit">Tags </label>
+			<br />
+			<input name="entry_tags" value="<?php echo $tags;?>" />
+		</div>
+		
+		<a href="#" class="iconCell acceptEditEntry">
+			<img src="images/accept.png" alt="Create"/>
+		</a>
+		<a href="#" class="iconCell cancelEditEntry">
+			<img src="images/cross.png" alt="Cancel"/>
+		</a>
+	</form>
+</div>

@@ -110,7 +110,7 @@ class Database extends PDO{
 	* return an entry
 	*/
 	function getEntry($id_entry){
-		$sql = "SELECT id_entry, name, url, details 
+		$sql = "SELECT id_entry, name, url, details, creation_date, update_date
 				FROM entry 
 				WHERE id_entry = :id_entry";
 		try{

@@ -19,14 +19,23 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<script type="text/javascript" src="js/jquery.corner.js"></script>  
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/tooltips.js"></script>
+		<script type="text/javascript" src="js/jquery.simpleautogrow.js"></script>
 	</head>
 	<body>
 		<div id="page">
 			<div id="header">
 				<div id="title">my.brain</div>
+				<div id="menu" class="blocShadows">
+					<a class="iconCell newList" href="#">
+						<img class="entryIcon" src="images/add.png" alt="add"/>
+					</a>
+					<a class="iconCell editMenu" href="#">
+						<img class="entryIcon" src="images/edit.png" alt="edit"/>
+					</a>
+				</div>
 			</div>
 			<div id="memoDiv">
-				<textarea id="memo" class="smallText"><?php echo $content['memo'] ?></textarea>
+				<textarea id="memo" class="smallText blocShadows"><?php echo $content['memo'] ?></textarea>
 				<p id="save_memo">
 					<button type="button" onclick="writeMemoToDb()">Enregistrer</button>
 					<span id="message_memo">
@@ -41,65 +50,46 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 						foreach($content['entry_lists'] as $entry_list): 
 							if($entry_list->getCol() == $i):
 						?>
-								<div class="entryList">	  
-									<div class="entryTitle">
-										<table>
-											<tr name="<?php echo $entry_list->getId();?>">
-												<td class="tdListTitle">
-													<a href="#"><?php echo $entry_list->getTitle(); ?></a>
-												</td>  
-												<td class="iconCell">
-													<a class="iconCell newEntry" href="#">
-														<img class="entryIcon" src="images/add.png" alt="add"/>
-													</a>
-												</td>											
-												<td class="iconCell">
-													<a class="iconCell editList" href="#">
-														<img class="entryIcon" src="images/edit.png" alt="edit"/>
-													</a>
-												</td>						
-											</tr>
-											<?php 
-											if ($entry_list->getCollapsed()){
+								<div class="entryList blocShadows" name="<?php echo $entry_list->getId();?>">	  
+									<div class="entryListHeader">
+										<div class="entryListTitle">
+											<div class="entryListName">
+												<?php echo $entry_list->getTitle(); ?>
+											</div> 
+											<div style='float:right'>
+												<a class="iconCell newEntry" href="#">
+													<img class="entryIcon" src="images/add.png" alt="add"/>
+												</a>									
+												<a class="iconCell editList" href="#">
+													<img class="entryIcon" src="images/edit.png" alt="edit"/>
+												</a>
+											</div>
+										</div>
+										<div style="clear:both;" class="entryListTags">
+											<div class="tags" <?php if ($entry_list->getCollapsed()){echo "style='display:none'";}?>>
+											<?php
+												$tags = $entry_list->getTagsEntries();
+												if ($tags):
+													sort($tags);
+													foreach ($tags as $tag):
+														?>
+														<span class="selected tag_header">
+														<?php
+														echo $tag." ";
+														?>
+														</span>
+														<?php
+													endforeach;
+												endif;
 											?>
-												<tr style="display:none;">
-											<?php 
-											}else{
-											?>
-												<tr>
-											<?php 
-											}
-											?>
-												<td colspan=4 class="tags">
-												<?php
-													$tags = $entry_list->getTagsEntries();
-													if ($tags):
-														sort($tags);
-														foreach ($tags as $tag):
-															?>
-															<span class="selected tag_header">
-															<?php
-															echo $tag." ";
-															?>
-															</span>
-															<?php
-														endforeach;
-													endif;
-												?>
-													<span class="switch_header">
-														all
-													</span>
-													<span class="switch_header">
-														none
-													</span>
-													<!--
-													<span class="switch_header">
-														<img class="eye" src="images/eye.png" alt="eye"/>
-													</span>													
-													-->
-												</td>
-											</tr>
-										</table>  
+												<span class="switch_header">
+													all
+												</span>
+												<span class="switch_header">
+													none
+												</span>
+											</div>
+										</div>
 									</div>    
 									<?php 
 									if ($entry_list->getCollapsed()){
@@ -118,7 +108,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 												<div class="entryBody smallText <?php echo $entry->getId()?>" name="<?php echo $entry->getId()?>">								
 													<?php if($entry->getUrl()):?>
 														<a class="url" href="<?php echo $entry->getUrl();?>">
-															<?php echo shortenUrl($entry->getUrl(), 30);?>
+															<?php echo shortenUrl($entry->getUrl(), 28);?>
 														</a>
 													<?php endif;?>
 													<div style='float:right'>
