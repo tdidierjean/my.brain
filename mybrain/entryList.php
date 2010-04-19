@@ -13,14 +13,28 @@ class EntryList{
     private $tags = array();
     private $tags_entries = array();
 	
-    function __construct($id, $title, $col, $rank, $collapsed){
+    function __construct($id=0, 
+						 $title="", 
+						 $col=0, 
+						 $rank=0, 
+						 $collapsed=0){
         $this->id = $id;
         $this->title = $title;
 		$this->col = $col;
 		$this->rank = $rank;
 		$this->collapsed = $collapsed;
     }
-        
+     
+	static function getFromDb($id_list){
+		$db = Database::getInstance();
+		$fetchedLine = $db->getEntryList($id_list);
+		return new EntryList($fetchedLine["id_list"], 
+							 $fetchedLine["title"],
+							 $fetchedLine["col"], 
+							 $fetchedLine["rank"],
+							 $fetchedLine["collapsed"]);
+	}
+	 
     function addEntry($newEntry){
         $this->entries[] = $newEntry;
     }
@@ -68,6 +82,9 @@ class EntryList{
     }
     
 	function getTags(){
+		if (!$this->tags){
+			$this->tags = $this->getTagsFromDb();
+		}
 		return $this->tags;
 	}
 
@@ -78,6 +95,11 @@ class EntryList{
 	function getCollapsed(){
 		return $this->collapsed;
 	}
+	
+	private function getTagsFromDb(){
+		$db = Database::getInstance();
+		$tags = $db->getEntryListTags($this->id);
+		return $tags;
+	}
 }
 ?>
-	    
