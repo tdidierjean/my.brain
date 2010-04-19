@@ -1,3 +1,10 @@
+<?php
+require_once('init.php');
+
+// User already exists ?
+$user = $db->existsUser();		
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 <head>
@@ -8,24 +15,26 @@
 	<script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body>
-	<div id='login' class="loginBloc">
+	<div id='setup' class="loginBloc">
 		<?php
-		if (isset($_GET["no_session"]) && $_GET["no_session"] == 1){
+		if ($user){
 		?>
 			<div style="padding: 0pt 0.7em;" class="ui-state-error ui-corner-all"> 
 				<p><span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-alert"></span> 
-					<strong>Alert:</strong> Login denied.
+					<strong>Alert:</strong> A user already exists.
 				</p>
 			</div>
 			<br />
 		<?php
 		}
 		?>
-		<form method="post" action="auth.php">
+		<form method="post" action="createUser.php">
 			<label for="username">Username: </label><br />
 			<input type="text" name="username" id="username"><br />
 			<label for="password">Password: </label><br />
 			<input type="password" name="password" id="password"><br />
+			<label for="password2">Confirm password: </label><br />
+			<input type="password" name="password2" id="password2"><br />
 			<input type="submit" name="submit" id="submit" value="Submit">
 		</form>
 	</div>

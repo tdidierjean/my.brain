@@ -123,9 +123,9 @@ class Database extends PDO{
 		return $content;
 	}	
 	
-	function getUtilisateur($username) {
+	function getUser($username) {
 		$sql = "SELECT password
-    			FROM member
+    			FROM user
       			WHERE username = :username";
 		try{
 			$query = parent::prepare($sql);
@@ -135,6 +135,30 @@ class Database extends PDO{
 		}	
 		$content = $query->fetch();
 		return $content;
+	}
+	
+	function existsUser() {
+		$sql = "SELECT username from user";
+		try{
+			$query = parent::prepare($sql);
+			$query->execute();
+		}catch (PDOException $e) {
+			return $e->getMessage();
+		}	
+		$content = $query->fetch();
+		return $content;		
+	}
+	
+	function createNewUser($username, $password){
+		$sql = "INSERT INTO user (username, password) 
+				VALUES (:username, :password)";
+		try{
+			$query = parent::prepare($sql);
+			$query->execute(array(':username' => $username,
+								  ':password' => $password));
+		}catch (PDOException $e) {
+			return $e->getMessage();
+		}		
 	}
 	
 	function setNewEntry($id_list, $name, $url, $details){
@@ -454,7 +478,7 @@ class Database extends PDO{
 	/**
 	* Create an entry list
 	*/
-	function setNewEntryList($title, $col, $rank){
+	function setNewEntryList($title, $col, $rank, $tags){
 		$sql = "INSERT INTO entrylist (title, col, rank) 
 				VALUES (:title, :col, :rank)";
 		try{

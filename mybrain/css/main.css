@@ -10,7 +10,7 @@ body {
 	-webkit-box-shadow:1px 1px 12px #555; 
 }
 
-div#login {
+.loginBloc {
 	margin:200px auto;
 	width: 200px;
 	padding: 40px;
