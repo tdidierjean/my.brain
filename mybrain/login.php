@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body>
-	<div id='login'>
+	<div id='login' class="loginBloc">
 		<?php
 		if (isset($_GET["no_session"]) && $_GET["no_session"] == 1){
 		?>
