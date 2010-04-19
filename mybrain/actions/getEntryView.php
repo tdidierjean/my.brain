@@ -30,7 +30,7 @@ else{
 <div class="entryBody smallText <?php echo $id_entry;?>" name="<?php echo $id_entry;?>">								
 	<?php if($entry["url"]):?>
 		<a class="url" href="<?php echo $entry["url"];?>">
-			<?php echo shortenUrl($entry["url"], 30);?>
+			<?php echo shortenUrl($entry["url"], 35);?>
 		</a>
 	<?php endif;?>
 	<div style='float:right'>

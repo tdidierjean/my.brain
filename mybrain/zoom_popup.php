@@ -7,6 +7,13 @@ $content = $db->getEntry($_REQUEST['id_entry']);
 <a href="<?php echo $content['url'];?>"><?php echo $content['url'];?></a>
 <br />
 <textarea class="zoom"><?php echo stripslashes($content['details']);?></textarea>
+<br />
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('textarea.zoom').simpleautogrow();
+	});
+</script>
 <!--
 <html>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
