@@ -8,6 +8,7 @@ body {
 .shadows{
 	-moz-box-shadow:1px 1px 12px #555; 
 	-webkit-box-shadow:1px 1px 12px #555; 
+	box-shadow:1px 1px 12px #555;
 }
 
 .loginBloc {
@@ -421,4 +422,5 @@ textarea.edit_textarea{
 .corners{
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }

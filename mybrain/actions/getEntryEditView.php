@@ -5,8 +5,6 @@ if (!$_SESSION["logged"]){
 }
 
 require_once("../init.php");
-require_once("../fonctions.php");
-
 require_once("../entry.php");
 
 $id_entry = $_REQUEST["id_entry"];

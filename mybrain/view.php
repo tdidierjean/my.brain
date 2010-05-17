@@ -65,13 +65,13 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 										<div style="clear:both;" class="entryListTags">
 											<div class="tags" <?php if ($entry_list->getCollapsed()){echo "style='display:none'";}?>>
 											<?php
-												$tags = $entry_list->getTagsEntries();
-												$primary_tags = $entry_list->getTags();
+												$tags = $entry_list->getEntriesTags();
+												$main_tags = $entry_list->getMainTags();
 												if ($tags):
 													sort($tags);
 													foreach ($tags as $tag):
 														?>
-														<span class="selected tag_header<?php if (in_array($tag, $primary_tags)) echo " primary";?>"><?php echo $tag;?></span>
+														<span class="selected tag_header<?php if (in_array($tag, $main_tags)) echo " primary";?>"><?php echo $tag->getTagText();?></span>
 														<span> </span>
 														<?php
 													endforeach;
@@ -119,7 +119,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 														if ($tags):
 															foreach ($tags as $tag):
 																?>
-																<span><?php echo $tag;?></span>
+																<span><?php echo $tag->getTagText();?></span>
 																<?php
 															endforeach;
 														endif;
@@ -127,11 +127,11 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 													</div>
 													<?php if($entry->getUrl()):?>
 														<a class="url" href="<?php echo $entry->getUrl();?>">
-															<?php echo shortenUrl($entry->getUrl(), 35);?>
+															<?php echo $entry->getShortenedUrl(35);?>
 														</a>
 													<?php endif;?>
 													<div class="entryDetails">
-														<?php echo $entry->getDetails();?>
+														<?php echo $entry->getDetailsHtmlDisplay();?>
 													</div>
 												</div>
 											<?php endforeach; ?>

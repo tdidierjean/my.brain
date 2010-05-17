@@ -5,34 +5,24 @@ if (!$_SESSION['logged']){
 }
 
 require_once('../init.php');
-require_once('../fonctions.php');
+require_once("../entry.php");
 
 $id_entry = $_REQUEST['id_entry'];
 if (!$id_entry){
 	throw Exception("No id_entry specified !");
 }
 
-$entry = $db->getEntry($id_entry);
+$entry = Entry::getFromDb($id_entry);
+$tags = $entry->getTags();
 
 foreach($entry as $i => $field){
 	$field = stripslashes($field);
 	$entry[$i] = nl2br($field);
 }
-$tags = $db->getEntryTags($id_entry);
-/*if ($tags){
-	$entry['tags'] = implode(' ', $tags);//_array);
-}
-else{
-	$entry['tags'] = "";
-}*/
+
 ?>
-<h3 class="customAccordion <?php echo $id_entry;?>"><a href="#"><?php echo $entry["name"];?></a></h3>
+<h3 class="customAccordion <?php echo $id_entry;?>"><a href="#"><?php echo $entry->getName();?></a></h3>
 <div class="entryBody smallText <?php echo $id_entry;?>" name="<?php echo $id_entry;?>">								
-	<?php if($entry["url"]):?>
-		<a class="url" href="<?php echo $entry["url"];?>">
-			<?php echo shortenUrl($entry["url"], 35);?>
-		</a>
-	<?php endif;?>
 	<div style='float:right'>
 		<a class="iconCell" href="zoom_popup.php?id_entry=<?php echo $id_entry;?>" rel="#overlay"> 
 			<img class="entryIcon" src="images/zoom.png" alt="zoom"/>
@@ -55,7 +45,12 @@ else{
 		endif;
 		?>
 	</div>
+	<?php if($entry->getUrl()):?>
+		<a class="url" href="<?php echo $entry->getUrl();?>">
+			<?php echo $entry->shortenUrl($entry->getUrl(), 35);?>
+		</a>
+	<?php endif;?>
 	<div class="entryDetails">
-		<?php echo $entry["details"];?>
+		<?php echo $entry->getDetailsHtmlDisplay();?>
 	</div>
 </div>

@@ -1,7 +1,10 @@
 <?php 
 $CONFIG['dbType'] = 'mysql'; 
 $CONFIG['host'] = 'localhost';
-$CONFIG['user'] = 'root';
-$CONFIG['password'] = '';
-$CONFIG['db'] = 'my_database_name'
+$CONFIG['user'] = 'username';
+$CONFIG['password'] = 'password';
+$CONFIG['db'] = 'artificiwbrain';
+
+define('ROOT', dirname(__FILE__));
+
 ?>

@@ -1,18 +1,23 @@
 <?php
 session_start();
-if (!$_SESSION["logged"]){
-    header("Location: ../login.php");
+
+if (!$_SESSION['logged']){
+    echo "<script type='text/javascript'>window.location.replace('login.php');</script>";
+	exit();
 }
 
 require_once("../init.php");
-require_once("../fonctions.php");
 require_once("../entryList.php");
 
-if (!$_REQUEST["id_list"]){
-	throw Exception("No id_list specified !");
+if (!isset($_REQUEST["id_list"]) || !$_REQUEST["id_list"]){
+	throw Exception("Missing arguments !");
 }
 
 $entry_list = EntryList::getFromDb($_REQUEST["id_list"]);
+if (!entry_list){
+	echo "This list does not exist.";
+	exit;
+}
 $tags = $entry_list->getTags();
 $tags = implode (" ", $tags);
 

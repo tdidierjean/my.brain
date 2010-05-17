@@ -40,7 +40,7 @@ class Entry{
 	}
 
 	function getName(){
-	    return $this->name;
+	    return stripslashes($this->name);
 	}
 	
 	function getUrl(){
@@ -48,9 +48,13 @@ class Entry{
 	}
 	
 	function getDetails(){
-		return $this->details;
+		return stripslashes($this->details);
 	}
-
+	
+	function getDetailsHtmlDisplay(){
+		return nl2br(stripslashes($this->details));
+	}
+	
 	function getCreationDate(){
 		return $this->creation_date;
 	}
@@ -75,5 +79,21 @@ class Entry{
 		$tags = $db->getEntryTags($this->id);
 		return $tags;
 	}
+	
+	/**
+	* Return a shortened url(string) no longer than max_size
+	*/
+	static function shortenUrl($url, $max_size){
+
+		$url = str_ireplace("http://", "", $url);
+
+		if (strlen($url) > $max_size){
+			return substr($url, 0, $max_size-3) . "...";
+		}
+		else{
+			return $url;
+		}
+	}
+
 }
 ?>

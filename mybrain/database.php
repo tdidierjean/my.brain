@@ -125,7 +125,7 @@ class Database extends PDO{
 	
 	function getUser($username) {
 		$sql = "SELECT password
-    			FROM user
+    			FROM member
       			WHERE username = :username";
 		try{
 			$query = parent::prepare($sql);
@@ -311,7 +311,7 @@ class Database extends PDO{
 		}			
 	}
 	/**
-	* Get all the entries
+	* Get 
 	*/
 	function getEntryList($id_list){
 		$sql = "SELECT entrylist.id_list, entrylist.title, entrylist.col, entrylist.rank 
@@ -459,12 +459,7 @@ class Database extends PDO{
 						FROM list2tag
 					)
 				)";
-				
-		/*$sql = "SELECT DISTINCT entry.id_entry, entry.name, entry.url, entry.details
-				FROM entry 
-				JOIN entry2tag
-				ON entry2tag.id_entry = entry.id_entry
-				AND entry2tag.id_tag NOT IN (SELECT id_tag FROM list2tag)";*/
+
 		try{
 			$query = parent::prepare($sql);
 			$query->execute();
@@ -478,7 +473,7 @@ class Database extends PDO{
 	/**
 	* Create an entry list
 	*/
-	function setNewEntryList($title, $col, $rank, $tags){
+	function setNewEntryList($title, $col, $rank){
 		$sql = "INSERT INTO entrylist (title, col, rank) 
 				VALUES (:title, :col, :rank)";
 		try{
