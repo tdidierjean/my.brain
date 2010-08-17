@@ -1,0 +1,415 @@
+
+body {
+    background:#A7CFDF;/*#2B96C3*;*//*#054162;*//*#1B4963 none repeat scroll 0 0;*/
+    font-family:Arial,Helvetica,"Bitstream Vera Sans",sans-serif;
+    font-size:13px;
+}
+
+.blocShadows{
+	-moz-box-shadow:1px 1px 12px #555; 
+	-webkit-box-shadow:1px 1px 12px #555; 
+}
+
+div#login {
+	margin:200px auto;
+	width: 200px;
+	padding: 40px;
+	background: #DADFE6;
+	text-align: center;
+}
+
+div#login form {
+	margin:auto;
+}
+
+#page {
+    /*background-color: #2B96C3;*//*#F0F0F0; *//*#dadfe6;*/
+    color:#000000;
+    margin-left:auto;
+    margin-right:auto;
+    width:1196px;
+	/*width:960px;*/
+	padding-bottom:20px;  
+    line-height:1.5em;
+}
+
+#page:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+#header {
+    /*background-image: url(/mybrain/images/header-2.jpg)*/;/*url(/mybrain/images/neuron_cut.jpg);*/
+	background:#5FA4BF;/*#0A80AF;*/
+	background-position: center;
+    min-height: 80px;
+    
+}
+
+#title {
+	color: #F0F0F0;/*#CBF1FA;*/
+	font-size: 38px;
+	padding:30px 0 0 30px;
+}
+
+#memoDiv{
+	/*width:40%;*/
+	width:405px;
+	float:left;
+	margin:10px 10px 10px 0;
+}
+
+textarea#memo {
+    /*width: 40%;*/
+    width:100%;
+    height: 500px;
+    border:1px solid #578AAB;
+    background:#F0F0F0;/*#CFDDE7;*/
+    padding:5px;
+    float:left;
+}
+
+#entriesDiv{
+	/*width:827px;*/
+	float:left;
+}
+
+.entryList{
+    /*border:1px solid #0A80AF;*//*#578AAB;*/
+    margin:10px 0px 0px 10px;
+    float:left;
+    /*width:46%;*/
+    width:250px;
+    /*padding: 0.5em;*/
+	background:#CFDDE7;
+}
+
+.entryListHeader{
+	font-size:16px;
+	line-height:0.9em;
+	/*background:#0A80AF;*/
+	/*url("http://jqueryui.com/themeroller/images/?new=2191c0&w=500&h=100&f=png&q=100&fltr[]=over|textures/12_gloss_wave.png|0|0|40");*/
+	/*background:#3785ad;*/
+	padding: 3px;
+	background-color: #CFDDE7;
+}
+
+.entryContent{
+	line-height: 0.8em;
+}
+
+table.entriesTable{
+border-collapse:collapse;
+
+}
+	
+tr.entryRow{
+	border:1px #98bed1;
+	/*border-style: none none solid none;*/
+	color:111111;
+}
+
+tr.entryRow td{
+    border-style: none none solid none;
+    border-color: #A4BCDD;
+    border-width: 1px;
+}
+td.entryCell{
+	padding: 0 0 0 4px;
+}
+
+.iconCell{
+    vertical-align:top;
+    width:5%;
+}
+
+.iconCell img{
+    /*cursor:pointer;*/
+	border:none;
+	padding: 0 0 0 2px;
+}
+
+td.newEntryCell{
+	padding: 0 0 0 4px;
+}
+a{
+	color:#0F40A9;
+	text-decoration: none;
+}
+
+.newEntryTable{
+	
+}
+
+.newEntryTable td{
+	width:140px;
+}
+
+.newEntryTable input{
+	color:#009900;
+	width:95%;
+}
+
+.moreText{
+	/*line-height: 1em;
+	padding: 5px;*/
+    background:#CFDDE7;
+	width:93%;
+    border:1px solid #578AAB;
+	overflow:visible;
+    font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
+    font-size:13px;
+	display:none;
+}
+
+
+img.collapse{
+	float:left;
+}
+
+#small_page {
+    background-color:#dadfe6;
+    color:#000000;
+    margin-left:auto;
+    margin-right:auto;
+	padding: 2px 5px 5px 5px;
+    /*width:960px;
+    min-height: 1700px;*/
+    /*font-family:Verdana,"Bitstream Vera Sans",Arial,Helvetica,sans-serif;*/
+    line-height:1.5em;
+	min-height:434px;
+}
+
+h1{
+	font-size:200%;
+}
+
+h2{
+	font-size:130%;
+}
+
+.editForm input,textarea{
+	width:96%;
+}
+
+textarea.zoom{
+    background:#CFDDE7;
+	width:100%;
+	/*height:322px;*/
+    border:1px solid #578AAB;
+	overflow:visible;
+    font-family:Helvetica,"Bitstream Vera Sans",sans-serif;
+    font-size:13px;
+}
+
+.tags{
+	font-size:12px;
+}
+
+.selected{
+/*	font-weight:bold;*/
+	color: #005B7F !important;/*#FFD39F */
+}
+
+.tag_header{
+	/*color:#fefefe;/*#CFDDE7;*/
+	color:#789FAF;
+	cursor:pointer;
+	font-weight:bold;
+}
+
+.switch_header{
+	/*color:#CFDDE7;*/
+	font-style:italic;
+	cursor:pointer;
+}
+
+div.column_div{
+	width:260px;
+	/*width:31.2%;*/
+	float:left;
+}
+
+label.label_edit{
+	font-size:13px;
+}
+
+td.tags span {
+   vertical-align: middle;
+   display: inline-block;
+}
+
+.hidden{
+	display:none;
+}
+
+p#save_memo button span { 
+	float:left;
+	vertical-align: middle;
+	display: inline-block; 
+}
+
+span#message_memo{
+	margin: 0 0 0 15px;
+	padding: 2px 5px;
+}
+
+/* use a semi-transparent image for the overlay */ 
+#overlay { 
+    /*background-image:url(http://static.flowplayer.org/img/overlay/transparent.png); */
+    color:#efefef; 
+   /* height:450px; */
+} 
+ 
+/* container for external content. uses vertical scrollbar, if needed */ 
+.contentWrap { 
+    height:441px; 
+    overflow-y:auto; 
+}
+
+/* the overlayed element */ 
+.apple_overlay { 
+     
+	border:2px solid;
+    /* initially overlay is hidden */ 
+    display:none; 
+     
+    /* growing background image */ 
+    /*background-image:url(../images/overlay/white.png); */
+     
+    /*  
+        width after the growing animation finishes 
+        height is automatically calculated 
+    */ 
+    width:590px;      
+     
+    /* some padding to layout nested elements nicely  */ 
+    /*padding:35px; */
+ 
+    /* a little styling */     
+    font-size:11px; 
+} 
+ 
+/* default close button positioned on upper right corner */ 
+.apple_overlay div.close { 
+    background-image:url(../images/overlay/close.png); 
+    position:absolute; right:-18px; top:-18px; 
+    cursor:pointer; 
+    height:35px; 
+    width:35px; 
+}
+/*
+.tooltip { 
+    display:none; 
+    background-color:#ffa; 
+    border:1px solid #cc9; 
+    padding:3px; 
+    font-size:13px; 
+    -moz-box-shadow: 2px 2px 11px #666; 
+    -webkit-box-shadow: 2px 2px 11px #666; 
+}*/
+div.tooltip { 
+    background-color:#000; 
+    border:1px solid #fff; 
+    padding:3px 6px; 
+    /*width:200px; */
+    display:none; 
+    color:#fff; 
+    text-align:left; 
+    font-size:12px; 
+ 
+    /* outline radius for mozilla/firefox only */ 
+    -moz-box-shadow:0 0 10px #000; 
+    -webkit-box-shadow:0 0 10px #000; 
+}
+
+.table_tooltip{
+    /*background-color:#000; */
+    border:1px solid #fff; 
+    padding:3px 6px; 
+    /*width:200px;*/
+    display:none; 
+    color:#fff; 
+    text-align:left; 
+    font-size:12px; 
+ 
+    /* outline radius for mozilla/firefox only */ 
+    -moz-box-shadow:0 0 10px #000; 
+    -webkit-box-shadow:0 0 10px #000; 
+}
+
+.entryListName {
+	color:#06485F;
+	display: block;
+	float:left;
+	width:83%;
+	padding-top:1px;
+}
+
+.entryListName:hover{
+	cursor:pointer;
+}
+
+a.url{
+	color:#555ddd;
+}
+
+div.entryBody{
+	padding-top: 5px;
+}
+
+div.entryDetails{
+	margin: 0 0 5px 0;
+}
+
+div.entryTags{
+	font-size: 12px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	color:#005B7F;
+}
+
+h3.customAccordion{
+	margin: 0px !important;
+}
+
+.test{
+	background-image:url("../css/custom-theme/images/ui-icons_454545_256x240.png");
+}
+
+.test span{
+background-position:-32px -128px;
+}
+
+.fg-button { 
+left:50%;
+margin-left:-8px;
+margin-top:-8px;
+position:absolute;
+top:50%; 
+   }
+
+
+.smallText{
+	font-family: Arial, Tahoma !important;
+	font-size: 13px !important;
+}
+
+#menu{
+	background-color:#CFDDE7;
+	margin-left:550px;
+	padding:5px 10px 0 10px;
+	text-align:center;
+	/*width:100px;*/
+	float:left;
+}
+
+.formHeader{
+	background-color: #CFDDE7;
+	color: #000;
+}
+
+textarea.edit_textarea{
+	height: 30px;
+}
