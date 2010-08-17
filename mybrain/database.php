@@ -218,15 +218,6 @@ class Database extends PDO{
 	
 	function addTagToEntry($id_entry, $tag_text){
 		$tag_text = strtolower($tag_text);
-		/*$sql = "SELECT id_tag, tag_text
-				FROM tags
-				WHERE tag_text = :tag_text";
-		try{
-			$query = parent::prepare($sql);
-			$query->execute(array(':tag_text' => $tag_text));
-		}catch (PDOException $e) {
-			return $e->getMessage();
-		}	*/
 		$id_tag = $this->getTagId($tag_text);
 		if (!$id_tag){
 			$this->createTag($tag_text);
@@ -364,23 +355,7 @@ class Database extends PDO{
 		$content = $query->fetchAll(PDO::FETCH_ASSOC);
 		return $content;
 	}
-	
-	/**
-	* Get all tags in db
-	*/
-	function getAllTags(){
-		$sql = "SELECT id_tag, tag_text
-				FROM tags";
-		try{
-			$query = parent::prepare($sql);
-			$query->execute();
-		}catch (PDOException $e) {
-			return $e->getMessage();
-		}
-		$content = $query->fetchAll(PDO::FETCH_ASSOC);
-		return $content;
-	}
-	
+		
 	/**
 	* Get the tags linked to an entry list
 	*/

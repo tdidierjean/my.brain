@@ -589,6 +589,7 @@ function cancelEditEntryList(obj){
 * Toggle an entire entry list
 */
 function moreEntryList(obj) {
+	var collapsed;
 	var entryList = $(obj).parents("div.entryList");
 	var content = entryList.find("div.entryContent");
 	// toggle the tag headers
@@ -598,8 +599,12 @@ function moreEntryList(obj) {
 	content.toggle();
 	
 	// Update collapsed bool in db
-	var tr = $(obj).parents("tr");
-	var id = tr.attr("name");
+	var id = entryList.attr("name");
+	if (content.is(":visible")){
+		collapsed = 0;
+	}else{
+		collapsed = 1;
+	}
 	$.post("actions/updateListCollapse.php", 
 			{
 				id_list:id,
@@ -622,9 +627,11 @@ function deleteEntryList(obj){
 	tr.html(html);
 }
 
+/*
 function getAllTags(obj, id_list){
 	$(obj).load("actions/getAllTags.php", {"id_list":1});
 }
+*/
 
 function getEntryBlock(obj){
 	var div_entry = $(obj).parents("div.entryBody");
