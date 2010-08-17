@@ -68,55 +68,45 @@ function cancelEditEntry(obj){
 */
 function newEntry(obj){
 	var title_div = $(obj).parents("div.entryListHeader");
+	var id_list = title_div.parent().attr("name");
 	var accordion = title_div.next().find("div.accordion");
 
 	/* If a new entry doesn't exists already, create one */
-	if (!accordion.find(".newAccordionEntry").length){
-		var default_tags = $(title_div).parents("div.entryList").find("span.tag_header").html();
-		
-		$.post("actions/getEntryEditView.php", 
-			{
-				id_entry:"new",
-				default_tags:default_tags
-			},
+	//if (!accordion.find(".newAccordionEntry").length){
+		var default_tags = $(title_div).parents("div.entryList").find("span.primary").text();
+
+		$.post("actions/getNewEntryView.php", 
+			{id_list:id_list},
 			function(data){
 				accordion.append(data);
-				
+
 				/* Reset accordion */
 				accordion.accordion('destroy').accordion({
 						collapsible: true,
 						autoHeight: false,
 						active: false});
-						
-				
-						
-				/* Open the entry */
-				accordion.accordion("activate", accordion.find(".newAccordionEntry"));
-				
+
+				/* Set the entry as active */
+				accordion.accordion("activate", accordion.find("h3:last"));
+				//accordion.accordion("activate", accordion.find(".newAccordionEntry"));
+
+				new_entry_div = accordion.find("div.editForm:last");
+
 				/* Make the details textarea autogrow */
-				accordion.find(".editForm textarea").simpleautogrow();
-			
-				var accept = div_entry.find("a")[0];
+				/*accordion.find(".editForm textarea")*/
+				new_entry_div.find("textarea").simpleautogrow();
+
+				var accept = new_entry_div.find("a")[0];
 				// Enter key validates the form if focus is on any input field,
 				// but not if it's on textarea: it's still newline
-				div_entry.find("input").keydown(function(event){
+				new_entry_div.find("input").keydown(function(event){
 					if (event.keyCode == 13){
 						$(accept).click();
 					}
 				});
 			}
-		  );
-		/*
-		var html = "<h3 class='accordion newAccordionEntry'><a href='#'>New entry</a></h3>"
-					 + "<div class='editForm'><form><table class='edit_table'><tr><td><label for='entry_name'>Name </label></td><td><input name='entry_name' /></td></tr>"
-					 + "<tr><td><label for='entry_url'>Url </label></td><td><input name='entry_url' /></td></tr>"
-					 + "<tr><td><label for='entry_details'>Details </label></td><td><textarea class='edit_textarea' name='entry_details'></textarea></td></tr>"
-					 + "<tr><td><label for='entry_tags'>Tags</label></td><td><input name='entry_tags' value=" + default_tags + "/></td></tr></table>"
-					 + "<img src='images/accept.png' alt='Create' onclick='writeEntryToDb(this)' class='imgAccept'/>"
-					 + "<img src='images/cross.png' alt='Cancel' onclick='cancelNew(this)' class='imgAccept'/></form></div>";
-		*/		
-
-	}
+		);
+	//}
 }
 
 /**
@@ -124,12 +114,12 @@ function newEntry(obj){
 *
 * @param obj => a dom element from inside the new entry row
 */
-function writeEntryToDb(obj) {
+function createNewEntry(obj) {
 	var new_entry_form = $(obj).parents("form");
 	var id_list = 0;
-	var input_fields = new_entry_form.find(":input");
+	var input_fields = new_entry_form.find("input, textarea[name='entry_details']");
 	
-	$.post("actions/writeEntryToDb.php", 
+	$.post("actions/createEntry.php", 
 			{
 				id_list:id_list, 
 				name:input_fields[0].value,
@@ -138,13 +128,13 @@ function writeEntryToDb(obj) {
 				tags:input_fields[3].value
 			},
 			function(data){
-				//refreshEntryAfterAdd(data['id_entry'], new_entry_form);
-				refreshEntry(data['id_entry'], new_entry_form, "add");
+				refreshEntry(data, new_entry_form, "add");
 			},
 			"json"
 		  );	
 	return false;
 }
+
 
 /**
  * Display the new entry in place and an 'add new entry' button afterwards
@@ -152,6 +142,7 @@ function writeEntryToDb(obj) {
  * @param id_entry => the new entry id
  * @param obj => a dom element from inside the new entry row
  */
+ /*
 function refreshEntryAfterAdd(id_entry, obj) {
 	$.post("actions/getEntryFromDb.php", 
 			{
@@ -162,7 +153,7 @@ function refreshEntryAfterAdd(id_entry, obj) {
 			},
 			"json"
 		  );	
-}
+}*/
 
 /**
  * Retrieve an entry data and display it in place
@@ -262,7 +253,7 @@ function writeMemoToDb() {
 	
     $.ajax({
 		type: "POST",
-        url: "actions/writeMemoToDb.php",
+        url: "actions/updateMemo.php",
 		data: {content: memo.value},
         success: function(data){
           container.html(data).
@@ -291,7 +282,7 @@ function deleteEntry(obj) {
 	var div_entry = $(obj).parents("div.entryBody");
 	var id = div_entry.attr("name");
 
-	$.post("actions/deleteEntryFromDb.php", {id: id});
+	$.post("actions/deleteEntry.php", {id: id});
 	
 	// The entry can be displayed more than once
 	// so we make sure all of them are removed from display
@@ -306,9 +297,9 @@ function deleteEntry(obj) {
 function updateEntry(obj){
 	var div_entry = $(obj).parents("div.entryBody");
 	var id_entry = div_entry.attr("name");
-	var input_fields = div_entry.find(":input");
+	var input_fields = div_entry.find("input, textarea[name='entry_details']");
 
-	$.post("actions/updateEntryInDb.php", 
+	$.post("actions/updateEntry.php", 
 			{
 				id_entry:id_entry,
 				name:input_fields[0].value,
@@ -328,7 +319,7 @@ function updateEntry(obj){
 *
 * @param obj => a dom element from inside the entry row
 */
-function cancelNew(obj){
+function cancelNewEntry(obj){
 	var editForm = $(obj).parents(".editForm");
 	editForm.prev().remove();
 	editForm.remove();
@@ -346,13 +337,6 @@ function bindEvents(){
 		animated: false
 	});
 
-	/* Draw pretty corners */
-	$(".entryList").corner("5px");
-	$("#memo").corner("5px");
-	$("#header").corner("5px");
-	$("#menu").corner("5px");
-	$(".entryListHeader").corner("5px");
-	
 	/* Bind tag toggle on click */
 	$("div.tags span").live("click", function(){
 		toggleTag($(this));
@@ -436,6 +420,27 @@ function bindEvents(){
 		cancelEditEntry(this);
 		return false;
 	});
+	
+	/* Bind accept new entry on click
+	   Note : the element is not present when the page load but can be added later */
+	$("a.acceptNewEntry").live("click", function(){
+		createNewEntry(this);
+		return false;
+	});
+
+	/* Bind cancel new entry on click
+	   Note : the element is not present when the page load but can be added later */
+	$("a.cancelNewEntry").live("click", function(){
+		cancelNewEntry(this);
+		return false;
+	});
+
+	/* Bind accept create new list on click
+	   Note : the element is not present when the page load but can be added later */
+	$("a.acceptCreateList").live("click", function(){
+		createNewEntryList(this);
+		return false;
+	});
 }
 
 /**
@@ -511,7 +516,7 @@ function editEntryList(obj){
 	var entryListTitle = entryList.find("div.entryListTitle");
 	var id_list = entryList.attr("name");
 	
-	$.post("actions/getEntryListEditView.php", 
+	$.post("actions/getListEditView.php", 
 		{
 			id_list:id_list
 		},
@@ -532,7 +537,6 @@ function editEntryList(obj){
 
 function drawEditEntryList(data, entryListTitle){
 	entryListTitle.html(data);
-	entryListTitle.corner("5px");
 	entryListTitle.next().hide();
 }
 
@@ -541,7 +545,7 @@ function updateEntryList(obj){
 	var id_list = entryList.attr("name");
 	var input_fields = entryList.find(":input");
 
-	$.post("actions/updateEntryListInDb.php", 
+	$.post("actions/updateList.php", 
 			{
 				id_list:id_list,
 				title:input_fields[0].value,
@@ -556,13 +560,14 @@ function updateEntryList(obj){
 }
 
 function refreshEntryList(id_list, entryList) {
-	$.post("actions/getEntryListHeaderView.php", 
+	$.post("actions/getListHeaderView.php", 
 			{
 				id_list:id_list
 			},
 			function(data){
 				drawEntryList(data, entryList);
-			}
+			},
+			"json"
 		  );	
 }
 
@@ -584,6 +589,7 @@ function cancelEditEntryList(obj){
 * Toggle an entire entry list
 */
 function moreEntryList(obj) {
+	var collapsed;
 	var entryList = $(obj).parents("div.entryList");
 	var content = entryList.find("div.entryContent");
 	// toggle the tag headers
@@ -593,9 +599,13 @@ function moreEntryList(obj) {
 	content.toggle();
 	
 	// Update collapsed bool in db
-	var tr = $(obj).parents("tr");
-	var id = tr.attr("name");
-	$.post("actions/updateEntryListCollapse.php", 
+	var id = entryList.attr("name");
+	if (content.is(":visible")){
+		collapsed = 0;
+	}else{
+		collapsed = 1;
+	}
+	$.post("actions/updateListCollapse.php", 
 			{
 				id_list:id,
 				collapsed:collapsed
@@ -617,9 +627,11 @@ function deleteEntryList(obj){
 	tr.html(html);
 }
 
+/*
 function getAllTags(obj, id_list){
-	$(obj).load("actions/getAllTagsFromDb.php", {"id_list":1});
+	$(obj).load("actions/getAllTags.php", {"id_list":1});
 }
+*/
 
 function getEntryBlock(obj){
 	var div_entry = $(obj).parents("div.entryBody");
@@ -630,10 +642,26 @@ function getEntryBlock(obj){
 }
 
 function newEntryList(){
-	$.post("actions/getNewEntryListView.php", 
+	$.post("actions/getNewListView.php", 
 			function(data){
 				$("#col2").append(data);
-				$(".newListDiv").corner("5px");
 			}
 	);
+}
+
+function createNewEntryList(obj){
+	var entryList = $(obj).parents("div.entryList");
+	var input_fields = entryList.find(":input");
+
+	$.post("actions/createList.php", 
+			{
+				title:input_fields[0].value,
+				col:input_fields[1].value, 
+				rank:input_fields[2].value,
+				tags:input_fields[3].value
+			},
+			function(){
+				refreshEntryList(data['id_list'], entryList);	
+			}
+		  );			  
 }
