@@ -1,20 +1,25 @@
 <?php
 session_start();
-if (!$_SESSION["logged"]){
-    header("Location: ../login.php");
+
+if (!$_SESSION['logged']){
+    echo "<script type='text/javascript'>window.location.replace('login.php');</script>";
+	exit();
 }
 
 require_once("../init.php");
-require_once("../fonctions.php");
-require_once("../entryList.php");
+require_once("../lib/dao/entryListDAO.php");
 
-if (!$_REQUEST["id_list"]){
-	throw Exception("No id_list specified !");
+if (!isset($_REQUEST["id_list"]) || !$_REQUEST["id_list"]){
+	throw Exception("Missing arguments !");
 }
 
-$entry_list = EntryList::getFromDb($_REQUEST["id_list"]);
-$tags = $entry_list->getTags();
-$tags = implode (" ", $tags);
+$listDAO = new EntryListDAO($db);
+$entry_list = $listDAO->get($_REQUEST["id_list"]);
+if (!$entry_list){
+	echo "This list does not exist.";
+	exit;
+}
+$tags = $entry_list->getMainTags();
 
 ?>
 <h3 class='accordion'><a href='#'>New entry</a></h3>
@@ -38,7 +43,14 @@ $tags = implode (" ", $tags);
 		<div class="edit_line">
 			<label for="entry_tags" class="label_edit">Tags </label>
 			<br />
-			<input name="entry_tags" value="<?php echo $tags;?>" />
+			<input name="entry_tags" value="<?php 
+				if ($tags){
+					sort($tags);
+					foreach ($tags as $tag){
+						echo $tag->getTagText();
+					}
+				}
+				?>" />
 		</div>
 		
 		<a href="#" class="iconCell acceptNewEntry">

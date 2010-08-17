@@ -1,32 +1,23 @@
 <?php
 session_start();
-if (!$_SESSION["logged"]){
-    header("Location: ../login.php");
+if (!$_SESSION['logged']){
+    echo "<script type='text/javascript'>window.location.replace('login.php');</script>";
+	exit();
 }
 
 require_once("../init.php");
-require_once("../fonctions.php");
-require_once("../entry.php");
+require_once("../lib/dao/entryDAO.php");
 
 $id_entry = $_REQUEST["id_entry"];
 if (!$id_entry){
 	throw Exception("No id_entry specified !");
 }
 
-if ($id_entry == "new"){
-	$entry = new Entry();
-	if ($_REQUEST["default_tags"]){
-		$tags = $_REQUEST["default_tags"];
-	}else{
-		$tags = "";
-	}
-}else{
-	$entry_line = $db->getEntry($id_entry);
-	$entry = Entry::instantiateFromDb($entry_line);
-	$tags = $entry->getTags();
-	$tags = implode (" ", $tags);
-}
+$entryDAO = new EntryDAO($db);
+$entry = $entryDAO->get($id_entry);
 
+//$tags = $entry->getTags();
+$tags = $entry->getImplodedTags();//implode (" ", $tags);
 ?>
 <div class='editForm'>
 	<form>
@@ -59,3 +50,4 @@ if ($id_entry == "new"){
 		</a>
 	</form>
 </div>
+
