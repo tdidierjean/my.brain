@@ -165,6 +165,18 @@ foreach ($entry->getTags() as $new_tag){
 		}
 	}	
 	
+	function attachTagToEntry($entry, $tag){
+		$sql = "INSERT INTO entry2tag (id_entry, id_tag)
+				VALUES (:id_entry, :id_tag)";
+		try{
+			$query = $this->db->prepare($sql);
+			$query->execute(array(':id_entry' => $entry->getId(),
+								  ':id_tag' => $tag->getId()));
+		}catch (PDOException $e) {
+			return $e->getMessage();
+		}		
+	}
+	
 	/*
 	 * Create or remove links to tag in db for a modified entry 
 	 */
