@@ -123,7 +123,7 @@ class Database extends PDO{
 		return $content;
 	}	
 	
-	function getUtilisateur($username) {
+	function getUser($username) {
 		$sql = "SELECT password
     			FROM member
       			WHERE username = :username";
@@ -135,6 +135,30 @@ class Database extends PDO{
 		}	
 		$content = $query->fetch();
 		return $content;
+	}
+	
+	function existsUser() {
+		$sql = "SELECT username from user";
+		try{
+			$query = parent::prepare($sql);
+			$query->execute();
+		}catch (PDOException $e) {
+			return $e->getMessage();
+		}	
+		$content = $query->fetch();
+		return $content;		
+	}
+	
+	function createNewUser($username, $password){
+		$sql = "INSERT INTO user (username, password) 
+				VALUES (:username, :password)";
+		try{
+			$query = parent::prepare($sql);
+			$query->execute(array(':username' => $username,
+								  ':password' => $password));
+		}catch (PDOException $e) {
+			return $e->getMessage();
+		}		
 	}
 	
 	function setNewEntry($id_list, $name, $url, $details){
@@ -194,15 +218,6 @@ class Database extends PDO{
 	
 	function addTagToEntry($id_entry, $tag_text){
 		$tag_text = strtolower($tag_text);
-		/*$sql = "SELECT id_tag, tag_text
-				FROM tags
-				WHERE tag_text = :tag_text";
-		try{
-			$query = parent::prepare($sql);
-			$query->execute(array(':tag_text' => $tag_text));
-		}catch (PDOException $e) {
-			return $e->getMessage();
-		}	*/
 		$id_tag = $this->getTagId($tag_text);
 		if (!$id_tag){
 			$this->createTag($tag_text);
@@ -287,7 +302,7 @@ class Database extends PDO{
 		}			
 	}
 	/**
-	* Get all the entries
+	* Get 
 	*/
 	function getEntryList($id_list){
 		$sql = "SELECT entrylist.id_list, entrylist.title, entrylist.col, entrylist.rank 
@@ -340,23 +355,7 @@ class Database extends PDO{
 		$content = $query->fetchAll(PDO::FETCH_ASSOC);
 		return $content;
 	}
-	
-	/**
-	* Get all tags in db
-	*/
-	function getAllTags(){
-		$sql = "SELECT id_tag, tag_text
-				FROM tags";
-		try{
-			$query = parent::prepare($sql);
-			$query->execute();
-		}catch (PDOException $e) {
-			return $e->getMessage();
-		}
-		$content = $query->fetchAll(PDO::FETCH_ASSOC);
-		return $content;
-	}
-	
+		
 	/**
 	* Get the tags linked to an entry list
 	*/
@@ -435,12 +434,7 @@ class Database extends PDO{
 						FROM list2tag
 					)
 				)";
-				
-		/*$sql = "SELECT DISTINCT entry.id_entry, entry.name, entry.url, entry.details
-				FROM entry 
-				JOIN entry2tag
-				ON entry2tag.id_entry = entry.id_entry
-				AND entry2tag.id_tag NOT IN (SELECT id_tag FROM list2tag)";*/
+
 		try{
 			$query = parent::prepare($sql);
 			$query->execute();

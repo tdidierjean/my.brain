@@ -5,12 +5,13 @@ body {
     font-size:13px;
 }
 
-.blocShadows{
+.shadows{
 	-moz-box-shadow:1px 1px 12px #555; 
 	-webkit-box-shadow:1px 1px 12px #555; 
+	box-shadow:1px 1px 12px #555;
 }
 
-div#login {
+.loginBloc {
 	margin:200px auto;
 	width: 200px;
 	padding: 40px;
@@ -412,4 +413,14 @@ top:50%;
 
 textarea.edit_textarea{
 	height: 30px;
+}
+
+.primary{
+	text-decoration: underline;
+}
+
+.corners{
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
