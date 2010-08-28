@@ -470,7 +470,7 @@ function toggleTag(tag){
 			var state = false;
 			siblings.each(function(){
 				tag_sibling = $(this).html();
-				selected = entry_list.find("td.tags span:contains(" + tag_sibling + ")").hasClass("selected");
+				selected = entry_list.find("div.tags span:contains(" + tag_sibling + ")").hasClass("selected");
 				if (selected){
 					state = true;
 					return false;
@@ -566,8 +566,7 @@ function refreshEntryList(id_list, entryList) {
 			},
 			function(data){
 				drawEntryList(data, entryList);
-			},
-			"json"
+			}
 		  );	
 }
 

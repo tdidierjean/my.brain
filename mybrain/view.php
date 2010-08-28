@@ -67,6 +67,11 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 											<?php
 												$tags = $entry_list->getEntriesTags();
 												$main_tags = $entry_list->getMainTags();
+												foreach ($main_tags as $main_tag){
+													if (!in_array($main_tag, $tags)){
+														$tags[] = $main_tag;
+													}
+												}									
 												if ($tags):
 													sort($tags);
 													foreach ($tags as $tag):

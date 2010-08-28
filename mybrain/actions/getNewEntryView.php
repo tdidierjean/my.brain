@@ -47,7 +47,7 @@ $tags = $entry_list->getMainTags();
 				if ($tags){
 					sort($tags);
 					foreach ($tags as $tag){
-						echo $tag->getTagText();
+						echo $tag->getTagText() . ' ';
 					}
 				}
 				?>" />
