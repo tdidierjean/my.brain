@@ -5,17 +5,18 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 	exit();
 }
 require_once('init.php');
-require_once('lib/model/entry.php');
-require_once('lib/model/entryList.php');
+require_once('lib/dao/memoDAO.php');
 require_once('lib/dao/entryDAO.php');
 require_once('lib/dao/entryListDAO.php');
 
 // retrieve memo from db and remove slashes that were added when inserting into db
-$memo = $db->getMemo();
+$memoDAO = new MemoDAO($db);
+$memo = $memoDAO->get();
+/*
 $content['memo'] = stripslashes($memo["content"]);
 //$datetime_memo = $memo["update_date"];
 $content['memo_date'] = $memo["update_date"];
-
+*/
 // retrieve entry lists from db
 $listDAO = new EntryListDAO($db);
 $entry_lists = $listDAO->getAll();

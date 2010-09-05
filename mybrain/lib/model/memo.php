@@ -16,4 +16,12 @@ class Memo{
 	function setContent($content){
 		$this->content = $content;
 	}
+	
+	function getUpdateDate(){
+		return $this->update_date;
+	}
+	
+	function setUpdateDate($date){
+		$this->update_date = $date;
+	}
 }

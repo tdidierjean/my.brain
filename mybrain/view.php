@@ -32,11 +32,11 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 				</div>
 			</div>
 			<div id="memoDiv">
-				<textarea id="memo" class="smallText corners shadows"><?php echo $content['memo'] ?></textarea>
+				<textarea id="memo" class="smallText corners shadows"><?php echo $memo->getContent();?></textarea>
 				<p id="save_memo">
 					<button type="button" onclick="writeMemoToDb()">Enregistrer</button>
 					<span id="message_memo">
-						Last saved: <?php echo $content["memo_date"];?>
+						Last saved: <?php echo $memo->getUpdateDate();?>
 					</span>
 				</p>
 			</div>
