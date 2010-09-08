@@ -1,7 +1,7 @@
 <?php
 require_once('init.php');
 session_start();// get user info
-$user = $db->getUser($_REQUEST['username']);								
+$user = $db->getUser($_REQUEST['username']);								
 /****************************************
           Check password
 ****************************************/

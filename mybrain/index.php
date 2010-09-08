@@ -12,11 +12,7 @@ require_once('lib/dao/entryListDAO.php');
 // retrieve memo from db and remove slashes that were added when inserting into db
 $memoDAO = new MemoDAO($db);
 $memo = $memoDAO->get();
-/*
-$content['memo'] = stripslashes($memo["content"]);
-//$datetime_memo = $memo["update_date"];
-$content['memo_date'] = $memo["update_date"];
-*/
+
 // retrieve entry lists from db
 $listDAO = new EntryListDAO($db);
 $entry_lists = $listDAO->getAll();
@@ -30,12 +26,14 @@ foreach($entry_lists as $entry_list){
 }
 
 // build an entrylist with the remaining entries (orphans)
-$list_orphans = new EntryList("", "Orphan entries", 1, 5, 0);
+$list_orphans = new EntryList("", "Orphan entries", 2, 5, 0);
 $list_orphans->setMainTags(array());
 $entries_orphans = $entryDAO->getOrphans();
 if (!empty($entries_orphans)){
 	$list_orphans->setEntries($entries_orphans);
 	$list_orphans->setEntriesTags();
+}else{
+	$list_orphans->setEntries(array());
 }
 $entry_lists[] = $list_orphans;
 

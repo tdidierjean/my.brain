@@ -3,7 +3,7 @@ class Memo{
 	private $content;
 	private $update_date;
 	
-	function __construct($content,
+	function __construct($content="",
 						 $update_date=""){
 		$this->content = $content;
 		$this->update_date = $update_date;
