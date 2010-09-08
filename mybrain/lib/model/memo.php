@@ -10,7 +10,7 @@ class Memo{
 	}
 	
 	function getContent(){
-		return $this->content;
+		return stripslashes($this->content);
 	}
 	
 	function setContent($content){
