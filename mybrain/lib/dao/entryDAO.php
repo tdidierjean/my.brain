@@ -31,6 +31,25 @@ class EntryDAO{
 		return $entry;
 	}
 	
+	function getAll(){
+		$sql = "SELECT id_entry as id, name, url, details, creation_date, update_date
+				FROM entry";
+			
+		try{
+			$query = $this->db->prepare($sql);
+			$query->execute();
+		}catch (PDOException $e) {
+			return $e->getMessage();
+		}
+		
+		$entries = $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Entry");
+		/*foreach ($entries as $entry){
+			$this->getTags($entry);
+		}*/
+
+		return $entries;
+	}
+	
 	function getByList($id_list){
 		$sql = "SELECT entry.id_entry as id, entry.name, entry.url, entry.details, entry.creation_date, entry.update_date
 				FROM entry 
