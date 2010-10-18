@@ -1,5 +1,5 @@
 <?php
-
+// doit plutot heriter de la classe lucene
 class SearchEngine{
 	private $db;
 
@@ -7,4 +7,7 @@ class SearchEngine{
 	    $this->db = $db;
 	}
 	
+	function search($query){
+		
+	}
 }

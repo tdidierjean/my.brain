@@ -72,8 +72,13 @@ textarea#memo {
 }
 
 #entriesDiv{
-	/*width:827px;*/
+	width:750px;
 	float:left;
+	margin: 10px 0 0 20px;
+}
+
+#searchDiv{
+	margin: 0 0 30px 0;
 }
 
 .entryList{
