@@ -349,7 +349,8 @@ function bindEvents(){
 	});
 	
 	/* Bind edit entry on click */
-	$("a.editEntry").live("click", function(){
+	//$("a.editEntry").live("click", function(){
+	$("div.entryContent").delegate("a.editEntry", "click", function(){
 		editEntry(this);
 		return false;
 	});	
@@ -450,7 +451,7 @@ function bindEvents(){
 * @param tag => the tag as a string
 */
 function toggleTag(tag){
-	tag_text = jQuery.trim(tag.html());
+	tag_text = $.trim(tag.html());
 	entry_list = tag.parents(".entryList");
 	entry_list.find("div.accordion").accordion('activate', false);
 	if (tag_text == "all" || tag_text == "none"){

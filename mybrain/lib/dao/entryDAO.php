@@ -43,9 +43,9 @@ class EntryDAO{
 		}
 		
 		$entries = $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Entry");
-		/*foreach ($entries as $entry){
+		foreach ($entries as $entry){
 			$this->getTags($entry);
-		}*/
+		}
 
 		return $entries;
 	}

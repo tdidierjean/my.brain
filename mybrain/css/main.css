@@ -6,9 +6,9 @@ body {
 }
 
 .shadows{
-	-moz-box-shadow:1px 1px 12px #555; 
-	-webkit-box-shadow:1px 1px 12px #555; 
-	box-shadow:1px 1px 12px #555;
+	-moz-box-shadow:1px 1px 5px #555; 
+	-webkit-box-shadow:1px 1px 5px #555; 
+	box-shadow:1px 1px 5px #555;
 }
 
 .loginBloc {
@@ -19,7 +19,7 @@ body {
 	text-align: center;
 }
 
-div#login form {
+#login form {
 	margin:auto;
 }
 
@@ -75,10 +75,6 @@ textarea#memo {
 	width:750px;
 	float:left;
 	margin: 10px 0 0 20px;
-}
-
-#searchDiv{
-	margin: 0 0 30px 0;
 }
 
 .entryList{
@@ -250,7 +246,7 @@ td.tags span {
 	display:none;
 }
 
-p#save_memo button span { 
+#save_memo button span { 
 	float:left;
 	vertical-align: middle;
 	display: inline-block; 
@@ -428,4 +424,39 @@ textarea.edit_textarea{
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+}
+
+#searchDiv{
+	margin: 0 0 30px 0;
+	overflow:hidden;
+	/*border:1px solid;*/
+	background:#fff;
+}
+
+div.search{
+	float:left;
+}
+
+#search2{
+	width:480px;
+	padding:5px;
+}
+
+#resultsDiv{
+	clear:both;
+}
+
+#search1{
+	width:225px;
+	margin: 10px 0 0 10px;
+}
+
+#inputQuery{
+	float:left;
+	margin:0 5px 0 0;
+}
+
+.tagEle{
+	background: #ccc;
+	float:right;
 }

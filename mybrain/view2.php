@@ -43,13 +43,49 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 				</p>
 			</div>
 			<div id="entriesDiv">
-				<div id="searchDiv">
-					<form method="get" action="findtest.php">
-					    <input type="text" name="query" />
-					    <input type="submit" value="Search" />
-					</form>
+				<div id="searchDiv" class="corners shadows">
+					<div id="search1" class="search">
+						<div id="inputQuery">
+							<form method="get" action="findtest.php">
+							    <input type="text" name="query" />
+							</form>
+						</div>
+						<span id="searchState">
+							
+						</span>
+					</div>
+					<div id="search2" class="search">
+						<div class="tags">
+						<?php	
+							$tags = $content['all_tags'];
+							$main_tags = array();				
+							if ($tags):
+								sort($tags);
+								foreach ($tags as $tag):
+									?>
+									<span class="selected tag_header<?php if (in_array($tag, $main_tags)) echo " primary";?>"><?php echo $tag->getTagText();?></span>
+									<span> </span>
+									<?php
+								endforeach;
+							endif;
+						?>
+							<span class="switch_header">
+								all
+							</span>
+							<span class="switch_header">
+								none
+							</span>
+						</div>
+					</div>
 				</div>
 				<div id="resultsDiv" width="300px">
+					<div class="accordion">
+						<?php 
+						foreach($entries as $entry){ 
+							include('lib/view/entryView.php');
+						}
+						?>
+					</div>
 				</div>
 			</div>
 		</div>

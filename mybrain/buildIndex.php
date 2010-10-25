@@ -16,11 +16,12 @@ class EntryDocument extends Zend_Search_Lucene_Document
 	 */
 	public function __construct($document)
 	{
-		$this->addField(Zend_Search_Lucene_Field::Keyword('document_id', $document->getId()));
-		$this->addField(Zend_Search_Lucene_Field::UnIndexed('url',       $document->getUrl()));
+		$this->addField(Zend_Search_Lucene_Field::UnIndexed('document_id', $document->getId()));
+		$this->addField(Zend_Search_Lucene_Field::Keyword('url',       $document->getUrl()));
 		$this->addField(Zend_Search_Lucene_Field::UnIndexed('creation_date', $document->getCreationDate()));
-		$this->addField(Zend_Search_Lucene_Field::Text('name',          $document->getName()));
+		$this->addField(Zend_Search_Lucene_Field::Text('name',          $document->getName()), 'utf-8');
 		$this->addField(Zend_Search_Lucene_Field::Text('details',    $document->getDetails()));
+		$this->addField(Zend_Search_Lucene_Field::Text('tags',    $document->getImplodedTags()));
 	}
 }
 
@@ -31,9 +32,9 @@ $documents = $entryDAO->getAll();
 $index = Zend_Search_Lucene::create($indexPath);
 
 foreach ($documents as $document) {
-	print_r(new EntryDocument($document));
 	$index->addDocument(new EntryDocument($document));
 }
+
 // write the index to disk
 $index->commit();
 

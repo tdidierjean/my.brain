@@ -1,22 +1,46 @@
+
+/*
+ * Handles querying on the client side
+ */
 function SearchEngine(){
 	var that = this;
+	this.messageContainer = selectorCache.get("#searchState");
+	this.resultsContainer = selectorCache.get("div#resultsDiv");
+	
+	/*
+	 * Call the php script that executes the querying and display results
+	 */
 	this.search = function(query){
-		$.get("actions/search.php", 
-				{
-					query:query
-				},
-				function(data){
-					$("div#resultsDiv").html(data);
-					$(".accordion").accordion({
-						collapsible: true,
-						autoHeight: false,
-						active: 0,
-						animated: false
-					});
+		$.ajax({
+			type: "GET",
+		    url: "actions/search.php",
+			data: {query: query},
+		    success: function(data){
+				var message;
+				if ($.trim(data).length){
+					message = "Done";
+				}else{
+					message = "No results";
 				}
-			  );	
-		//dans une methode, on utilise that au lieu de this
-		//c'est parce que si la méthode est appelée de l'extérieur, par ex par un bind
-		//le this sera une référence à window et pas à l'objet
+		        that.messageContainer.html(message);
+		        // .effect("highlight",{color:'#3DFF8C'},2000);
+				that.resultsContainer.html(data);
+				$(".accordion").accordion({
+					collapsible: true,
+					autoHeight: false,
+					active: 0,
+					animated: false
+				});
+		    },
+		    error: function(req,error){
+		      if(error === 'error'){error = req.statusText;}
+		      var errormsg = 'Saved cancelled: '+error;
+		      that.messageContainer.html(errormsg).
+		        effect('highlight',{color:'#c00'},2000);
+		    },
+		    beforeSend: function(){
+		    	that.messageContainer.html('Searching...');
+		    }
+		});
 	};
 }

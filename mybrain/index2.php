@@ -8,6 +8,7 @@ require_once('init.php');
 require_once('lib/dao/memoDAO.php');
 require_once('lib/dao/entryDAO.php');
 require_once('lib/dao/entryListDAO.php');
+require_once('lib/dao/tagDAO.php');
 
 // retrieve memo from db and remove slashes that were added when inserting into db
 $memoDAO = new MemoDAO($db);
@@ -19,7 +20,8 @@ $entry_lists = $listDAO->getAll();
 
 // retrieve entries from db and relate them to entry lists
 $entryDAO = new EntryDAO($db);
-foreach($entry_lists as $entry_list){
+$entries = $entryDAO->getAll();
+/*foreach($entry_lists as $entry_list){
 	$entries = $entryDAO->getByList($entry_list->getId());
 	$entry_list->setEntries($entries);
 	$entry_list->setEntriesTags();
@@ -38,6 +40,9 @@ if (!empty($entries_orphans)){
 $entry_lists[] = $list_orphans;
 
 $content['entry_lists'] = $entry_lists;
+*/
+$tagDAO = new TagDAO($db);
+$content['all_tags'] = $tagDAO->getAll();
 
 // build the view
 require('view2.php');

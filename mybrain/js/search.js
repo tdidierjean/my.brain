@@ -1,17 +1,37 @@
-/**
-* Bind javascript events to the main view
-*/
-searchEngine = new SearchEngine();
+
+/*
+ * Cache store for DOM queries.
+ */
+function SelectorCache() {
+	var selectors = {};
+	this.get = function(selector) {
+		if(selectors[selector] === undefined) {
+			selectors[selector] = $(selector);
+		}
+		return selectors[selector]; 
+	}
+}
+ 
+var selectorCache = new SelectorCache();
 
 function bindSearchEvents(){
+	/**
+	* Bind javascript events to the main view
+	*/
 	
-	/* Bind tag toggle on click */
-	//$("#searchDiv form").live("submit", function(){
-	var timer = 5;
-	$("#searchDiv form [name=query]").keyup(function(){
-		var timeoutID = window.setTimeout("searchEngine.search($('#searchDiv form [name=query]').val())", 500);
-		console.log(timeoutID - 1);
-		window.clearTimeout(timeoutID - 1);
-		return false;
+	var searchEngine = new SearchEngine();
+	var waitingTime = 500;
+	var queryInput = selectorCache.get('#searchDiv form [name=query]');
+	
+	// Executes the search each time a character is entered in the input field
+	// and after waiting for a bit to make sure no other character is entered.
+	queryInput.keyup(function(event){
+		if ((event.keyCode > 46 && event.keyCode < 91)
+				|| event.keyCode == 8
+				|| event.keyCode == 13){
+			var timeoutID = window.setTimeout(
+					searchEngine.search, waitingTime, queryInput.val());
+			window.clearTimeout(timeoutID - 1);
+		}
 	});
 }
