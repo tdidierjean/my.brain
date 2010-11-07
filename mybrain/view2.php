@@ -14,10 +14,12 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jqueryTools/jquery.tools.min.js"></script>
 		<script type="text/javascript" src="js/jqueryUI/jquery-ui-1.7.2.custom.min.js"></script>  
-		<script type="text/javascript" src="js/main.js"></script>
+		<!--  <script type="text/javascript" src="js/main.js"></script>-->
 		<script type="text/javascript" src="js/searchEngine.js"></script>
+		<script type="text/javascript" src="js/entry.js"></script>
 		<script type="text/javascript" src="js/search.js"></script>
-		<script type="text/javascript" src="js/tooltips.js"></script>
+		<script type="text/javascript" src="js/main2.js"></script>
+		<!-- <script type="text/javascript" src="js/tooltips.js"></script>-->
 		<script type="text/javascript" src="js/jquery.simpleautogrow.js"></script>
 	</head>
 	<body>
@@ -51,8 +53,14 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 							</form>
 						</div>
 						<span id="searchState">
-							
 						</span>
+						<br />
+						<div id="globalActions">
+							<a id="createEntry" class="iconCell" href="#">
+								<img class="entryIcon" src="images/add.png" alt="add"/>
+								<span>New entry</span>
+							</a>
+						</div>
 					</div>
 					<div id="search2" class="search">
 						<div class="tags">
@@ -79,7 +87,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 					</div>
 				</div>
 				<div id="resultsDiv" width="300px">
-					<div class="accordion">
+					<div id="entriesList">
 						<?php 
 						foreach($entries as $entry){ 
 							include('lib/view/entryView.php');
@@ -92,6 +100,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 	</body>
 </html>		
 <script type="text/javascript">
-	$(document).ready(bindEvents());
 	$(document).ready(bindSearchEvents());
+	$(document).ready(bindEv());
+	/*$(document).ready(bindEvents());*/
 </script>

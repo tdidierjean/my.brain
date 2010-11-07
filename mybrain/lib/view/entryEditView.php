@@ -1,24 +1,9 @@
-<?php
-session_start();
-if (!$_SESSION['logged']){
-    echo "<script type='text/javascript'>window.location.replace('login.php');</script>";
-	exit();
-}
-
-require_once("../init.php");
-require_once("../lib/dao/entryDAO.php");
-
-if (isset($_REQUEST["id_entry"]) && $_REQUEST["id_entry"]){
-	$entryDAO = new EntryDAO($db);
-	$entry = $entryDAO->get($_REQUEST["id_entry"]);
-}else{
-	$entry = new Entry();
-}
-
-include("../lib/view/entryEditView.php");
+<?php 
+/**
+ * Included to display an edit view for an Entry $entry
+ */
 ?>
-<!--  
-<div class='editForm'>
+<div class="entry corners shadows" id="<?php echo $entry->getId()?>">
 	<form>
 		<div class="edit_line">
 			<label for="entry_name" class="label_edit">Name </label>
@@ -38,7 +23,7 @@ include("../lib/view/entryEditView.php");
 		<div class="edit_line">
 			<label for="entry_tags" class="label_edit">Tags </label>
 			<br />
-			<input name="entry_tags" value="<?php echo $tags;?>" />
+			<input name="entry_tags" value="<?php echo $entry->getImplodedTags();?>" />
 		</div>
 		
 		<a href="#" class="iconCell acceptEditEntry">
@@ -49,4 +34,3 @@ include("../lib/view/entryEditView.php");
 		</a>
 	</form>
 </div>
--->

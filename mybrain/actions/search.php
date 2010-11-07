@@ -8,7 +8,7 @@ if (!$_SESSION['logged']){
 require_once('../init.php');
 require_once('../lib/search/searchEngine.php');
 require_once('Zend/Search/Lucene.php');
-require_once('../lib/model/entry.php');
+require_once('../lib/dao/entryDAO.php');
 
 
 $query = $_REQUEST['query'];
@@ -32,17 +32,21 @@ catch (Zend_Search_Lucene_Exception $ex) {
 	$hits = array();
 }
 
+$entryDAO = new EntryDAO($db);
+
+
 if($hits){
 	$entries = array();
 	foreach ($hits as $hit){
-		$entries[] = new Entry($hit->id, 
+		$entries[] = $entryDAO->get($hit->id_entry);
+		/*$entries[] = new Entry($hit->id, 
 							 $hit->name, 
 							 $hit->url, 
-							 $hit->details); 
+							 $hit->details); */
 	}
 	
 	?>
-	<div class="accordion">
+	<div id="entriesList">
 		<?php 
 		foreach($entries as $entry){ 
 			include('../lib/view/entryView.php');

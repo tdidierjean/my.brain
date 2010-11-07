@@ -11,8 +11,6 @@ function SelectorCache() {
 		return selectors[selector]; 
 	}
 }
- 
-var selectorCache = new SelectorCache();
 
 function bindSearchEvents(){
 	/**

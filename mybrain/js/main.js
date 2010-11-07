@@ -330,13 +330,13 @@ function cancelNewEntry(obj){
 */
 function bindEvents(){
 	/* Setup accordion */
-	$(".accordion").accordion({
+	/*$(".accordion").accordion({
 		collapsible: true,
 		autoHeight: false,
 		active: false,
 		animated: false
 	});
-
+*/
 	/* Bind tag toggle on click */
 	$("div.tags span").live("click", function(){
 		toggleTag($(this));
