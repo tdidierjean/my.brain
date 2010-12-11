@@ -24,14 +24,14 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<div id="page">
 			<div id="header" class="corners">
 				<div id="title">my.brain</div>
-				<div id="menu" class="corners shadows">
+				<!--  <div id="menu" class="corners shadows">
 					<a class="iconCell newList" href="#">
 						<img class="entryIcon" src="images/add.png" alt="add"/>
 					</a>
 					<a class="iconCell editMenu" href="#">
 						<img class="entryIcon" src="images/edit.png" alt="edit"/>
 					</a>
-				</div>
+				</div>-->
 			</div>
 			<div id="memoDiv">
 				<textarea id="memo" class="smallText corners shadows"><?php echo $memo->getContent();?></textarea>
@@ -98,7 +98,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 	</body>
 </html>		
 <script type="text/javascript">
-	bkLib.onDomLoaded(function() { nicEditors.allTextAreas(); });
+	/*bkLib.onDomLoaded(function() { nicEditors.allTextAreas(); });*/
 	$(document).ready(bindSearchEvents());
 	$(document).ready(bindEv());
 	/*$(document).ready(bindEvents());*/

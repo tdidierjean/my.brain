@@ -11,17 +11,15 @@ function Entry(){
 			url: "actions/getEntryEditView.php", 
 			success: function(data){		
 				container.prepend(data);
-			},
+			}/*,
 			complete: function(){
 				new nicEditor(
 						{//fullPanel : true,
-						 buttonList: ['bold']/*, 
-						 onSave : function(content, id, instance) {
-						    alert('save button clicked for element '+id+' = '+content);
-						  }*/
+						 buttonList: ['bold']
 					}).panelInstance('edit',{hasPanel : true});
 				//nicEditors.allTextAreas();
-				}}
+				}*/
+			}
 		
 		);
 		
