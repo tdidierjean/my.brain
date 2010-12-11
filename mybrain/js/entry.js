@@ -1,16 +1,31 @@
 function Entry(){
 	var that = this;
-	
+	this.editor;
 	this.toggleEntry = function(entryDiv){
 		entryDiv.find(".entryContent").toggleClass("hidden");
 	};
 	
 	this.newEntry = function(container){
-		$.post("actions/getEntryEditView.php", 
-			function(data){		
+		$.ajax({
+			type: "GET",
+			url: "actions/getEntryEditView.php", 
+			success: function(data){		
 				container.prepend(data);
-			}
+			},
+			complete: function(){
+				new nicEditor(
+						{//fullPanel : true,
+						 buttonList: ['bold']/*, 
+						 onSave : function(content, id, instance) {
+						    alert('save button clicked for element '+id+' = '+content);
+						  }*/
+					}).panelInstance('edit',{hasPanel : true});
+				//nicEditors.allTextAreas();
+				}}
+		
 		);
+		
+		//that.editor = new nicEditor({fullPanel : true}).panelInstance('edit',{hasPanel : true});
 	};
 	
 	this.updateEntry = function(container){
@@ -40,4 +55,7 @@ function Entry(){
 				}
 			);
 	}
+	
+	this.editEntry = function(){};
+	this.deleteEntry = function(){};
 }

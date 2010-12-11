@@ -20,8 +20,8 @@ class EntryDocument extends Zend_Search_Lucene_Document
 		$this->addField(Zend_Search_Lucene_Field::Keyword('url',       $document->getUrl()));
 		$this->addField(Zend_Search_Lucene_Field::UnIndexed('creation_date', $document->getCreationDate()));
 		$this->addField(Zend_Search_Lucene_Field::Text('name',          $document->getName()), 'utf-8');
-		$this->addField(Zend_Search_Lucene_Field::Text('details',    $document->getDetails()));
-		$this->addField(Zend_Search_Lucene_Field::Text('tags',    $document->getImplodedTags()));
+		$this->addField(Zend_Search_Lucene_Field::Text('content',    $document->getDetails()));
+		$this->addField(Zend_Search_Lucene_Field::Text('tag',    $document->getImplodedTags()));
 	}
 }
 

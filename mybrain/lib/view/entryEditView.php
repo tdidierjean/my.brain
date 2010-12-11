@@ -18,7 +18,7 @@
 		<div class="edit_line">
 			<label for="entry_details" class="label_edit">Details </label>
 			<br />
-			<textarea name="entry_details" class="edit_textarea"><?php echo $entry->getDetails();?></textarea>
+			<textarea id="edit" name="entry_details" class="edit_textarea"><?php echo $entry->getDetails();?></textarea>
 		</div>
 		<div class="edit_line">
 			<label for="entry_tags" class="label_edit">Tags </label>

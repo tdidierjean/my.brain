@@ -13,7 +13,7 @@
 		if ($tags):
 			foreach ($tags as $tag):
 				?>
-				<div class="tagEle corners"><?php echo $tag->getTagText();?><img class="entryIcon" src="images/delete.png" alt="delete"/></div>
+				<div class="tagEle"><?php echo $tag->getTagText();?><img class="entryIcon deleteTag" src="images/delete.png" alt="delete"/></div>
 				<?php
 			endforeach;
 		endif;
@@ -31,6 +31,14 @@
 			<?php 
 			}
 			?>
+		</div>
+		<div class="entryOptions">
+			<a class="iconCell editEntry" href="#">
+				<img class="entryIcon" src="images/edit.png" alt="edit"/>
+			</a>
+			<a class="iconCell deleteEntry" href="#">
+				<img class="entryIcon" src="images/delete.png" alt="delete"/>
+			</a>			
 		</div>
 		<div class="entryDetails">
 			<?php echo $entry->getDetailsHtmlDisplay();?>

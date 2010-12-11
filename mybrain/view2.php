@@ -9,18 +9,16 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>my.brain</title>
 		<link href="css/main.css" media="all" rel="stylesheet" type="text/css">
-		<link href="css/custom-theme/jquery-ui-1.7.2.custom.css" media="all" rel="stylesheet" type="text/css">
-		
+		<link href="css/nicedit.css" media="all" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/jqueryTools/jquery.tools.min.js"></script>
-		<script type="text/javascript" src="js/jqueryUI/jquery-ui-1.7.2.custom.min.js"></script>  
-		<!--  <script type="text/javascript" src="js/main.js"></script>-->
+		<!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
+		<script type="text/javascript" src="js/nicedit/nicEdit.js"></script>
 		<script type="text/javascript" src="js/searchEngine.js"></script>
 		<script type="text/javascript" src="js/entry.js"></script>
 		<script type="text/javascript" src="js/search.js"></script>
 		<script type="text/javascript" src="js/main2.js"></script>
 		<!-- <script type="text/javascript" src="js/tooltips.js"></script>-->
-		<script type="text/javascript" src="js/jquery.simpleautogrow.js"></script>
+		<!--  <script type="text/javascript" src="js/jquery.simpleautogrow.js"></script>-->
 	</head>
 	<body>
 		<div id="page">
@@ -38,7 +36,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 			<div id="memoDiv">
 				<textarea id="memo" class="smallText corners shadows"><?php echo $memo->getContent();?></textarea>
 				<p id="save_memo">
-					<button type="button" onclick="writeMemoToDb()">Enregistrer</button>
+					<button type="button">Enregistrer</button>
 					<span id="message_memo">
 						Last saved: <?php echo $memo->getUpdateDate();?>
 					</span>
@@ -100,6 +98,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 	</body>
 </html>		
 <script type="text/javascript">
+	bkLib.onDomLoaded(function() { nicEditors.allTextAreas(); });
 	$(document).ready(bindSearchEvents());
 	$(document).ready(bindEv());
 	/*$(document).ready(bindEvents());*/

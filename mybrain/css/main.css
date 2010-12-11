@@ -458,8 +458,14 @@ div.search{
 }
 
 .tagEle{
-	background: #ccc;
+	background: #A7CFDF;
 	float:right;
+	height:18px;
+	margin:1px;
+	padding: 0 5px 2px 5px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
 }
 
 #entriesList{
@@ -470,7 +476,7 @@ div.search{
 	/*clear:both;*/
 	margin:5px 1px;
 	background:#fff;
-	padding:0 3px;
+	padding:0 1px 0 3px;
 	overflow:hidden;
 }
 
@@ -486,4 +492,20 @@ div.search{
 #globalActions img, span{
 vertical-align: middle;
 display: inline-block; 
+}
+
+.entryOptions{
+	float:right;
+}
+
+.entryUrl{
+	float:left;
+}
+
+.entryIcon{
+	vertical-align:middle;
+}
+
+.deleteTag{
+	cursor:pointer;
 }

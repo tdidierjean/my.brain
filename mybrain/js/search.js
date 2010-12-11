@@ -32,4 +32,12 @@ function bindSearchEvents(){
 			window.clearTimeout(timeoutID - 1);
 		}
 	});
+	
+	/* Bind search on tag click */
+	var tagContainer = selectorCache.get(".tag_header");
+	tagContainer.live("click", function(){
+		var query = "tag:" + $(this).html();
+		searchEngine.search(query);
+	});
+
 }

@@ -1,0 +1,10 @@
+.nicEdit-button{
+	background-image:url("../js/nicedit/nicEditorIcons.gif") !important;
+}
+
+.nicEdit-buttonContain{
+	opacity:1 !important;
+}
+
+.nicEdit-panelContain{
+	-moz-border-radius: 6px 6px 0 0;
