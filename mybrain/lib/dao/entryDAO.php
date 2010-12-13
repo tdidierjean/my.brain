@@ -10,6 +10,9 @@ class EntryDAO{
 	}
 	
 	function get($id){
+		if (!is_numeric($id) || $id < 0){
+			throw new InvalidArgumentException("Invalid value for entry id => $id");
+		}
 		$sql = "SELECT id_entry as id, name, url, details, creation_date, update_date
 				FROM entry 
 				WHERE id_entry = :id";
@@ -23,10 +26,9 @@ class EntryDAO{
 		
 		$query->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Entry");
 		$entry = $query->fetch();//PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Entry");
-
-		$this->getTags($entry);
-		//$tags = $this->getTags($entry->getId());
-		//$entry->setTags($tags);		
+		if($entry){
+			$this->getTags($entry);
+		}
 		
 		return $entry;
 	}

@@ -35,7 +35,10 @@ if (isset($_GET['query']) && $_GET['query'] != ""){
 	$entries = array();
 	if($hits){
 		foreach ($hits as $hit){
-			$entries[] = $entryDAO->get($hit->id_entry);
+			//try{
+				$entries[] = $entryDAO->get($hit->id_entry);
+			//}
+			//catch ()
 		}
 	}
 }else{
@@ -46,7 +49,9 @@ if (isset($_GET['query']) && $_GET['query'] != ""){
 <div id="entriesList">
 	<?php 
 	foreach($entries as $entry){ 
-		include('../lib/view/entryView.php');
+		if (is_a($entry,"Entry")){
+			include('../lib/view/entryView.php');
+		}
 	}
 	?>
 </div>

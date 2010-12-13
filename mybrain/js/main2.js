@@ -12,7 +12,7 @@ function bindEv(){
 	});
 	
 	/* Bind entry toggle on click */
-	$(".entryName").live("click", function(){
+	$(".entryTitle").live("click", function(){
 		var entryDiv = $(this).parents(".entry");
 		entry.toggleEntry(entryDiv);
 		return false;
@@ -31,7 +31,6 @@ function bindEv(){
 	
 	/* Bind edit entry on click */
 	$(".editEntry").live("click", function(){
-	//$(".entriesList").delegate("a.editEntry", "click", function(){
 		entry.editEntry(this);
 		return false;
 	});	

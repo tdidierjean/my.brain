@@ -482,6 +482,8 @@ div.search{
 
 .entryName{
 	float:left;
+	width:450px;
+	cursor:pointer;
 }
 
 #globalActions{

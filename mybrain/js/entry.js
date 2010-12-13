@@ -54,7 +54,18 @@ function Entry(){
 			);
 	}
 	
-	this.editEntry = function(){};
+	this.editEntry = function(obj){
+		var container = $(obj).parents(".entry");
+		var id_entry = container.attr("id");
+		$.ajax({
+			type: "GET",
+			data: {"id_entry":id_entry},
+			url: "actions/getEntryEditView.php", 
+			success: function(data){		
+				container.html(data);
+			}
+		});
+	};
 	
 	this.deleteEntry = function(obj){
 		var div_entry = $(obj).parents(".entry");
