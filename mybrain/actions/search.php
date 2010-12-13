@@ -18,42 +18,37 @@ $searchEngine = new SearchEngine($db);
 Zend_Search_Lucene_Analysis_Analyzer::setDefault(
 		new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive());
 
-
-$query = isset($_GET['query']) ? $_GET['query'] : '';
-$query = trim($query);
-$query .= "*";
-
+Zend_Search_Lucene_Search_Query_Wildcard::setMinPrefixLength(0);
 $index = Zend_Search_Lucene::open($CONFIG['indexPath']);
-
-try {
-	$hits = $index->find($query);
-}
-catch (Zend_Search_Lucene_Exception $ex) {
-	$hits = array();
-}
-
 $entryDAO = new EntryDAO($db);
-
-
-if($hits){
-	$entries = array();
-	foreach ($hits as $hit){
-		$entries[] = $entryDAO->get($hit->id_entry);
-		/*$entries[] = new Entry($hit->id, 
-							 $hit->name, 
-							 $hit->url, 
-							 $hit->details); */
+		
+if (isset($_GET['query']) && $_GET['query'] != ""){
+	$query = trim($query);
+	$query .= "*";
+	try {
+		$hits = $index->find($query);
+	}
+	catch (Zend_Search_Lucene_Exception $ex) {
+		$hits = array();
 	}
 	
-	?>
-	<div id="entriesList">
-		<?php 
-		foreach($entries as $entry){ 
-			include('../lib/view/entryView.php');
+	$entries = array();
+	if($hits){
+		foreach ($hits as $hit){
+			$entries[] = $entryDAO->get($hit->id_entry);
 		}
-		?>
-	</div>
-	<?php
+	}
+}else{
+	$entries = $entryDAO->getAll();
 }
+	
 ?>
+<div id="entriesList">
+	<?php 
+	foreach($entries as $entry){ 
+		include('../lib/view/entryView.php');
+	}
+	?>
+</div>
+
 	

@@ -25,12 +25,12 @@ function SearchEngine(){
 		        that.messageContainer.html(message);
 		        // .effect("highlight",{color:'#3DFF8C'},2000);
 				that.resultsContainer.html(data);
-				$(".accordion").accordion({
+				/*$(".accordion").accordion({
 					collapsible: true,
 					autoHeight: false,
 					active: 0,
 					animated: false
-				});
+				});*/
 		    },
 		    error: function(req,error){
 		      if(error === 'error'){error = req.statusText;}

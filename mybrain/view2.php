@@ -11,6 +11,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<link href="css/main.css" media="all" rel="stylesheet" type="text/css">
 		<link href="css/nicedit.css" media="all" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jqueryUI/jquery-ui.js"></script>
 		<!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
 		<script type="text/javascript" src="js/nicedit/nicEdit.js"></script>
 		<script type="text/javascript" src="js/searchEngine.js"></script>
@@ -58,6 +59,12 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 								<img class="entryIcon" src="images/add.png" alt="add"/>
 								<span>New entry</span>
 							</a>
+							<br />
+							<a id="buildIndex" class="iconCell" href="#">
+								<img class="entryIcon" src="images/edit.png" alt="build"/>
+								<span>Rebuild index</span>
+							</a>
+							
 						</div>
 					</div>
 					<div id="search2" class="search">

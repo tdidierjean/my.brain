@@ -55,5 +55,11 @@ function Entry(){
 	}
 	
 	this.editEntry = function(){};
-	this.deleteEntry = function(){};
+	
+	this.deleteEntry = function(obj){
+		var div_entry = $(obj).parents(".entry");
+		var id = div_entry.attr("id");
+		$.post("actions/deleteEntry.php", {id: id});
+		div_entry.remove();		
+	};
 }

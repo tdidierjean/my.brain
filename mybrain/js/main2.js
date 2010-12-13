@@ -41,6 +41,12 @@ function bindEv(){
 		entry.deleteEntry(this);
 		return false;
 	});
+	
+	/* Bind rebuild index on click */
+	$("#buildIndex").live("click", function(){
+		buildIndex();
+		return false;
+	});
 }
 
 /**
@@ -72,6 +78,27 @@ function writeMemoToDb() {
         },
         beforeSend: function(data){
           container.html('Saving...');
+        }
+    });
+}
+
+function buildIndex(){
+	var container = selectorCache.get("#searchState");
+    $.ajax({
+		type: "POST",
+        url: "buildIndex.php",
+        success: function(){
+          container.html("Indexing done").
+            effect("highlight",{color:'#3DFF8C'},2000);
+        },
+        error: function(req,error){
+          if(error === 'error'){error = req.statusText;}
+          var errormsg = 'Indexing failed '+error;
+          container.html(errormsg).
+            effect('highlight',{color:'#c00'},2000);
+        },
+        beforeSend: function(data){
+          container.html('Indexing...');
         }
     });
 }
