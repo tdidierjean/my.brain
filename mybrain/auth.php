@@ -9,5 +9,5 @@ if (!$user || (md5($_REQUEST['password']) != $user['password'])) {
 	exit();
 }
 $_SESSION['logged'] = true;
-header("Location: index2.php");
+header("Location: index.php");
 ?>
