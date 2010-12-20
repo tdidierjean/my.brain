@@ -7,9 +7,8 @@ if (!$_SESSION['logged']){
 
 require_once('../init.php');
 require_once('../lib/search/searchEngine.php');
-require_once('Zend/Search/Lucene.php');
+require_once('../lib/Zend/Search/Lucene.php');
 require_once('../lib/dao/entryDAO.php');
-
 
 $query = $_REQUEST['query'];
 

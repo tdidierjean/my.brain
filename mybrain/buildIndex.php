@@ -1,11 +1,11 @@
 <?php
 require_once("init.php");
 require_once("lib/Zend/Search/Lucene.php");
-require_once("DAO/entryDAO.php");
+require_once("dao/entryDAO.php");
 
 Zend_Search_Lucene_Analysis_Analyzer::setDefault(
 	new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive());
-$indexPath = "docindex";
+$indexPath = $CONFIG['indexPath'];
 $index = Zend_Search_Lucene::create($indexPath);
 
 class EntryDocument extends Zend_Search_Lucene_Document
@@ -37,5 +37,5 @@ foreach ($documents as $document) {
 
 // write the index to disk
 $index->commit();
-
+echo "Indexing done";
 ?>

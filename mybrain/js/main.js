@@ -86,8 +86,8 @@ function buildIndex(){
     $.ajax({
 		type: "POST",
         url: "buildIndex.php",
-        success: function(){
-          container.html("Indexing done").
+        success: function(data){
+          container.html(data).
             effect("highlight",{color:'#3DFF8C'},2000);
         },
         error: function(req,error){
