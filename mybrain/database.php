@@ -125,7 +125,7 @@ class Database extends PDO{
 	
 	function getUser($username) {
 		$sql = "SELECT password
-    			FROM member
+    			FROM user
       			WHERE username = :username";
 		try{
 			$query = parent::prepare($sql);

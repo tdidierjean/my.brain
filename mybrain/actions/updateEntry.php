@@ -23,5 +23,5 @@ $entry = new Entry($id_entry, $name, $url, $details, "", "", $tags_array);
 $entryDAO->save($entry);
 
 //return updated entry
-echo json_encode($id_entry);
+echo json_encode($entry->getId());
 ?>

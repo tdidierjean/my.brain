@@ -76,4 +76,5 @@ class TagDAO{
 		$tags = $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Tag");
 		return $tags;
 	}
+	
 }

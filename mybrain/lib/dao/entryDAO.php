@@ -10,6 +10,9 @@ class EntryDAO{
 	}
 	
 	function get($id){
+		if (!is_numeric($id) || $id < 0){
+			throw new InvalidArgumentException("Invalid value for entry id => $id");
+		}
 		$sql = "SELECT id_entry as id, name, url, details, creation_date, update_date
 				FROM entry 
 				WHERE id_entry = :id";
@@ -23,12 +26,30 @@ class EntryDAO{
 		
 		$query->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Entry");
 		$entry = $query->fetch();//PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Entry");
-
-		$this->getTags($entry);
-		//$tags = $this->getTags($entry->getId());
-		//$entry->setTags($tags);		
+		if($entry){
+			$this->getTags($entry);
+		}
 		
 		return $entry;
+	}
+	
+	function getAll(){
+		$sql = "SELECT id_entry as id, name, url, details, creation_date, update_date
+				FROM entry";
+			
+		try{
+			$query = $this->db->prepare($sql);
+			$query->execute();
+		}catch (PDOException $e) {
+			return $e->getMessage();
+		}
+		
+		$entries = $query->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Entry");
+		foreach ($entries as $entry){
+			$this->getTags($entry);
+		}
+
+		return $entries;
 	}
 	
 	function getByList($id_list){
@@ -164,6 +185,18 @@ foreach ($entry->getTags() as $new_tag){
 			$tagDAO->save($tag);
 		}
 	}	
+	
+	function attachTagToEntry($entry, $tag){
+		$sql = "INSERT INTO entry2tag (id_entry, id_tag)
+				VALUES (:id_entry, :id_tag)";
+		try{
+			$query = $this->db->prepare($sql);
+			$query->execute(array(':id_entry' => $entry->getId(),
+								  ':id_tag' => $tag->getId()));
+		}catch (PDOException $e) {
+			return $e->getMessage();
+		}		
+	}
 	
 	/*
 	 * Create or remove links to tag in db for a modified entry 

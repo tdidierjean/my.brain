@@ -17,8 +17,11 @@ class Tag{
 	static function fromStringArray($input){
 		$tags_array = array();
 		foreach ($input as $tag_text){
-			$tag_text = strtolower($tag_text);
-			$tags_array[] = new Tag(0, $tag_text);
+			$tag_text = trim($tag_text);
+			if ($tag_text){
+				$tag_text = strtolower($tag_text);
+				$tags_array[] = new Tag(0, $tag_text);
+			}
 		}
 		return $tags_array;
 	}

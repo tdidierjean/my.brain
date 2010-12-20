@@ -94,12 +94,12 @@ class Entry{
 	
 	/*
 	 * Return a string containing the tag texts for the entry, separated
-	 * by whitespaces.
+	 * by a delimiter.
 	 */
-	function getImplodedTags(){
+	function getImplodedTags($delimiter=" "){
 		$s = "";
 		foreach ($this->getTags() as $tag){
-			$s .= $tag->getTagText() . " ";
+			$s .= $tag->getTagText() . $delimiter;
 		}
 		$s = rtrim($s);
 		return $s;	

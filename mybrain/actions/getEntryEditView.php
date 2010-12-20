@@ -8,17 +8,16 @@ if (!$_SESSION['logged']){
 require_once("../init.php");
 require_once("../lib/dao/entryDAO.php");
 
-$id_entry = $_REQUEST["id_entry"];
-if (!$id_entry){
-	throw Exception("No id_entry specified !");
+if (isset($_REQUEST["id_entry"]) && $_REQUEST["id_entry"]){
+	$entryDAO = new EntryDAO($db);
+	$entry = $entryDAO->get($_REQUEST["id_entry"]);
+}else{
+	$entry = new Entry();
 }
 
-$entryDAO = new EntryDAO($db);
-$entry = $entryDAO->get($id_entry);
-
-//$tags = $entry->getTags();
-$tags = $entry->getImplodedTags();//implode (" ", $tags);
+include("../lib/view/entryEditView.php");
 ?>
+<!--  
 <div class='editForm'>
 	<form>
 		<div class="edit_line">
@@ -34,7 +33,7 @@ $tags = $entry->getImplodedTags();//implode (" ", $tags);
 		<div class="edit_line">
 			<label for="entry_details" class="label_edit">Details </label>
 			<br />
-			<textarea name="entry_details" class="edit_textarea"><?php echo $entry->getDetails();?></textarea>
+			<textarea id="edit" name="entry_details" class="edit_textarea"><?php echo $entry->getDetails();?></textarea>
 		</div>
 		<div class="edit_line">
 			<label for="entry_tags" class="label_edit">Tags </label>
@@ -50,4 +49,4 @@ $tags = $entry->getImplodedTags();//implode (" ", $tags);
 		</a>
 	</form>
 </div>
-
+-->
