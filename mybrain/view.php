@@ -37,7 +37,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 			<div id="memoDiv">
 				<textarea id="memo" class="smallText corners shadows"><?php echo $memo->getContent();?></textarea>
 				<p id="save_memo">
-					<button type="button">Enregistrer</button>
+					<button type="button">Save</button>
 					<span id="message_memo">
 						Last saved: <?php echo $memo->getUpdateDate();?>
 					</span>
@@ -62,7 +62,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 							<br />
 							<a id="buildIndex" class="iconCell" href="#">
 								<img class="entryIcon" src="images/edit.png" alt="build"/>
-								<span>Rebuild index</span>
+								<span>Build index</span>
 							</a>
 							
 						</div>
