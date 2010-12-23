@@ -26,7 +26,7 @@
 			if($entry->getUrl()){
 			?>
 				<a class="url" href="<?php echo $entry->getUrl();?>">
-					<?php echo $entry->getShortenedUrl(35);?>
+					<?php echo $entry->getShortenedUrl(100);?>
 				</a>	
 			<?php 
 			}
@@ -40,6 +40,7 @@
 				<img class="entryIcon" src="images/delete.png" alt="delete"/>
 			</a>			
 		</div>
+		<br />
 		<div class="entryDetails">
 			<?php echo $entry->getDetailsHtmlDisplay();?>
 		</div>
