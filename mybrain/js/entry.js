@@ -22,19 +22,30 @@ function Entry(){
 				}*/
 			}
 		);
-		
-		//that.editor = new nicEditor({fullPanel : true}).panelInstance('edit',{hasPanel : true});
 	};
 	
-	this.updateEntry = function(container){
-
+	this.validateEntryForm = function(form){
+		//var form = container.find("form");
+		form.validate({
+			submitHandler:function(form){
+				that.updateEntry(form);
+				}
+		});
+		form.submit();		
+	}
+	
+	this.updateEntry = function(form){
+		var container = $(form).parents(".entry");
 		var id_entry = container.attr("id");
 		var input_fields = container.find("input, textarea[name='entry_details']");
-		if (input_fields[0].value == ""){
+		/*if (input_fields[0].value == ""){
 			alert("This needs a name");
 			return;
-		}
-		
+		}*/
+		/*var form = container.find("form");
+		form.validate();
+		form.valid();*/
+
 		$.post("actions/updateEntry.php", 
 				{
 					id_entry:id_entry,

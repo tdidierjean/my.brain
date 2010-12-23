@@ -25,7 +25,7 @@ function bindEv(){
 	});	
 	/* Bind accept edit entry on click */
 	$("a.acceptEditEntry").live("click", function(){
-		entry.updateEntry($(this).parents(".entry"));
+		entry.validateEntryForm($(this).parents("form"));
 		return false;
 	});
 	
