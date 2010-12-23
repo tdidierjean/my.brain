@@ -63,6 +63,10 @@ CREATE TABLE IF NOT EXISTS `memo` (
 
 -- --------------------------------------------------------
 
+INSERT INTO `memo` (`id_memo`, `content`, `update_date`) VALUES
+(0, '', '0000-00-00 00:00:00');
+
+
 --
 -- Structure de la table `tags`
 --

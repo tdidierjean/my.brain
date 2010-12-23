@@ -23,7 +23,7 @@ include("../lib/view/entryEditView.php");
 		<div class="edit_line">
 			<label for="entry_name" class="label_edit">Name </label>
 			<br />
-			<input name="entry_name" value="<?php echo $entry->getName();?>" />
+			<input name="entry_name"  value="<?php echo $entry->getName();?>" />
 		</div>
 		<div class="edit_line">
 			<label for="entry_url" class="label_edit">Url </label>
