@@ -27,9 +27,14 @@ function Entry(){
 	};
 	
 	this.updateEntry = function(container){
+
 		var id_entry = container.attr("id");
 		var input_fields = container.find("input, textarea[name='entry_details']");
-
+		if (input_fields[0].value == ""){
+			alert("This needs a name");
+			return;
+		}
+		
 		$.post("actions/updateEntry.php", 
 				{
 					id_entry:id_entry,

@@ -19,7 +19,7 @@ function bindSearchEvents(){
 	
 	var searchEngine = new SearchEngine();
 	var waitingTime = 500;
-	var queryInput = selectorCache.get('#searchDiv form [name=query]');
+	var queryInput = selectorCache.get('#query');
 	
 	// Executes the search each time a character is entered in the input field
 	// and after waiting for a bit to make sure no other character is entered.

@@ -18,6 +18,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<script type="text/javascript" src="js/entry.js"></script>
 		<script type="text/javascript" src="js/search.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
+		  <script type="text/javascript" src="js/jquery-validate/jquery.validate.js"></script>
 		<!-- <script type="text/javascript" src="js/tooltips.js"></script>-->
 		<!--  <script type="text/javascript" src="js/jquery.simpleautogrow.js"></script>-->
 	</head>
@@ -47,9 +48,9 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 				<div id="searchDiv" class="corners shadows">
 					<div id="search1" class="search">
 						<div id="inputQuery">
-							<form method="get" action="findtest.php">
-							    <input type="text" name="query" />
-							</form>
+							
+							    <input type="text" id="query" />
+							
 						</div>
 						<span id="searchState">
 						</span>
