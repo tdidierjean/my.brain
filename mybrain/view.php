@@ -20,7 +20,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<script type="text/javascript" src="js/main.js"></script>
 		  <script type="text/javascript" src="js/jquery-validate/jquery.validate.js"></script>
 		<!-- <script type="text/javascript" src="js/tooltips.js"></script>-->
-		<!--  <script type="text/javascript" src="js/jquery.simpleautogrow.js"></script>-->
+		<script type="text/javascript" src="js/jquery.simpleautogrow.js"></script>
 	</head>
 	<body>
 		<div id="page">

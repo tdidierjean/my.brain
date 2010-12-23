@@ -11,6 +11,7 @@ function Entry(){
 			url: "actions/getEntryEditView.php", 
 			success: function(data){		
 				container.prepend(data);
+				$(".edit_textarea").simpleautogrow();
 			}/*,
 			complete: function(){
 				new nicEditor(
@@ -20,7 +21,6 @@ function Entry(){
 				//nicEditors.allTextAreas();
 				}*/
 			}
-		
 		);
 		
 		//that.editor = new nicEditor({fullPanel : true}).panelInstance('edit',{hasPanel : true});
@@ -68,7 +68,9 @@ function Entry(){
 			url: "actions/getEntryEditView.php", 
 			success: function(data){		
 				container.html(data);
+				$(".edit_textarea").simpleautogrow();
 			}
+			
 		});
 	};
 	
