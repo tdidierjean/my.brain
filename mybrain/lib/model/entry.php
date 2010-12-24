@@ -34,15 +34,15 @@ class Entry{
 	}
 	
 	function getName(){
-	    return stripslashes($this->name);
+	    return htmlspecialchars(stripslashes($this->name)) 	;
 	}
 	
 	function getUrl(){
-		return $this->url;
+		return htmlspecialchars($this->url);
 	}
 	
 	function getShortenedUrl($max_size){
-		return $this->shortenUrl($this->url, $max_size);
+		return $this->shortenUrl($this->getUrl(), $max_size);
 	}
 	
 	function getDetails(){
@@ -50,7 +50,7 @@ class Entry{
 	}
 	
 	function getDetailsHtmlDisplay(){
-		return nl2br(stripslashes($this->details));
+		return nl2br(htmlspecialchars(stripslashes($this->details)));
 	}
 	
 	function getCreationDate(){

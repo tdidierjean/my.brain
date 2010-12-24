@@ -2,6 +2,7 @@
 /**
  * Included to display an Entry $entry
  */
+require_once(ROOT.'/lib/markdown.php');
 ?>
 <div class="entry corners shadows" id="<?php echo $entry->getId()?>">
 	<div class="entryTitle">
@@ -42,7 +43,7 @@
 		</div>
 		<br />
 		<div class="entryDetails">
-			<?php echo $entry->getDetailsHtmlDisplay();?>
+			<?php echo Markdown($entry->getDetailsHtmlDisplay());?>
 		</div>
 	</div>
 </div>

@@ -13,6 +13,9 @@ class EntryDAO{
 		if (!is_numeric($id) || $id < 0){
 			throw new InvalidArgumentException("Invalid value for entry id => $id");
 		}
+		if ($id == 0){
+			return new Entry();
+		}
 		$sql = "SELECT id_entry as id, name, url, details, creation_date, update_date
 				FROM entry 
 				WHERE id_entry = :id";

@@ -9,6 +9,7 @@ require_once('lib/dao/memoDAO.php');
 require_once('lib/dao/entryDAO.php');
 require_once('lib/dao/tagDAO.php');
 
+
 // retrieve memo from db and remove slashes that were added when inserting into db
 $memoDAO = new MemoDAO($db);
 $memo = $memoDAO->get();
