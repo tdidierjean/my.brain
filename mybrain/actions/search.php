@@ -12,20 +12,20 @@ require_once('../lib/dao/entryDAO.php');
 
 $query = $_REQUEST['query'];
 
-$searchEngine = new SearchEngine($db);
-
 Zend_Search_Lucene_Analysis_Analyzer::setDefault(
 		new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive());
 
 Zend_Search_Lucene_Search_Query_Wildcard::setMinPrefixLength(0);
-$index = Zend_Search_Lucene::open($CONFIG['indexPath']);
+//$index = Zend_Search_Lucene::open($CONFIG['indexPath']);
+$searchEngine = new SearchEngine($CONFIG['indexPath']);
+
 $entryDAO = new EntryDAO($db);
 		
 if (isset($_GET['query']) && $_GET['query'] != ""){
 	$query = trim($query);
 	$query .= "*";
 	try {
-		$hits = $index->find($query);
+		$hits = $searchEngine->index->find($query);
 	}
 	catch (Zend_Search_Lucene_Exception $ex) {
 		$hits = array();

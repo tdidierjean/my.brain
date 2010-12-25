@@ -61,10 +61,10 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 								<span>New entry</span>
 							</a>
 							<br />
-							<a id="buildIndex" class="iconCell" href="#">
+							<!--  <a id="buildIndex" class="iconCell" href="#">
 								<img class="entryIcon" src="images/edit.png" alt="build"/>
 								<span>Build index</span>
-							</a>
+							</a>-->
 							
 						</div>
 					</div>
