@@ -42,10 +42,10 @@ function bindEv(){
 	});
 	
 	/* Bind rebuild index on click */
-	$("#buildIndex").live("click", function(){
+	/*$("#buildIndex").live("click", function(){
 		buildIndex();
 		return false;
-	});
+	});*/
 }
 
 /**

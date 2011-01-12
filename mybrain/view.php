@@ -10,17 +10,20 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<title>my.brain</title>
 		<link href="css/main.css" media="all" rel="stylesheet" type="text/css">
 		<link href="css/nicedit.css" media="all" rel="stylesheet" type="text/css">
+		<link type="text/css" rel="stylesheet" href="css/jquery.markedit.css" />
+		<link type="text/css" rel="stylesheet" href="css/jquery-ui.css" />
+		<link href="css/prettify.css" type="text/css" rel="stylesheet" />
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jqueryUI/jquery-ui.js"></script>
-		<!--<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>-->
-		<script type="text/javascript" src="js/nicedit/nicEdit.js"></script>
+		<!--  <script type="text/javascript" src="js/nicedit/nicEdit.js"></script>-->
 		<script type="text/javascript" src="js/searchEngine.js"></script>
 		<script type="text/javascript" src="js/entry.js"></script>
 		<script type="text/javascript" src="js/search.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
-		  <script type="text/javascript" src="js/jquery-validate/jquery.validate.js"></script>
+		 <script type="text/javascript" src="js/jquery-validate/jquery.validate.js"></script>
 		<!-- <script type="text/javascript" src="js/tooltips.js"></script>-->
-		<script type="text/javascript" src="js/jquery.simpleautogrow.js"></script>
+		<script type="text/javascript" src="js/jquery.simpleautogrow.js"></script>		
+		<script type="text/javascript" src="js/prettify/prettify.js"></script>
 	</head>
 	<body>
 		<div id="page">
@@ -58,7 +61,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 						<div id="globalActions">
 							<a id="createEntry" class="iconCell" href="#">
 								<img class="entryIcon" src="images/add.png" alt="add"/>
-								<span>New entry</span>
+								<span>New note</span>
 							</a>
 							<br />
 							<!--  <a id="buildIndex" class="iconCell" href="#">
@@ -98,7 +101,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 						foreach($entries as $entry){ 
 							include('lib/view/entryView.php');
 						}
-						?>
+						?>						
 					</div>
 				</div>
 			</div>
