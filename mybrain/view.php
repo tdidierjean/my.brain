@@ -86,10 +86,10 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 								endforeach;
 							endif;
 						?>
-							<span class="switch_header">
+							<span id="switch_all" class="switch_header">
 								all
 							</span>
-							<span class="switch_header">
+							<span id="switch_none" class="switch_header">
 								none
 							</span>
 						</div>
