@@ -9,6 +9,14 @@ class EntryDAO{
 	    $this->db = $db;
 	}
 	
+	/**
+	 * Return an Entry object filled with data from the database
+	 * 
+	 * @param int $id
+	 * @return Entry if id > 0
+	 * @return null if id = 0
+	 * @throws InvalidArgumentException if id is not a number >= 0
+	 */
 	function get($id){
 		if (!is_numeric($id) || $id < 0){
 			throw new InvalidArgumentException("Invalid value for entry id => $id");

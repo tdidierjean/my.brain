@@ -9,12 +9,14 @@ require_once('../init.php');
 require_once("../lib/dao/entryDAO.php");
 
 $id_entry = $_REQUEST['id_entry'];
-if (!$id_entry){
-	throw Exception("No id_entry specified !");
+if (!isset($id_entry)){
+	throw new Exception("No id_entry specified !");
 }
 
 $entryDAO = new EntryDAO($db);
 $entry = $entryDAO->get($id_entry);
 
-include("../lib/view/entryView.php");
+if ($entry->getId() != 0){
+    include("../lib/view/entryView.php");
+}   
 ?>

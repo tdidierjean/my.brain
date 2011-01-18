@@ -29,6 +29,13 @@ function bindEv(){
 		return false;
 	});
 	
+	/* Bind cancel edit entry on click */
+	$("a.cancelEditEntry").live("click", function(){
+		var container = $(this).parents(".entry");
+		entry.refreshEntryView(container.attr("id"), container);
+		return false;
+	});
+	
 	/* Bind edit entry on click */
 	$(".editEntry").live("click", function(){
 		entry.editEntry(this);
