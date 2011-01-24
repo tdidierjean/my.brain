@@ -39,5 +39,14 @@ function bindSearchEvents(){
 		var query = "tag:" + $(this).html();
 		searchEngine.search(query);
 	});
-
+	/* Bind search on special tag click */
+	var tagSwitch = selectorCache.get(".switch_header");
+	tagSwitch.live("click", function(){
+		if ($(this).attr("id") == "switch_all"){
+			var query = "";
+			searchEngine.search(query);
+		}else if ($(this).attr("id") == "switch_none"){
+			searchEngine.setResults("");
+		}
+	});
 }

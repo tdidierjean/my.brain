@@ -1,4 +1,7 @@
 <?php 
+/*
+ * Create or Update an entry in the database
+ */
 session_start();
 if (!$_SESSION['logged']){
     echo "<script type='text/javascript'>window.location.replace('login.php');</script>";
@@ -8,6 +11,7 @@ if (!$_SESSION['logged']){
 require_once('../init.php');
 require_once("../lib/dao/entryDAO.php");
 require_once("../lib/model/tag.php");
+require_once("../lib/search/searchEngine.php");
 
 $id_entry = $_POST['id_entry'];
 $name = $_POST['name'];
@@ -21,6 +25,10 @@ $entryDAO = new EntryDAO($db);
 $tags_array = Tag::fromStringArray(preg_split("/[\s,]+/", $tags));
 $entry = new Entry($id_entry, $name, $url, $details, "", "", $tags_array);
 $entryDAO->save($entry);
+
+// Update index
+$searchEngine = new SearchEngine($CONFIG['indexPath']);
+$searchEngine->updateEntry($entry);
 
 //return updated entry
 echo json_encode($entry->getId());

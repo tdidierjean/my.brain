@@ -24,7 +24,7 @@ function SearchEngine(){
 				}
 		        that.messageContainer.html(message);
 		        // .effect("highlight",{color:'#3DFF8C'},2000);
-				that.resultsContainer.html(data);
+				that.setResults(data);
 				/*$(".accordion").accordion({
 					collapsible: true,
 					autoHeight: false,
@@ -43,4 +43,7 @@ function SearchEngine(){
 		    }
 		});
 	};
+	this.setResults = function(data){
+		that.resultsContainer.html(data);
+	}
 }

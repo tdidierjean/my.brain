@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>My Brain</title>
     <link href="css/main.css" media="all" rel="stylesheet" type="text/css">
-	<link href="css/custom-theme/jquery-ui-1.7.2.custom.css" media="all" rel="stylesheet" type="text/css">
+	<link href="css/jquery-ui.css" media="all" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body>
