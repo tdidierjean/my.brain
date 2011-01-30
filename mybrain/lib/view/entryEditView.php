@@ -11,11 +11,6 @@
 			<input name="entry_name" class="required" value="<?php echo $entry->getName();?>" />
 		</div>
 		<div class="edit_line">
-			<label for="entry_url" class="label_edit">Url </label>
-			<br />
-			<input name="entry_url" value="<?php echo $entry->getUrl();?>" />
-		</div>
-		<div class="edit_line">
 			<label for="entry_details" class="label_edit">Details </label>
 			<br />
 			<textarea id="edit" name="entry_details" class="edit_textarea"><?php echo $entry->getDetails();?></textarea>

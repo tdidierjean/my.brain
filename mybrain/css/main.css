@@ -17,6 +17,9 @@ body {
 	padding: 40px;
 	background: #DADFE6;
 	text-align: center;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
 }
 
 #login form {
@@ -41,11 +44,12 @@ body {
 }
 
 #header {
-    /*background-image: url(/mybrain/images/header-2.jpg)*/;/*url(/mybrain/images/neuron_cut.jpg);*/
-	background:#5FA4BF;/*#0A80AF;*/
-	background-position: center;
-    min-height: 80px;
-    
+    float:right;
+    margin: 0 10px 0 0;
+}
+
+#header a{
+	text-decoration:underline;
 }
 
 #title {

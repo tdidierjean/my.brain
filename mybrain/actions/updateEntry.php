@@ -15,7 +15,6 @@ require_once("../lib/search/searchEngine.php");
 
 $id_entry = $_POST['id_entry'];
 $name = $_POST['name'];
-$url = $_POST['url'];
 $details = $_POST['details'];
 $tags = $_POST['tags'];
 
@@ -23,7 +22,7 @@ $entryDAO = new EntryDAO($db);
 
 // Get the name of each tags and create Tag objects
 $tags_array = Tag::fromStringArray(preg_split("/[\s,]+/", $tags));
-$entry = new Entry($id_entry, $name, $url, $details, "", "", $tags_array);
+$entry = new Entry($id_entry, $name, $details, "", "", $tags_array);
 $entryDAO->save($entry);
 
 // Update index

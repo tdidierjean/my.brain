@@ -10,7 +10,6 @@ class EntryDocument extends Zend_Search_Lucene_Document
 	public function __construct($document)
 	{
 		$this->addField(Zend_Search_Lucene_Field::Keyword('id_entry', $document->getId()));
-		$this->addField(Zend_Search_Lucene_Field::Keyword('url',       $document->getUrl()));
 		$this->addField(Zend_Search_Lucene_Field::UnIndexed('creation_date', $document->getCreationDate()));
 		$this->addField(Zend_Search_Lucene_Field::Text('name',          $document->getName()), 'utf-8');
 		$this->addField(Zend_Search_Lucene_Field::Text('content',    $document->getDetails()));

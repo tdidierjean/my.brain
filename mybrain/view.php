@@ -28,16 +28,11 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 	<body>
 		<div id="page">
 			<div id="header" class="corners">
-				<div id="title">my.brain</div>
-				<!--  <div id="menu" class="corners shadows">
-					<a class="iconCell newList" href="#">
-						<img class="entryIcon" src="images/add.png" alt="add"/>
-					</a>
-					<a class="iconCell editMenu" href="#">
-						<img class="entryIcon" src="images/edit.png" alt="edit"/>
-					</a>
-				</div>-->
+				<a>Settings</a> 
+				&nbsp;|&nbsp;
+				<a href='logout.php'>Log out</a>
 			</div>
+			<br />
 			<div id="memoDiv">
 				<textarea id="memo" class="smallText corners shadows"><?php echo $memo->getContent();?></textarea>
 				<p id="save_memo">
@@ -52,7 +47,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 					<div id="search1" class="search">
 						<div id="inputQuery">
 							
-							    <input type="text" id="query" />
+							    <input type="text" id="query" value="<?php echo $last_search;?>" />
 							
 						</div>
 						<span id="searchState">

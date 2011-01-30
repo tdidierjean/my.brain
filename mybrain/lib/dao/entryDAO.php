@@ -24,7 +24,7 @@ class EntryDAO{
 		if ($id == 0){
 			return new Entry();
 		}
-		$sql = "SELECT id_entry as id, name, url, details, creation_date, update_date
+		$sql = "SELECT id_entry as id, name, details, creation_date, update_date
 				FROM entry 
 				WHERE id_entry = :id";
 			
@@ -45,7 +45,7 @@ class EntryDAO{
 	}
 	
 	function getAll(){
-		$sql = "SELECT id_entry as id, name, url, details, creation_date, update_date
+		$sql = "SELECT id_entry as id, name, details, creation_date, update_date
 				FROM entry";
 			
 		try{
@@ -64,7 +64,7 @@ class EntryDAO{
 	}
 	
 	function getByList($id_list){
-		$sql = "SELECT entry.id_entry as id, entry.name, entry.url, entry.details, entry.creation_date, entry.update_date
+		$sql = "SELECT entry.id_entry as id, entry.name, entry.details, entry.creation_date, entry.update_date
 				FROM entry 
 				JOIN entry2tag ON entry2tag.id_entry = entry.id_entry
 				JOIN list2tag ON list2tag.id_list = :id_list
@@ -125,13 +125,12 @@ class EntryDAO{
 	
 	private function update($entry){
 		$sql = "UPDATE entry
-				SET name = :name, url = :url, details = :details, update_date = NOW()
+				SET name = :name, details = :details, update_date = NOW()
 				WHERE id_entry = :id_entry";
 		try{
 			$query = $this->db->prepare($sql);
 			$query->execute(array(':id_entry' => $entry->getId(),
 								  ':name' => $entry->getName(),
-								  ':url' => $entry->getUrl(),
 								  ':details' => $entry->getDetails()));
 		}catch (PDOException $e) {
 		    return $e->getMessage();
@@ -165,12 +164,11 @@ foreach ($entry->getTags() as $new_tag){
 	}
 	
 	private function insert($entry){
-		$sql = "INSERT INTO entry (id_list, name, url, details, creation_date, update_date) 
-				VALUES (5, :name, :url, :details, NOW(), NOW())";
+		$sql = "INSERT INTO entry (id_list, name, details, creation_date, update_date) 
+				VALUES (5, :name, :details, NOW(), NOW())";
 		try{
 			$query = $this->db->prepare($sql);
 			$query->execute(array(':name' => $entry->getName(),
-								  ':url' => $entry->getUrl(),
 								  ':details' => $entry->getDetails()));
 		}catch (PDOException $e) {
 		    return $e->getMessage();
@@ -333,7 +331,7 @@ foreach ($entry->getTags() as $new_tag){
 	* Get all the entries for which none of their tags are linked to an entry list
 	*/
 	function getOrphans(){
-		$sql = "SELECT DISTINCT entry.id_entry as id, entry.name, entry.url, entry.details, entry.creation_date, entry.update_date
+		$sql = "SELECT DISTINCT entry.id_entry as id, entry.name, entry.details, entry.creation_date, entry.update_date
 				FROM entry 
 				WHERE entry.id_entry NOT IN (
 					SELECT DISTINCT entry2tag.id_entry

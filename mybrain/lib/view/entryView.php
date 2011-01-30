@@ -22,17 +22,6 @@ require_once(ROOT.'/lib/markdown.php');
 	</div>
 	<br />
 	<div class="entryContent hidden">
-		<div class="entryUrl">
-			<?php 
-			if($entry->getUrl()){
-			?>
-				<a class="url" href="<?php echo $entry->getUrl();?>">
-					<?php echo $entry->getShortenedUrl(100);?>
-				</a>	
-			<?php 
-			}
-			?>
-		</div>
 		<div class="entryOptions">
 			<a class="iconCell editEntry" href="#">
 				<img class="entryIcon" src="images/edit.png" alt="edit"/>
@@ -40,7 +29,7 @@ require_once(ROOT.'/lib/markdown.php');
 			<a class="iconCell deleteEntry" href="#">
 				<img class="entryIcon" src="images/delete.png" alt="delete"/>
 			</a>			
-		</div>
+		</div> 	
 		<br />
 		<div class="entryDetails">
 			<?php echo Markdown($entry->getDetails());?>
