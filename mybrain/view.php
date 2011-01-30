@@ -75,18 +75,18 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 								sort($tags);
 								foreach ($tags as $tag):
 									?>
-									<span class="selected tag_header<?php if (in_array($tag, $main_tags)) echo " primary";?>"><?php echo $tag->getTagText();?></span>
-									<span> </span>
+									<div class="selected tag_header">&nbsp<?php echo $tag->getTagText();?>&nbsp</div>
 									<?php
 								endforeach;
 							endif;
 						?>
-							<span id="switch_all" class="switch_header">
+							<div id="switch_all" class="switch_header">
 								all
-							</span>
-							<span id="switch_none" class="switch_header">
+							</div>
+							
+							<div id="switch_none" class="switch_header">
 								none
-							</span>
+							</div>
 						</div>
 					</div>
 				</div>

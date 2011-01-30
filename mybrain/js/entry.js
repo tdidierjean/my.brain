@@ -66,6 +66,8 @@ function Entry(){
 				{id_entry:id_entry},
 				function(data){		
 					container.replaceWith(data);
+					console.log(container.find(".entryContent").hasClass("hidden"));
+					container.find(".entryContent").removeClass("hidden");
 				}
 			);
 	}

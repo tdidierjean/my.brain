@@ -26,7 +26,7 @@ $entry = new Entry($id_entry, $name, $details, "", "", $tags_array);
 $entryDAO->save($entry);
 
 // Update index
-$searchEngine = new SearchEngine($CONFIG['indexPath']);
+$searchEngine = new SearchEngine($CONFIG['indexPath'], $db);
 $searchEngine->updateEntry($entry);
 
 //return updated entry
