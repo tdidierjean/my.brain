@@ -76,7 +76,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 								sort($tags);
 								foreach ($tags as $tag):
 									?>
-									<div class="selected tag_header">&nbsp<?php echo $tag->getTagText();?>&nbsp</div>
+									<div class="tag_header"><?php echo $tag->getTagText();?></div>
 									<?php
 								endforeach;
 							endif;
@@ -105,8 +105,6 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 	</body>
 </html>		
 <script type="text/javascript">
-	/*bkLib.onDomLoaded(function() { nicEditors.allTextAreas(); });*/
 	$(document).ready(bindSearchEvents());
 	$(document).ready(bindEv());
-	/*$(document).ready(bindEvents());*/
 </script>

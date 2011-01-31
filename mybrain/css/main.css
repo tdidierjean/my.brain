@@ -221,13 +221,15 @@ textarea.zoom{
 
 .tag_header{
 	/*color:#fefefe;/*#CFDDE7;*/
-	color:#789FAF;
+	color:#005B7F;
 	cursor:pointer;
-	font-weight:bold;
 	margin: 0 2px 1px 0;
 	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+    border-radius: 9px;
 	background: none repeat scroll 0 0 #DEE4E7;
 	float:left;
+	padding: 0 2px;
 }
 
 .switch_header{
@@ -373,7 +375,7 @@ div.entryBody{
 }
 
 div.entryDetails{
-	margin: 0 0 5px 0;
+	margin: 20px 0 5px 0;
 }
 
 div.entryTags{
@@ -508,6 +510,7 @@ display: inline-block;
 
 .entryOptions{
 	float:right;
+	margin: 1px 0 2px 0;
 }
 
 .entryUrl{

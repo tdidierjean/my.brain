@@ -15,10 +15,6 @@ require_once('lib/search/searchEngine.php');
 $configDAO = new ConfigDAO($db);
 $config = $configDAO->get();
 
-// retrieve memo from db and remove slashes that were added when inserting into db
-$memoDAO = new MemoDAO($db);
-$memo = $memoDAO->get();
-
 $last_search = "";
 switch ($config->getDefaultSearch()) {
     case 'last_search':
@@ -42,6 +38,10 @@ switch ($config->getDefaultSearch()) {
 
 $tagDAO = new TagDAO($db);
 $content['all_tags'] = $tagDAO->getAll();
+
+// retrieve memo from db and remove slashes that were added when inserting into db
+$memoDAO = new MemoDAO($db);
+$memo = $memoDAO->get();
 
 // build the view
 require('view.php');

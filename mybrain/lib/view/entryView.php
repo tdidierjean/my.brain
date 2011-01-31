@@ -23,14 +23,15 @@ require_once(ROOT.'/lib/markdown.php');
 	<br />
 	<div class="entryContent hidden">
 		<div class="entryOptions">
-			<a class="iconCell editEntry" href="#">
+			<a class="iconCell editEntry" href="#">				
 				<img class="entryIcon" src="images/edit.png" alt="edit"/>
+				<span>Edit</span>
 			</a>
-			<a class="iconCell deleteEntry" href="#">
+			<a class="iconCell deleteEntry" href="#">				
 				<img class="entryIcon" src="images/delete.png" alt="delete"/>
+				<span>Delete</span>
 			</a>			
 		</div> 	
-		<br />
 		<div class="entryDetails">
 			<?php echo Markdown($entry->getDetails());?>
 		</div>

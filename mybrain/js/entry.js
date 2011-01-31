@@ -49,10 +49,9 @@ function Entry(){
 		$.post("actions/updateEntry.php", 
 				{
 					id_entry:id_entry,
-					name:input_fields[0].value,
-					url:input_fields[1].value, 
-					details:input_fields[2].value,
-					tags:input_fields[3].value
+					name:input_fields[0].value,					
+					details:input_fields[1].value,
+					tags:input_fields[2].value
 				},
 				function(data){
 					that.refreshEntryView(data, container);
