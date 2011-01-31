@@ -25,8 +25,8 @@
 			<label for="username">Username: </label><br />
 			<input type="text" name="username" id="username"><br />
 			<label for="password">Password: </label><br />
-			<input type="password" name="password" id="password"><br />
-			<input type="submit" name="submit" id="submit" value="Submit">
+			<input type="password" name="password" id="password"><br /><br />
+			<input type="submit" name="submit" id="submit" value="Log on">
 		</form>
 	</div>
 </body>

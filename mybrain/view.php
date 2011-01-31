@@ -27,6 +27,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 	</head>
 	<body>
 		<div id="page">
+			<img src='images/logo-s.png'></img>
 			<div id="header" class="corners">
 				<a>Settings</a> 
 				&nbsp;|&nbsp;

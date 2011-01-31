@@ -45,7 +45,7 @@ body {
 
 #header {
     float:right;
-    margin: 0 10px 0 0;
+    margin: 5px 10px 0 0;
 }
 
 #header a{
@@ -62,7 +62,7 @@ body {
 	/*width:40%;*/
 	width:405px;
 	float:left;
-	margin:10px 10px 10px 0;
+	margin:0px 10px 10px 0;
 }
 
 textarea#memo {
@@ -78,7 +78,7 @@ textarea#memo {
 #entriesDiv{
 	width:750px;
 	float:left;
-	margin: 10px 0 0 20px;
+	margin: 0px 0 0 20px;
 }
 
 .entryList{
