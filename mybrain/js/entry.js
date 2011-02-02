@@ -1,3 +1,12 @@
+//  HACK:
+//    jquery-1.5 sets up jsonp for all json ajax requests
+//    undo the jsonp setting here so the json requests work again
+jQuery.ajaxSetup({
+  jsonp: null,
+  jsonpCallback: null
+});
+
+
 function Entry(){
 	var that = this;
 	this.editor;
@@ -32,7 +41,7 @@ function Entry(){
 				}
 		});
 		form.submit();		
-	}
+	};
 	
 	this.updateEntry = function(form){
 		var container = $(form).parents(".entry");
@@ -45,29 +54,29 @@ function Entry(){
 		/*var form = container.find("form");
 		form.validate();
 		form.valid();*/
-
-		$.post("actions/updateEntry.php", 
-				{
+		
+		$.ajax({
+				type: "POST",
+				url: "actions/updateEntry.php", 
+				dataType: "json",
+				data:{
 					id_entry:id_entry,
 					name:input_fields[0].value,					
 					details:input_fields[1].value,
 					tags:input_fields[2].value
-				},
-				function(data){
+					},
+				success:function(data){
 					that.refreshEntryView(data, container);
-				},
-				"json"
-			  );			  
-	}
+					}
+		});	
+	};
 	
 	this.refreshEntryView = function(id_entry, container){
-		$.post("actions/getEntryView.php", 
-				{id_entry:id_entry},
-				function(data){		
+		$.post("actions/getEntryView.php", {id_entry:id_entry})
+				.success(function(data){		
 					container.replaceWith(data);
-				}
-			);
-	}
+				});
+	};
 	
 	this.editEntry = function(obj){
 		var container = $(obj).parents(".entry");

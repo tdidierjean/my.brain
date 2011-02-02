@@ -164,8 +164,8 @@ foreach ($entry->getTags() as $new_tag){
 	}
 	
 	private function insert($entry){
-		$sql = "INSERT INTO entry (id_list, name, details, creation_date, update_date) 
-				VALUES (5, :name, :details, NOW(), NOW())";
+		$sql = "INSERT INTO entry (name, details, creation_date, update_date) 
+				VALUES (:name, :details, NOW(), NOW())";
 		try{
 			$query = $this->db->prepare($sql);
 			$query->execute(array(':name' => $entry->getName(),
