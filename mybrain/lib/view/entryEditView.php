@@ -5,27 +5,42 @@
 ?>
 <div class="entry corners shadows" id="<?php echo $entry->getId()?>">
 	<form>
-		<div class="edit_line">
-			<label for="entry_name" class="label_edit">Name </label>
+		<div class="editLine">
+			<label for="entryName" class="label_edit">Name </label>
 			<br />
-			<input name="entry_name" class="required" value="<?php echo $entry->getName();?>" />
+			<input name="entryName" class="required" value="<?php echo $entry->getName();?>" />
 		</div>
-		<div class="edit_line">
-			<label for="entry_details" class="label_edit">Details </label>
+		<div class="editLine">
+			<label for="entryDetails" class="label_edit">Details </label>
 			<br />
-			<textarea id="edit" name="entry_details" class="edit_textarea"><?php echo $entry->getDetails();?></textarea>
+			<textarea id="edit" name="entryDetails" class="edit_textarea"><?php echo $entry->getDetails();?></textarea>
 		</div>
-		<div class="edit_line">
-			<label for="entry_tags" class="label_edit">Tags </label>
-			<br />
-			<input name="entry_tags" value="<?php echo $entry->getImplodedTags();?>" />
+		<div class="tagEditLine">
+			<?php 
+			$tags = $entry->getTags();
+    		if ($tags):
+    			foreach ($tags as $tag):
+    				?>
+    				<div class="tagEle tagEdit"><?php echo $tag->getTagText();?><img class="entryIcon deleteTag" src="images/delete.png" alt="delete"/></div>
+    				<?php
+    			endforeach;
+    		endif;
+    		?>
+			<input name="entryTags" value="" />
+			<a href="#" class="iconCell acceptEditEntry">
+    			<img src="images/add.png" alt="Create"/>
+    			<span>Add tag</span>
+    		</a>
 		</div>
-		
-		<a href="#" class="iconCell acceptEditEntry">
-			<img src="images/accept.png" alt="Create"/>
-		</a>
-		<a href="#" class="iconCell cancelEditEntry">
-			<img src="images/cross.png" alt="Cancel"/>
-		</a>
+		<div class="acceptLine">
+    		<a href="#" class="iconCell acceptEditEntry">
+    			<img src="images/accept.png" alt="Create"/>
+    			<span>Accept</span>
+    		</a>
+    		<a href="#" class="iconCell cancelEditEntry">
+    			<img src="images/cross.png" alt="Cancel"/>
+    			<span>Cancel</span>
+    		</a>
+		</div>
 	</form>
 </div>

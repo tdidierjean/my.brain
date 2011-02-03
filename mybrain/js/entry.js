@@ -47,6 +47,11 @@ function Entry(){
 		var container = $(form).parents(".entry");
 		var id_entry = container.attr("id");
 		var input_fields = container.find("input, textarea[name='entry_details']");
+		var tags = container.find(".tagEle");
+		// Make a string out of the tags element -> necessary for sending with ajax
+		var tagsConcat = "";
+		tags.each(function(index){tagsConcat = tagsConcat + $(this).text() + " ";});
+
 		/*if (input_fields[0].value == ""){
 			alert("This needs a name");
 			return;
@@ -63,7 +68,7 @@ function Entry(){
 					id_entry:id_entry,
 					name:input_fields[0].value,					
 					details:input_fields[1].value,
-					tags:input_fields[2].value
+					tags:tagsConcat
 					},
 				success:function(data){
 					that.refreshEntryView(data, container);
@@ -77,7 +82,7 @@ function Entry(){
 					container.replaceWith(data);
 				});
 	};
-	
+
 	this.editEntry = function(obj){
 		var container = $(obj).parents(".entry");
 		var id_entry = container.attr("id");
@@ -86,7 +91,7 @@ function Entry(){
 			data: {"id_entry":id_entry},
 			url: "actions/getEntryEditView.php", 
 			success: function(data){		
-				container.html(data);
+				container.replaceWith(data);
 				$(".edit_textarea").simpleautogrow();
 			}
 			
