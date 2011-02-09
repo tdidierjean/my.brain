@@ -11,7 +11,7 @@ require_once('../lib/Zend/Search/Lucene.php');
 require_once('../lib/dao/entryDAO.php');
 
 
-$id_entry = $_REQUEST['id_entry'];
+$id_entry = $_POST['id_entry'];
 
 $index = Zend_Search_Lucene::open($CONFIG['indexPath']);
 $searchEngine = new SearchEngine($db, $CONFIG['indexPath'], $index);

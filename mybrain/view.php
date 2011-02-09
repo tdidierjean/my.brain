@@ -6,10 +6,10 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>my.brain</title>
-		<link href="css/main.css" media="all" rel="stylesheet" type="text/css">
-		<link href="css/nicedit.css" media="all" rel="stylesheet" type="text/css">
+		<link href="css/main.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="css/nicedit.css" media="all" rel="stylesheet" type="text/css" />
 		<link type="text/css" rel="stylesheet" href="css/jquery.markedit.css" />
 		<link type="text/css" rel="stylesheet" href="css/jquery-ui.css" />
 		<link href="css/prettify.css" type="text/css" rel="stylesheet" />
@@ -26,6 +26,14 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 		<script type="text/javascript" src="js/prettify/prettify.js"></script>
 	</head>
 	<body>
+		<!--[if IE]>
+			<div class="ui-state-error ui-corner-all" style=""> 
+			<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: 15.3em;"></span> 
+				<strong>Warning:</strong> Microsoft Internet Explorer is not currently supported by this application.
+				Recommended browsers: Firefox, Chrome, Opera, Safari.
+			</p>
+			</div>
+		<![endif]-->			
 		<div id="page">
 			<img src='images/logo-s.png'></img>
 			<div id="header" class="corners">
@@ -91,7 +99,7 @@ if (!isset($_SESSION['logged']) || !$_SESSION['logged']){
 						</div>
 					</div>
 				</div>
-				<div id="resultsDiv" width="300px">
+				<div id="resultsDiv">
 					<div id="entriesList">
 						<?php 
 						foreach($entries as $entry){ 

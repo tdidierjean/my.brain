@@ -77,7 +77,7 @@ function Entry(){
 	};
 	
 	this.refreshEntryView = function(id_entry, container){
-		$.post("actions/getEntryView.php", {id_entry:id_entry})
+		$.get("actions/getEntryView.php", {id_entry:id_entry})
 				.success(function(data){		
 					container.replaceWith(data);
 				});

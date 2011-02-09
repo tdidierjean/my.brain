@@ -8,7 +8,7 @@ if (!$_SESSION['logged']){
 require_once('../init.php');
 require_once("../lib/dao/entryDAO.php");
 
-$id_entry = $_REQUEST['id_entry'];
+$id_entry = $_GET['id_entry'];
 if (!isset($id_entry)){
 	throw new Exception("No id_entry specified !");
 }

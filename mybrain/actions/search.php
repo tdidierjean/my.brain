@@ -8,11 +8,11 @@ if (!$_SESSION['logged']){
 require_once('../init.php');
 require_once('../lib/search/searchEngine.php');
 
-$query = $_REQUEST['query'];
+$query = $_GET['query'];
 
 $searchEngine = new SearchEngine($CONFIG['indexPath'], $db);
 
-if (isset($_GET['query'])){
+if (isset($query)){
     $entries = $searchEngine->search($query);
 }
 

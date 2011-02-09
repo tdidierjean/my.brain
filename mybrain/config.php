@@ -14,8 +14,4 @@ else
 define('ROOT', $absolute_path);
 
 $CONFIG['indexPath'] = ROOT.'/docIndex';
-
-// Add lib folder to include path, necessary for Lucene
-$libPath = PATH_SEPARATOR . ROOT . '/lib/';
-set_include_path(get_include_path() . $libPath);
 ?>

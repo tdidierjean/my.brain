@@ -8,4 +8,8 @@ $db = Database::getInstance(Array('dbType'=>$CONFIG['dbType'],
 									'user'=>$CONFIG['user'], 
 									'passwd'=>$CONFIG['password'])
 									);
+									
+// Add lib folder to include path, necessary for Lucene
+$libPath = PATH_SEPARATOR . ROOT . '/lib/';
+set_include_path(get_include_path() . $libPath);
 ?>
